@@ -1,1 +1,18 @@
-Abstract Text
+In computer science,
+    a self-stabilizing algorithm is
+    a fault-tolerant problem-solving process that,
+    when applied repeatedly to a system,
+    will coerce the system into a `correct state'.
+Such algorithms are
+    incredibly useful in real-world situations
+    such as network management,
+    artificial intelligence,
+    and other distributed systems.
+Given their parallel nature,
+    algorithms of this class are more difficult
+    to create and prove correct than
+    more traditional, procedural algorithms.
+To aid in further research,
+    this paper presents and defends an extensible utility for
+    the representation, creation, and automatic evaluation
+    of self-stabilizing algorithms.
