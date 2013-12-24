@@ -22,19 +22,58 @@
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage[log-declarations=false]{xparse}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Key-Value Interface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\keys_define:nn { cs-smp } 
+  {
+    minp .int_set:N = \g_cssmp_page_min_int,
+    maxp .int_set:N = \g_cssmp_page_max_int,
+    default .code:n = \msg_info:nnn { cs-smp } { unknown-option } { #1 }
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Messages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \msg_new:nnnn { cs-smp } { page-length } {
-  Your~ paper~ doesn't~ meet~ the~ given~ page~ limits.
-}{
-  This~ paper~ was~ set~ with~ the~ following~ bounds:
-  ~ ~ Minimum:~ #1
-  ~ ~ Maximum:~ #2
-  Your~ paper~ only~ has~ #3~ pages.
+  Your ~ paper ~ doesn't ~ meet ~ the ~ given ~ page ~ limits.
+} {
+  This ~ paper ~ was ~ set ~ with ~ the ~ following ~ bounds:
+   ~  ~ Minimum: ~ #1
+   ~  ~ Maximum: ~ #2
+  Your ~ paper ~ only ~ has ~ #3 ~ pages.
 }
 
-\int_zero_new:N \g_cssmp_page_min_int
-\int_new:N  \g_cssmp_page_max_int
-\int_set:Nn \g_cssmp_page_max_int { 9999 }
+\msg_new:nnnn { cs-smp } { unknown-option } {
+  I ~ don't ~ know ~ the ~ option ~ `#1`.
+} {
+  I'm ~ passing ~ it ~ along ~ to ~ the ~ document ~ class.
+}
+
+\msg_new:nnnn { cs-smp} { invalid-bounds } {
+  Invalid ~ page ~ bounds.
+} {
+  The ~ minimum ~ cannot ~ be ~ greater ~ than ~ the ~ maximum.
+   ~  ~ Minimum: ~ #1
+   ~  ~ Maximum: ~ #2
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Private Functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Ensure that min <= max
+\cs_new:Nn \cssmp_validate_bounds: {
+  \int_compare:nNnT { \g_cssmp_page_min_int } > { \g_cssmp_page_max_int }
+    {
+      \msg_error:nnnn { cs-smp } { invalid-bounds }
+        { \g_cssmp_page_min_int }
+        { \g_cssmp_page_max_int }
+    }
+}
+
 
 \RenewDocumentCommand \title { m o } {
   \def\@title{#1}
@@ -71,14 +110,8 @@
   \vskip 1.5em
 }
 
-\NewDocumentCommand \SetPageLengthMinimum { m } {
-  \int_gset:Nn \g_cssmp_page_min_int { #1 }
-}
-
-\NewDocumentCommand \SetPageLengthMaximum { m } {
-  \int_gset:Nn \g_cssmp_page_max_int { #1 }
-}
-
+% Check page bounds for min/max
+% todo have macros \startpagecount and \stoppagecount
 \AtEndDocument{
   \bool_if:nT
   {
@@ -91,6 +124,20 @@
                                                   { \g_cssmp_page_max_int }
                                                   { \thepage }
   }
+}
+
+\NewDocumentCommand \CSSMPSetup { m } {
+  \keys_set:nn { cs-smp } { #1 }
+  \cssmp_validate_bounds:
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Default Values %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\CSSMPSetup {
+  minp = 0,
+  maxp = 9999
 }
 
 \ExplSyntaxOff
