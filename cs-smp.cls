@@ -6,34 +6,27 @@
 {1.0}
 {A class for St. Mary's Projects in Computer Science}
 
-
 \ExplSyntaxOn
 
-% They're going to regret this
-\DeclareOption*{
-  \PassOptionsToClass{\CurrentOption}{article}
-}
+\keys_define:nn { cs-smp } 
+  {
+    minp .int_set:N = \g_cssmp_page_min_int,
+    minp .default:n = 0,
+    maxp .int_set:N = \g_cssmp_page_max_int,
+    maxp .default:n = 9999,
+    default .code:n = \msg_info:nnn { cs-smp } { unknown-option } { #1 }
+  }
+
 
 \PassOptionsToClass{letterpaper}{article}
 
-\ProcessOptions\relax
+\ProcessKeysOptions { cs-smp }
+
 \LoadClassWithOptions{article}
 
 \RequirePackage[log-declarations=false]{xparse}
 
 \RequirePackage[margin=1in]{geometry}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Key-Value Interface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\keys_define:nn { cs-smp } 
-  {
-    minp .int_set:N = \g_cssmp_page_min_int,
-    maxp .int_set:N = \g_cssmp_page_max_int,
-    default .code:n = \msg_info:nnn { cs-smp } { unknown-option } { #1 }
-  }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Messages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -143,16 +136,6 @@
   \keys_set:nn { cs-smp } { #1 }
   \cssmp_validate_bounds:
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Default Values %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\CSSMPSetup {
-  minp = 0,
-  maxp = 9999
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Miscellaneous Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
