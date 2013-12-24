@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\RequirePackage{expl3}
+\RequirePackage{expl3,l3keys2e}
 \ProvidesExplClass
 {cs-smp}
 {2013/12/23}

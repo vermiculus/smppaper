@@ -9,6 +9,7 @@
      "log-declarations=false"
      "art10"
      "article"
+     "l3keys2e"
      "expl3"
      "")))
 
