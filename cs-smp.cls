@@ -1,4 +1,4 @@
-\ProvidesClass{cs-smp}
+\ProvidesClass{cs-smp}[2013/12/23 A class for St. Mary's Projects in Computer Science]
 
 \LoadClass{article}
 
