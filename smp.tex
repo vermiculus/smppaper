@@ -26,14 +26,19 @@
 
 \CSSMPSetup{
   minp = 25,
-  maxp = 30
+  maxp = 30,
 }
 
+\usepackage{mwe}
 \begin{document}
 \maketitle
 \begin{abstract}
   \input{abstract.txt}
 \end{abstract}
+
+\input{sections/introduction}
+\lipsum[1-10]
+
 \printbibliography
 \appendix
 
