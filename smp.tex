@@ -1,4 +1,8 @@
 \documentclass{cs-smp}[2013/12/23]
+
+\usepackage[autocite=footnote]{biblatex}
+\addbibresource{refs.bib}
+
 \usepackage{hyperref}
 \hypersetup{
   pdfauthor={Sean Allred},
@@ -30,6 +34,16 @@
 \begin{abstract}
   \input{abstract.txt}
 \end{abstract}
+\printbibliography
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Sandbox %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{sandbox}
+A sample citation: \autocites[26.1--26.45]{atallah2009algorithms}{Chen1991147}.
+
 \end{document}
 
 %%% Local Variables: 
