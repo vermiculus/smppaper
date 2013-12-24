@@ -74,10 +74,18 @@
     }
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Redefine Structural Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% todo make pdf string @title: @subtitle
 \RenewDocumentCommand \title { m o } {
   \def\@title{#1}
   \IfValueT { #2 } { \def\@subtitle{#2} }
+}
+\RenewDocumentCommand \author { m o } {
+  \def\@author{#1}
+  \IfValueT { #2 } { \def\@advisor{#2} }
 }
 
 \RenewDocumentCommand \maketitle { } {
@@ -98,6 +106,9 @@
       \large \lineskip .5em
       \begin{tabular}[t]{c}
         \@author
+      \cs_if_exist:NT \@advisor {
+        \\ \small \@advisor
+      }
       \end{tabular}
       \par
     }
