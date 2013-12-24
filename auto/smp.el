@@ -4,5 +4,6 @@
      "latex2e"
      "cs-smp10"
      "cs-smp"
-     "")))
+     ""
+     "abstract")))
 

@@ -3,8 +3,10 @@
     (TeX-run-style-hooks
      "xparse"
      "log-declarations=false"
-     "expl3"
+     "geometry"
+     "margin=1in"
      "art10"
      "article"
+     "expl3"
      "")))
 
