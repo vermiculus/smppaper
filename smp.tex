@@ -12,6 +12,13 @@
   pdfcreator={XeTeX}
 }
 
+\usepackage{makeidx}
+\makeindex
+
+\usepackage[xindy]{glossaries}
+\input{glossary}
+\makeglossaries
+
                                 \title
                          {\texttt{ssa-tool}}%
             [A Utility for the Creation and Evaluation \\
@@ -38,6 +45,9 @@
 
 \input{sections/introduction}
 \lipsum[1-10]
+\input{sections/mathematical-representation}
+
+\printglossaries
 
 \printbibliography
 \appendix
