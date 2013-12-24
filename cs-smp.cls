@@ -3,7 +3,7 @@
 \LoadClass{article}
 
 \RequirePackage{expl3}
-\RequirePackage{xparse}
+\RequirePackage[log-declarations=false]{xparse}
 
 \ExplSyntaxOn
 
