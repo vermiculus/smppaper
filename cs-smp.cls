@@ -19,8 +19,10 @@
 \ProcessOptions\relax
 \LoadClassWithOptions{article}
 
-\RequirePackage[margin=1in]{geometry}
 \RequirePackage[log-declarations=false]{xparse}
+
+\RequirePackage[margin=1in]{geometry}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Key-Value Interface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
