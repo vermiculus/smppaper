@@ -153,6 +153,13 @@
   maxp = 9999
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Miscellaneous Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces}
+
 \ExplSyntaxOff
 
 % Local Variables:

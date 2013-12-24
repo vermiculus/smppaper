@@ -1,9 +1,11 @@
 \documentclass{cs-smp}[2013/12/23]
 
-\usepackage[autocite=footnote]{biblatex}
+\usepackage[backend=biber,
+            autocite=footnote]
+            {biblatex}
 \addbibresource{refs.bib}
 
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \hypersetup{
   pdfauthor={Sean Allred},
   pdftitle={SSA-Tool: A Utility for the Creation and Evaluation of Self-Stabilizing Algorithms},
@@ -36,7 +38,6 @@
   maxp = 30,
 }
 
-\usepackage{mwe}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -44,7 +45,6 @@
 \end{abstract}
 
 \input{sections/introduction}
-\lipsum[1-10]
 \input{sections/mathematical-representation}
 
 \printglossaries

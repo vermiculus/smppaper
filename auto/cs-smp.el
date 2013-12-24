@@ -1,5 +1,7 @@
 (TeX-add-style-hook "cs-smp"
  (lambda ()
+    (TeX-add-symbols
+     "Dash")
     (TeX-run-style-hooks
      "geometry"
      "margin=1in"
