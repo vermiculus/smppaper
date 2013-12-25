@@ -14,5 +14,5 @@ Given their parallel nature,
     more traditional, procedural algorithms.
 To aid in further research,
     this paper presents and defends an extensible utility for
-    the representation, creation, and automatic evaluation
+    the representation, creation, and automated evaluation
     of self-stabilizing algorithms.
