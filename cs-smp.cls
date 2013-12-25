@@ -6,9 +6,6 @@
 {1.0}
 {A class for St. Mary's Projects in Computer Science}
 
-
-\ExplSyntaxOn
-
 % They're going to regret this
 \DeclareOption*{
   \PassOptionsToClass{\CurrentOption}{article}
@@ -159,8 +156,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces}
-
-\ExplSyntaxOff
 
 % Local Variables:
 % TeX-PDF-mode: t
