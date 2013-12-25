@@ -1,0 +1,23 @@
+\ProvidesExplPackage
+{markup}
+{2013/12/20}
+{1.0}
+{Markup commands for my SMP}
+
+\NewDocumentCommand \suchthat { } { : }
+
+\NewDocumentCommand \Set { o m o }
+ {
+  \IfValueT{#1}{#1}\{#2\IfValueT{#3}{\suchthat#3}\IfValueT{#1}{#1}\}
+ }
+
+\NewDocumentCommand \Function { O{\lambda} m m }
+ {
+  #1\colon#2\to#3
+ }
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "smp"
+%%% TeX-PDF-mode: t 
+%%% End: 

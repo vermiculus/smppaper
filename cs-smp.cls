@@ -1,25 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\RequirePackage{expl3}
+\RequirePackage{expl3,l3keys2e}
 \ProvidesExplClass
 {cs-smp}
 {2013/12/23}
 {1.0}
 {A class for St. Mary's Projects in Computer Science}
-
-% They're going to regret this
-\DeclareOption*{
-  \PassOptionsToClass{\CurrentOption}{article}
-}
-
-\PassOptionsToClass{letterpaper}{article}
-
-\ProcessOptions\relax
-\LoadClassWithOptions{article}
-
-\RequirePackage[log-declarations=false]{xparse}
-
-\RequirePackage[margin=1in]{geometry}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Key-Value Interface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,9 +13,22 @@
 \keys_define:nn { cs-smp } 
   {
     minp .int_set:N = \g_cssmp_page_min_int,
+    minp .default:n = 0,
     maxp .int_set:N = \g_cssmp_page_max_int,
-    default .code:n = \msg_info:nnn { cs-smp } { unknown-option } { #1 }
+    maxp .default:n = 9999,
+    default .code:n = \msg_info:nnnn { cs-smp } { unknown-option }
+                                                { \l_keys_key_tl }
+                                                { #1 }
+                      \PassOptionToClass{\l_keys_key_tl}{article}
   }
+
+
+
+\ProcessKeysOptions{ cs-smp }
+
+\LoadClassWithOptions{article}
+
+\RequirePackage[log-declarations=false]{xparse}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Messages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,7 +44,7 @@
 }
 
 \msg_new:nnnn { cs-smp } { unknown-option } {
-  I ~ don't ~ know ~ the ~ option ~ `#1`.
+  I ~ don't ~ know ~ the ~ option ~ `#1=#2`.
 } {
   I'm ~ passing ~ it ~ along ~ to ~ the ~ document ~ class.
 }
@@ -140,16 +138,6 @@
   \keys_set:nn { cs-smp } { #1 }
   \cssmp_validate_bounds:
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Default Values %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\CSSMPSetup {
-  minp = 0,
-  maxp = 9999
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Miscellaneous Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
