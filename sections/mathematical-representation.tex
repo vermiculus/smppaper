@@ -7,11 +7,36 @@
 
 A \gls{graph} is a mathematical construct
   consisting of \glspl{node} (or `vertices') and \glspl{edge} between them:
-  \[ G = (V, E) \]
+  \[ G = (V, E). \]
+\todo{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated?}
+Graphs are used to represent networks:
+\todo{draw a network of hospitals and data centers with tikz}
 
-A self-stabilizing algorithm is a contruct composed of
-  \glspl{predicate} and \glspl{action}.
-Both are functions of graphs and vertices.
+When any node $n$ is considered, we define its \gls{open neighborhood} to be
+  the set of all nodes $n^\prime$ such that $n$ is connected (or `adjacent' to) $n^\prime$:
+  \[ \OpenNeighborhood{n}[G] = \Set{n^\prime}[nn^\prime \in G] \]
+  and the \gls{closed neighborhood} as $n$ with its neighbors:
+  \[ \ClosedNeighborhood{n}[G] = \OpenNeighborhood{n}[G] \cup \Set{n}. \]
+
+\subsection{Finite State Machines}
+\label{sec:fsm}
+
+A \gls{finite state machine} is a mathematical model of computation
+  described by a finite number of states and transitions between those states:
+  \[ M = (Q, \delta). \]
+These can be represented as graphs where nodes are states in $Q$ and
+  transitions are directed edges between them:
+  \todo{use tikz automata to draw a graph here;
+    plenty of examples in old theory homework}
+
+\subsection{Self-Stabilizing Algorithm}
+\label{sec:self-stab-algor}
+
+A self-stabilizing algorithm is, as defined by
+  Dijsktra \autocite{Dijkstra:1974:SSS:361179.361202},
+  \todo{\texttt{citefield} the author}
+  a contruct composed of \glspl{privilege} and corresponding \glspl{action}.
+Both are functions of a single node and its neighbors.
 Predicates are functions to the Boolean values,
   where each action returns a new graph.
 
