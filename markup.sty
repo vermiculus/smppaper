@@ -1,0 +1,58 @@
+\ProvidesExplPackage
+{markup}
+{2013/12/20}
+{1.0}
+{Markup commands for my SMP}
+
+\NewDocumentCommand \suchthat { } { : }
+
+% \Set\bigg{v}[uv \in G]
+\NewDocumentCommand \Set { o m o }
+{
+  \IfValueT { #1 } { #1 }
+  \{
+  #2
+  \IfValueT { #3 } { \suchthat #3 }
+  \IfValueT { #1 } { #1 }
+  \}
+}
+
+% \OpenNeighborhood{n}[G]
+
+% Note that \sb is used as the subscript character - this is defined
+% in Plain to be the subscript underscore, where expl3 syntax declares
+% the underscroe to be a letter.
+\NewDocumentCommand \OpenNeighborhood { m o }
+{
+  \IfValueTF { #2 }
+    { N \sb { #2 } ( #1 ) }
+    { N            ( #1 ) }
+}
+
+\NewDocumentCommand \ClosedNeighborhood { m o }
+{
+  \IfValueTF { #2 }
+    { N \sb { #2 } [ #1 ] }
+    { N            [ #1 ] }
+}
+
+\NewDocumentCommand \Function { O{\lambda} m m }
+{
+  #1 \colon #2 \to #3
+}
+
+\NewDocumentCommand \Term { m }
+{
+  \enquote* { #1 }
+}
+
+\NewDocumentCommand \SetBoolean { }
+{
+  \Set{\text{True}, \text{False}}
+}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "smp"
+%%% TeX-PDF-mode: t 
+%%% End: 

@@ -6,7 +6,9 @@
 {1.0}
 {A class for St. Mary's Projects in Computer Science}
 
-\ExplSyntaxOn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Key-Value Interface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \keys_define:nn { cs-smp } 
   {
@@ -14,14 +16,15 @@
     minp .default:n = 0,
     maxp .int_set:N = \g_cssmp_page_max_int,
     maxp .default:n = 9999,
-    default .code:n = \msg_info:nnn { cs-smp } { unknown-option } { #1 }
+    default .code:n = \msg_info:nnnn { cs-smp } { unknown-option }
+                                                { \l_keys_key_tl }
+                                                { #1 }
+                      \PassOptionToClass{\l_keys_key_tl}{article}
   }
 
+\ProcessKeysOptions{ cs-smp }
 
 \PassOptionsToClass{letterpaper}{article}
-
-\ProcessKeysOptions { cs-smp }
-
 \LoadClassWithOptions{article}
 
 \RequirePackage[log-declarations=false]{xparse}
@@ -42,7 +45,7 @@
 }
 
 \msg_new:nnnn { cs-smp } { unknown-option } {
-  I ~ don't ~ know ~ the ~ option ~ `#1`.
+  I ~ don't ~ know ~ the ~ option ~ `#1=#2`.
 } {
   I'm ~ passing ~ it ~ along ~ to ~ the ~ document ~ class.
 }
@@ -102,7 +105,8 @@
       \begin{tabular}[t]{c}
         \@author
       \cs_if_exist:NT \@advisor {
-        \\ \small \@advisor
+        \\ \small
+        Advised ~ by ~ \@advisor
       }
       \end{tabular}
       \par
@@ -142,8 +146,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces}
-
-\ExplSyntaxOff
 
 % Local Variables:
 % TeX-PDF-mode: t

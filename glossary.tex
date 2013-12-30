@@ -17,6 +17,36 @@
   description={a basic component of a graph}
 }
 
+\newglossaryentry{privilege}
+{
+  name=privilege,
+  description={a function from a system state (a $G, v$ pair, perhaps) to a Boolean value; $\Function{G, v}{\SetBoolean}$}
+}
+
+\newglossaryentry{action}
+{
+  name=action,
+  description={a function from state to state, perhaps $\Function{G, v}{G}$}
+}
+
+\newglossaryentry{finite state machine}
+{
+  name=finite state machine,
+  description={uhm\todo{find a better description}}
+}
+
+\newglossaryentry{open neighborhood}
+{
+  name=open neighborhood,
+  description={$\OpenNeighborhood{n}[G] = \Set{n^\prime}[nn^\prime \in G]$}
+}
+
+\newglossaryentry{closed neighborhood}
+{
+  name=closed neighboorhood,
+  description={$\ClosedNeighborhood{n}[G] = \OpenNeighborhood{n}[G] \cup \Set{n}$}
+}
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "smp"
