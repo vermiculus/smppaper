@@ -86,7 +86,7 @@
   \IfValueT { #2 } { \def\@advisor{#2} }
 }
 
-\RenewDocumentCommand \maketitle { } {
+\RenewDocumentCommand \@maketitle { } {
   \newpage
   \null
   \vskip 2em
