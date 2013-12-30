@@ -5,14 +5,14 @@
 \label{sec:math-defin:graphs}
 
 A \gls{graph} is a mathematical construct
-  consisting of \glspl{node} (or `vertices') and \glspl{edge} between them:
+  consisting of \glspl{node} (or \Term{vertices}) and \glspl{edge} between them:
   \[ G = (V, E). \]
 \todo{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated?}
 Graphs are used to represent networks:
 \todo{draw a network of hospitals and data centers with tikz}
 
 When any node $n$ is considered, we define its \gls{open neighborhood} to be
-  the set of all nodes $n^\prime$ such that $n$ is connected (or `adjacent' to) $n^\prime$:
+  the set of all nodes $n^\prime$ such that $n$ is connected (or \Term{adjacent} to) $n^\prime$:
   \[ \OpenNeighborhood{n}[G] = \Set{n^\prime}[nn^\prime \in G] \]
   and the \gls{closed neighborhood} as $n$ with its neighbors:
   \[ \ClosedNeighborhood{n}[G] = \OpenNeighborhood{n}[G] \cup \Set{n}. \]

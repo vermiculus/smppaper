@@ -41,6 +41,11 @@
   #1 \colon #2 \to #3
 }
 
+\NewDocumentCommand \Term { m }
+{
+  \enquote* { #1 }
+}
+
 \NewDocumentCommand \SetBoolean { }
 {
   \Set{\text{True}, \text{False}}
