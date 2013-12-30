@@ -35,9 +35,16 @@ A self-stabilizing algorithm is, as defined by
   Dijsktra \autocite{Dijkstra:1974:SSS:361179.361202},
   \todo{\texttt{citefield} the author}
   a contruct composed of \glspl{privilege} and corresponding \glspl{action}.
-Both are functions of a single node and its neighbors.
-Predicates are functions to the Boolean values,
-  where each action returns a new graph.
+Both are functions of a single node and its neighbors.\footnote{%
+  Note that this is not the same as the closed neighborhood of a node.}
+Priveleges are functions to the Boolean values,
+  where each action updates the state of the system.
+(\Term{updating the system} may be realized as the function returning a new graph.)
+\[
+\Function[P]{G, n}{\SetBoolean}
+\qquad
+\Function[A]{G, n}{G^\prime}
+\]
 
 %%% Local Variables: 
 %%% mode: latex
