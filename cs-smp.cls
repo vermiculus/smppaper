@@ -29,6 +29,7 @@
 \LoadClassWithOptions{article}
 
 \RequirePackage[log-declarations=false]{xparse}
+\RequirePackage[margin=1in]{geometry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Messages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
