@@ -8,6 +8,7 @@
      "makeidx"
      "hyperref"
      "hidelinks"
+     "tikz"
      "biblatex"
      "style=authoryear"
      "autocite=footnote"

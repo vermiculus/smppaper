@@ -24,9 +24,51 @@ A \gls{finite state machine} is a mathematical model of computation
   described by a finite number of states and transitions between those states:
   \[ M = (Q, \delta). \]
 These can be represented as graphs where nodes are states in $Q$ and
-  transitions are directed edges between them:
-  \todo{use tikz automata to draw a graph here;
-    plenty of examples in old theory homework}
+  transitions are directed edges between them, as in \autoref{fig:math-defin:fsm:ex}.
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      [->,shorten >=1pt,node distance=3cm,auto,inner sep=2pt,>=stealth,thick]
+      \node[state,initial]   (start)                         {$q_i$};
+      \node[state]           (q_0)    [above right of=start] {$q_0$};
+      \node[state]           (q_1)    [      right of=q_0]   {$q_1$};
+      \node[state]           (q_2)    [      right of=q_1]   {$q_2$};
+      \node[state,accepting] (q_3)    [      right of=q_2]   {$q_3$};
+      \node[state]           (q_0p)   [below right of=start] {$q_0'$};
+      \node[state]           (q_1p)   [      right of=q_0p]  {$q_1'$};
+      \node[state,accepting] (q_2p)   [      right of=q_1p]  {$q_2'$};
+      \node[state]           (q_fail) [above right of=q_2p]  {$q_\text{fail}'$};
+
+      \path[->]
+      (start)
+      edge              node {$\varepsilon$} (q_0)
+      edge              node {$\varepsilon$} (q_0p)
+      (q_0)
+      edge [loop above] node {0}             ()
+      edge              node {1}             (q_1)
+      (q_1)
+      edge [loop above] node {0}             ()
+      edge              node {1}             (q_2)
+      (q_2)
+      edge [loop above] node {0}             ()
+      edge              node {1}             (q_3)
+      (q_3)
+      edge [loop above] node {0,1}           ()
+      (q_0p)
+      edge [bend left ] node {0}             (q_fail)
+      edge              node {1}             (q_1p)
+      (q_1p)
+      edge [bend left ] node {0}             (q_2p)
+      edge [loop above] node {1}             ()
+      (q_2p)
+      edge [loop above] node {0}             ()
+      edge [bend left ] node {1}             (q_1p)
+      (q_fail)
+      edge [loop below] node {0,1}           ();
+    \end{tikzpicture}
+    \caption{An example of a finite-state machine.}
+    \label{fig:math-defin:fsm:ex}
+  \end{figure}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:math-defin:self-stab-algor}
