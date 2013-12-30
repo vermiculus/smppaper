@@ -105,8 +105,9 @@
       \begin{tabular}[t]{c}
         \@author
       \cs_if_exist:NT \@advisor {
-        \\ \small
-        Advised ~ by ~ \@advisor
+        \thanks{
+          Advised ~ by ~ \@advisor
+        }
       }
       \end{tabular}
       \par
