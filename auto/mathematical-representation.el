@@ -2,7 +2,7 @@
  (lambda ()
     (LaTeX-add-labels
      "sec:math-defin"
-     "sec:graphs"
-     "sec:fsm"
-     "sec:self-stab-algor")))
+     "sec:math-defin:graphs"
+     "sec:math-defin:fsm"
+     "sec:math-defin:self-stab-algor")))
 
