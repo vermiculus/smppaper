@@ -104,7 +104,8 @@
       \begin{tabular}[t]{c}
         \@author
       \cs_if_exist:NT \@advisor {
-        \\ \small \@advisor
+        \\ \small
+        Advised ~ by ~ \@advisor
       }
       \end{tabular}
       \par
