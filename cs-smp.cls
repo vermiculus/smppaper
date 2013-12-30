@@ -10,7 +10,7 @@
 %%% Key-Value Interface %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\keys_define:nn { cs-smp } 
+\keys_define:nn { cs-smp }
   {
     minp .int_set:N = \g_cssmp_page_min_int,
     minp .default:n = 0,
@@ -39,8 +39,8 @@
   Your ~ paper ~ doesn't ~ meet ~ the ~ given ~ page ~ limits.
 } {
   This ~ paper ~ was ~ set ~ with ~ the ~ following ~ bounds:
-   ~  ~ Minimum: ~ #1
-   ~  ~ Maximum: ~ #2
+   ~ ~ Minimum: ~ #1
+   ~ ~ Maximum: ~ #2
   Your ~ paper ~ only ~ has ~ #3 ~ pages.
 }
 
@@ -54,8 +54,8 @@
   Invalid ~ page ~ bounds.
 } {
   The ~ minimum ~ cannot ~ be ~ greater ~ than ~ the ~ maximum.
-   ~  ~ Minimum: ~ #1
-   ~  ~ Maximum: ~ #2
+   ~ ~ Minimum: ~ #1
+   ~ ~ Maximum: ~ #2
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
