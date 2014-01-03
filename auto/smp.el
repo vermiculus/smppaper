@@ -4,6 +4,7 @@
      "refs")
     (TeX-run-style-hooks
      "glossaries"
+     "smallcaps"
      "xindy"
      "makeidx"
      "hyperref"
@@ -15,6 +16,7 @@
      "backend=biber"
      "todo"
      "marginpar"
+     "csquotes"
      "markup"
      "latex2e"
      "cs-smp10"
