@@ -32,7 +32,10 @@ style=authoryear,
 \usepackage{makeidx}
 \makeindex
 
-\usepackage[xindy]{glossaries}
+\usepackage[
+  xindy,                        % use xindy for glossary index compilation
+  smallcaps                     % use small caps for acronyms
+]{glossaries}
 \input{glossary}
 \makeglossaries
 
