@@ -2,7 +2,7 @@ In computer science,
     a self-stabilizing algorithm is
     a fault-tolerant problem-solving process that,
     when applied repeatedly to a system,
-    will coerce the system into a `correct state'.
+    will coerce the system into a  correct state .
 Such algorithms are
     incredibly useful in real-world situations
     such as network management,
