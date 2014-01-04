@@ -5,9 +5,12 @@ letterpaper,
 draft,
 ]{cs-smp}[2013/12/23]
 
+\usepackage{amsmath, amssymb, amsthm}
 \usepackage{markup}
 \usepackage{csquotes}
 \usepackage[marginpar]{todo}
+
+\usepackage[final]{microtype}
 
 \usepackage[
 backend=biber,
@@ -34,7 +37,6 @@ style=authoryear,
 
 \usepackage[
   xindy,                        % use xindy for glossary index compilation
-%  smallcaps,                    % use small caps for acronyms
 ]{glossaries}
 \input{glossary}
 \makeglossaries
@@ -94,16 +96,6 @@ style=authoryear,
 \printbibliography
 \appendix
 \todos
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Sandbox %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{sandbox}
-A sample citation: \autocites[26.1--26.45]{atallah2009algorithms}{Chen1991147}.
-
-\autocite{Dijkstra:1974:SSS:361179.361202} says a lot about self-stabilizing algorithms.
-
 \end{document}
 
 %%% Local Variables: 
@@ -111,4 +103,5 @@ A sample citation: \autocites[26.1--26.45]{atallah2009algorithms}{Chen1991147}.
 %%% TeX-master: t
 %%% TeX-PDF-mode: t 
 %%% truncate-lines: nil 
+%%% TeX-engine: xetex 
 %%% End: 

@@ -4,7 +4,6 @@
      "refs")
     (TeX-run-style-hooks
      "glossaries"
-     "smallcaps"
      "xindy"
      "makeidx"
      "hyperref"
@@ -14,10 +13,15 @@
      "style=authoryear"
      "autocite=footnote"
      "backend=biber"
+     "microtype"
+     "final"
      "todo"
      "marginpar"
      "csquotes"
      "markup"
+     "amsthm"
+     "amssymb"
+     "amsmath"
      "latex2e"
      "cs-smp10"
      "cs-smp"
