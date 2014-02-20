@@ -3,7 +3,12 @@
     (LaTeX-add-labels
      "sec:math-defin"
      "sec:math-defin:graphs"
-     "sec:math-defin:fsm"
-     "fig:math-defin:fsm:ex"
-     "sec:math-defin:self-stab-algor")))
+     "eq:define-graph"
+     "eq:define-open-neighborhood"
+     "eq:define-closed-neighborhood"
+     "sec:math-define:fsm"
+     "sec:math-define:self-stab-algor"
+     "eq:define-predicate"
+     "eq:define-move"
+     "eq:define-ssalg")))
 

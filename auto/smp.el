@@ -14,11 +14,13 @@
      "autocite=footnote"
      "backend=biber"
      "microtype"
-     "final"
      "todo"
      "marginpar"
+     "listings"
      "csquotes"
      "markup"
+     "smcm-danda"
+     "smcm-math"
      "amsthm"
      "amssymb"
      "amsmath"
@@ -26,7 +28,6 @@
      "cs-smp10"
      "cs-smp"
      ""
-     "draft"
      "letterpaper"
      "maxp=30"
      "minp=25"
@@ -36,6 +37,6 @@
      "sections/mathematical-representation"
      "sections/logical-representation"
      "sections/interface-ssa"
-     "sections/interface-graph-builder"
-     "sections/interface-test")))
+     "sections/interface-test"
+     "sections/reflection")))
 
