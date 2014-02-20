@@ -1,11 +1,11 @@
 \section{Introduction}
 \label{sec:introduction}
-
-In his paper~\autocite{Dijkstra:1974:SSS:361179.361202}, Dijkstra introduced
-  the concept of self-stabilizing algorithms by providing terminology and an example.
+\done\todo{Author-cite Dijsktra, Goddard}
+In his seminal paper on the topic~\autocite{Dijkstra:1974:SSS:361179.361202},
+  \citeauthor{Dijkstra:1974:SSS:361179.361202} introduced the concept of self-stabilizing algorithms.
 He visualized the realization of these algorithms as taking advantage of
   a very specific, extensible scenario:
-\begin{displayquote}
+\begin{displayquote}[\citeay{Dijkstra:1974:SSS:361179.361202}]
   We consider a connected graph in which
     the majority of the possible edges are missing and
     a finite state machine is placed at each node;
@@ -13,31 +13,52 @@ He visualized the realization of these algorithms as taking advantage of
   For each machine one or more so-called \enquote{privileges} are defined,
     \ie boolean functions of its own state and the states of its neighbors;
     when such a boolean function is true,
-    we say that the privilege is \enquote{present.}
+    we say that the privilege is \enquote{present}.
   In order to model the undefined speed ratios of the various machines,
     we introduce a central daemon \Dash
     its replacement by a distributed daemon falls outside the scope of this article \Dash
     that can \enquote{select} one of the privileges present.
-  The machine enjoying the selected privilege will then make its \enquote{move};
+  The machine enjoying the selected privilege will then make its \enquote{\gls{move}};
     \ie it is brought into a new state that is a function of
     its old state and the states of its neighbors.
   If for such a machine more than one privilege is present,
     the new state may also depend on the privilege selected.
   After completion of the move, the daemon will select a new privilege.
 \end{displayquote}
-Paraphrasing, we consider a graph~$G$ with nodes $n_i \in G$ where
-  every $n_i$ is given the properties of a \gls{nfa}.
-Considering only one $n_i$ and its representative \gls{nfa} $M$ in some state $M_k$,
-  the set of its privileges is understood as transitions
-  from $M_k \to M_i$ where $M_i$ is another state in $M$.
-  \todo[reword]{It's awkward phrasing as it is.  Perhaps I can bring in $\delta$?}
-When such a transition exists on input,
-  we call the privilege is \Term{present.}
-The node is stable once $M_k$ is an accepting state,
-  and the system has stabilized once every $n_i \in G$ is stable
-  \emph{and} no privileges are present.
+This canonical definition is inherently limited, however;
+  each node $n$ only knows the state of its distance-1 neighbors $v \in \ClosedNeighborhood{n}$.
+\citeauthor{goddard:ssa--k-distance} introduced an approach for simulating distance-2 information,
+  which was later generalized to simulating distance-$k$ information~\autocite{goddard:ssa--k-distance}.
+  (The approach necessarily introduced ploynomial time and space complexities.)
+\citeauthor{Dijkstra:1974:SSS:361179.361202}'s restrictive-yet-practical definition of a self-stabilizing algorithm
+  was now \emph{far} less restrictive,
+  since~\autocite{gairing:distance-2,goddard:ssa--k-distance} allowed \emph{any} distance-$k$ algorithm
+  to be simulated in the original definition within a reasonable complexity increase.
 
-Self-stabilizing algorithms are incredibly useful for real-world problems.
+Since then, many such algorithms have been put forward, unsurprisingly.\todo{find some articles}
+Given their innately parallel nature,
+  self-stabilizing algorithms are \emph{incredibly} useful
+  for modeling and solving real-world problems.
+
+\subsection{Related Work}
+\label{sec:introduction:related-work}
+In the same vein, these algorithms can be incredibly hard to test
+  \Dash let alone prove \Dash
+  without spending significant time implementing the algorithm
+  from scratch in a programming language.
+For some programming languages,
+  there exist extensive graph representation libraries (\eg NetworkX,~\autocite{hagberg:networkx}).
+While these libraries assist in modeling the graph itself,
+  they provide little to no assistance in creating, testing, or maintaining the algorithm itself.
+
+It seems that this is partly due to the lack of definition as to \emph{what} exactly a self-stabilizing algorithm is.
+
+\subsection{Current Work}
+\label{sec:introduction:current-work}
+This paper presents and defends such a library and toolset.
+Complete with a graphical interface which supports
+  maintaining libraries of \object{Predicate} and \object{Move} objects for later assembly,
+  \texttt{ssa-tool} provides researchers with tools to test algorithms in batch and by hand.
 
 %%% Local Variables: 
 %%% mode: latex
