@@ -4,10 +4,10 @@
 {1.0}
 {Markup commands for my SMP}
 
-\NewDocumentCommand \suchthat { } { : }
+\ProvideDocumentCommand \suchthat { } { : }
 
 % \Set\bigg{v}[uv \in G]
-\NewDocumentCommand \Set { o m o }
+\ProvideDocumentCommand \Set { o m o }
 {
   \IfValueT { #1 } { #1 }
   \{
@@ -21,47 +21,80 @@
 
 % Note that \sb is used as the subscript character - this is defined
 % in Plain to be the subscript underscore, where expl3 syntax declares
-% the underscroe to be a letter.
-\NewDocumentCommand \OpenNeighborhood { m o }
+% the underscore to be a letter.
+\ProvideDocumentCommand \OpenNeighborhood { o m }
 {
-  \IfValueTF { #2 }
-    { N \sb { #2 } ( #1 ) }
-    { N            ( #1 ) }
+  \IfValueTF { #1 }
+    { N ^   { #1 } ( #2 ) }
+    { N            ( #2 ) }
 }
 
-\NewDocumentCommand \ClosedNeighborhood { m o }
+\ProvideDocumentCommand \ClosedNeighborhood { o m }
 {
-  \IfValueTF { #2 }
-    { N \sb { #2 } [ #1 ] }
-    { N            [ #1 ] }
+  \IfValueTF { #1 }
+    { N ^   { #1 } [ #2 ] }
+    { N            [ #2 ] }
 }
 
-\NewDocumentCommand \Function { O{\lambda} m m }
+\ProvideDocumentCommand \Function { O{\lambda} m m }
 {
   #1 \colon #2 \to #3
 }
 
-\NewDocumentCommand \cross { }
+\ProvideDocumentCommand \cross { }
 {
   \times
 }
 
-\NewDocumentCommand \Term { m }
+\ProvideDocumentCommand \Term { m }
 {
   \enquote* { #1 }
 }
 
-\NewDocumentCommand \SetBoolean { }
+\ProvideDocumentCommand \BooleanTrueValue { }
 {
-  \Set{\text{True}, \text{False}}
+  \text{True}
 }
 
-\NewDocumentCommand \ie { }
+\ProvideDocumentCommand \BooleanFalseValue { }
+{
+  \text{False}
+}
+
+\ProvideDocumentCommand \SetBoolean { }
+{
+  \Set{\BooleanTrueValue, \BooleanFalseValue}
+}
+
+\ProvideDocumentCommand \ie { }
 {
   i.\,e.
   \nobreakspace
 }
 
+\ProvideDocumentCommand \eg { }
+{
+  e.\,g.
+  \nobreakspace
+}
+
+\ProvideDocumentCommand \object { m }
+{
+  \textsf{#1}
+}
+
+\ProvideDocumentCommand \Union { m }
+{
+%  \clist_set:Nn \l_lmpa_clist { #1 }
+%  \clist_show:N \l_tmpa_clist
+%  \clist_use:Nn \l_tmpa_clist { \cup }
+  \bigcup \Set { #1 }
+}
+
+\ProvideDocumentCommand \citeay { m }
+{
+  \citeauthor{#1},\nobreakspace\citeyear{#1}
+}
 
 %%% Local Variables: 
 %%% mode: latex
