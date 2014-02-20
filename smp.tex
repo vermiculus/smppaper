@@ -72,6 +72,10 @@ style=authoryear,
   \input{abstract.txt}
 \end{abstract}
 
+\tableofcontents
+\listoffigures
+\listoftables
+
 % Define what a self-stabilizing algorithm is and their applications.
 % This will give an argument as to why they are necessary, why they
 % are useful, and why a tool like this is warranted.
@@ -103,10 +107,15 @@ style=authoryear,
 % and test with specific graphs (or those of an arbitrary degree).
 \input{sections/interface-test}
 
+
+\appendix
+
+\newpage
 \printglossaries
 
+\newpage
 \printbibliography
-\appendix
+
 \todos
 \end{document}
 
