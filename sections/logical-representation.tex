@@ -1,15 +1,36 @@
-
 \section{Logical Representation}
 \label{sec:logic-repr}
 
 The entirety of this tool is written in Python~3.
+The following listings serve to introduce the organization of the library and
+  to serve as a reference to be used when extending this library.\footnote{%
+    All development is tracked as a literate program on GitHub
+    at \url{http://www.github.com/vermiculus/ssa-tool} \Dash please fork!}
 
 \subsection{Predicate}
 \label{sec:logic-repr:predicate}
 
+According to~\eqref{eq:define-predicate},
+  a \gls{predicate} is defined as some function of
+  a node and its neighborhood returning a Boolean value.
+This is reflected in the code below,
+  where the \object{Predicate} object maintains a pure Python function
+  which is stored and called with the arguments $n$ and $\OpenNeighborhood{n}$,
+  respectively.\footnote{%
+    It is assumed that the actual neighborhood is given.
+    This object is intended to be used only internally,
+      and all internal functions will indeed pass it the distance-1 neighborhood.
+    It is left as an unintelligent definition to enable later extension.}
+\lstinputlisting[linerange=predicate-endpredicate]{../src/ssa/core/Predicate.py}
 
 \subsection{Move}
 \label{sec:logic-repr:move}
+
+According to~\eqref{eq:define-move},
+  a \gls{move} is defined as a function
+  $\Function{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}$.
+This is directly translated into Python as follows.
+\lstinputlisting[linerange=move-endmove]{../src/ssa/core/Move.py}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:logic-repr:self-stab-algor}

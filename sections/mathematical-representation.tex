@@ -1,21 +1,32 @@
 \section{Mathematical Definitions}
 \label{sec:math-defin}
 
+The core engine must be correct above all.
+To prove its correctness, all necessary definitions will be
+  presented, cited, and referred to throughout the remainder of the paper.
+
 \subsection{Graph}
 \label{sec:math-defin:graphs}
 
 A \gls{graph} is a mathematical construct
   consisting of \glspl{node} (or \Term{vertices}) and \glspl{edge} between them:
-  \[ G = (V, E). \]
-\todo{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated?}
-Graphs are used to represent networks:
-\todo{draw a network of hospitals and data centers with tikz}
+  \begin{equation}
+    \label{eq:define-graph}
+    G = (V, E).
+  \end{equation}
+\todo{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated? do I even need to worry about this?}
 
-When any node $n$ is considered, we define its \gls{open neighborhood} to be
-  the set of all nodes $n^\prime$ such that $n$ is connected (or \Term{adjacent} to) $n^\prime$:
-  \[ \OpenNeighborhood{n}[G] = \Set{n^\prime}[nn^\prime \in G] \]
-  and the \gls{closed neighborhood} as $n$ with its neighbors:
-  \[ \ClosedNeighborhood{n}[G] = \OpenNeighborhood{n}[G] \cup \Set{n}. \]
+When any node $n$ is considered, we define its \gls{open neighborhood} in $G$ to be
+  the set of all nodes $v$ such that $n$ is connected (or \Term{adjacent} to) $v$:
+  \begin{equation}
+    \label{eq:define-open-neighborhood}
+    \OpenNeighborhood{n} = \Set{v}[(n, v) \in E]
+  \end{equation}
+  and the \gls{closed neighborhood} is defined as $n$ together with its neighbors:
+  \begin{equation}
+    \label{eq:define-closed-neighborhood}
+    \ClosedNeighborhood{n} = \Union{\OpenNeighborhood{n}, \Set{n}}.
+  \end{equation}
 
 \subsection{Finite State Machine}
 \label{sec:math-define:fsm}
@@ -29,69 +40,53 @@ A \gls{fsm} is a mathematical model of computation
 Thus, a \gls{fsm} is defined by the five-tuple
   \[ M = (\Sigma, Q, q_0, F, \delta). \]
 These can be represented as graphs where nodes are states in $Q$ and
-  transitions are directed edges between them, as in \autoref{fig:math-defin:fsm:ex}.
-  \begin{figure}
-    \centering
-    \begin{tikzpicture}
-      [->,shorten >=1pt,node distance=3cm,auto,inner sep=2pt,>=stealth,thick]
-      \node[state,initial]   (start)                         {$q_0$};
-      \node[state]           (q_0)    [above right of=start] {$q_1$};
-      \node[state]           (q_1)    [      right of=q_0]   {$q_2$};
-      \node[state]           (q_2)    [      right of=q_1]   {$q_3$};
-      \node[state,accepting] (q_3)    [      right of=q_2]   {$q_4$};
-      \node[state]           (q_0p)   [below right of=start] {$q_1^\prime$};
-      \node[state]           (q_1p)   [      right of=q_0p]  {$q_2^\prime$};
-      \node[state,accepting] (q_2p)   [      right of=q_1p]  {$q_3^\prime$};
-      \node[state]           (q_fail) [above right of=q_2p]  {$q_\text{fail}'$};
-
-      \path[->]
-      (start)
-      edge              node {$\varepsilon$} (q_0)
-      edge              node {$\varepsilon$} (q_0p)
-      (q_0)
-      edge [loop above] node {0}             ()
-      edge              node {1}             (q_1)
-      (q_1)
-      edge [loop above] node {0}             ()
-      edge              node {1}             (q_2)
-      (q_2)
-      edge [loop above] node {0}             ()
-      edge              node {1}             (q_3)
-      (q_3)
-      edge [loop above] node {0, 1}          ()
-      (q_0p)
-      edge [bend left ] node {0}             (q_fail)
-      edge              node {1}             (q_1p)
-      (q_1p)
-      edge [bend left ] node {0}             (q_2p)
-      edge [loop above] node {1}             ()
-      (q_2p)
-      edge [loop above] node {0}             ()
-      edge [bend left ] node {1}             (q_1p)
-      (q_fail)
-      edge [loop below] node {0,1}           ();
-    \end{tikzpicture}
-    \caption{An example of a finite-state machine.}
-    \label{fig:math-defin:fsm:ex}
-  \end{figure}
+  transitions are directed edges between them.
+\todo[cite]{finite state machine}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:math-define:self-stab-algor}
 
-A self-stabilizing algorithm is, as defined by
-  Dijsktra \autocite{Dijkstra:1974:SSS:361179.361202},
+As defined by Dijsktra~\autocite{Dijkstra:1974:SSS:361179.361202},
   \todo{\texttt{citefield} the author}
-  a contruct composed of \glspl{privilege} and corresponding \glspl{action}.
+  a self-stabilizing algorithm is a contruct composed of
+  \glspl{predicate} and corresponding \glspl{move}.
 Both are functions of a single node and its neighbors.\footnote{%
-  Note that this is not the same as the closed neighborhood of a node.}
-Priveleges are functions to the Boolean values,
-  where each action updates the state of the system.
-(\Term{updating the system} may be realized as the function returning a new graph.)
-\[
-\Function[P]{G, n}{\SetBoolean}
-\qquad
-\Function[A]{G, n}{G^\prime}
-\]
+  Note that this is not the same as the closed neighborhood of a node.
+  Consider these as functions $\Function{n, \OpenNeighborhood{n}}{\Set ?}$}
+\Glspl{predicate} are functions to the Boolean values,
+  \begin{equation}
+  \label{eq:define-predicate}
+  \Function[P]{n, \OpenNeighborhood{n}}{\SetBoolean},
+  \end{equation}
+  where each \gls{move} updates the state of the system:
+  \begin{equation}
+  \label{eq:define-move}
+  \Function[M]{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}.
+  \end{equation}
+When a \gls{predicate} evaluates to $\BooleanTrueValue$ for any node $n$,
+  it is said that $n$'s \gls{privilege} is \gls{present}.
+
+A self-stabilizing algorithm can thus be seen as
+  a collection of these \gls{predicate}--\gls{move} pairs.
+Formally, we may define such an algorithm $S$ to be a discrete function
+  from \glspl{predicate} to a random \gls{move} function:
+  \begin{equation}
+    \label{eq:define-ssalg}
+    \Function[S]{P}{\operatorname{RandomChoice}(\Set{M_1, M_2, \dots, M_N})}
+  \end{equation}
+\todo[ask]{Is there a better way of describing random choice?
+  Any conventions that are set, notationally speaking?}
+It was defined in this way to clarify the logical representation of the algorithm;
+  see Section~\ref{sec:logic-repr:self-stab-algor}.
+
+According to~\autocite{arora:closure-and-convergence},
+  two properties of the algorithm must be shown 
+  for a self-stabilizing algorithm to be proven correct:
+\begin{description}
+\item[convergence] The algorithm must cause the system to converge into a correct state
+\item[closure] ?
+\end{description}
+\todo[ask]{Determine the qualities of the algorithm that must be shown.}
 
 %%% Local Variables: 
 %%% mode: latex
