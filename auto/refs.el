@@ -10,5 +10,6 @@
      "lafon:libcircle"
      "qadeer:verifying-ssa"
      "python3:ref"
-     "arora:closure-and-convergence")))
+     "arora:closure-and-convergence"
+     "brooks:mythical-man-month")))
 
