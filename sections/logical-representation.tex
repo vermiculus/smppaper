@@ -35,9 +35,17 @@ This is directly translated into Python as follows.
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:logic-repr:self-stab-algor}
 
+According to~\eqref{eq:define-ssalg},
+  a self-stabilizing algorithm is defined as a collection
+  of these \object{Predicate} and \object{Move} objects.
+These must be provided as the Python dictionary \lstinline|moveset|
+\lstinputlisting[linerange=algorithm-endalgorithm]{../src/ssa/core/Algorithm.py}
 
 \subsection{Central Daemon}
 \label{sec:logic-repr:daemon}
+
+This implementation's testing model is based of the concept of a \Term{central daemon}.
+(This was the first model explicitly introduced by \citeauthor{Dijkstra:1974:SSS:361179.361202}~\autocite{Dijkstra:1974:SSS:361179.361202}.)
 
 %%% Local Variables: 
 %%% mode: latex
