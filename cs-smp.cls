@@ -147,6 +147,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces\allowbreak}
+\def\Elide{\unskip\nobreakspace\textup{[\,\dots]}~\ignorespaces\allowbreak}
 
 % Local Variables:
 % TeX-PDF-mode: t
