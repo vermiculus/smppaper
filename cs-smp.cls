@@ -149,6 +149,13 @@
 \def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces\allowbreak}
 \def\Elide{\unskip\nobreakspace\textup{[\,\dots]}~\ignorespaces\allowbreak}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Parameter Customizations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
 % Local Variables:
 % TeX-PDF-mode: t
 % TeX-master: "smp.tex"
