@@ -27,12 +27,12 @@ He visualized the realization of these algorithms as taking advantage of
 \end{displayquote}
 This canonical definition is inherently limited, however;
   each node $n$ only knows the state of its distance-1 neighbors $v \in \ClosedNeighborhood{n}$.
-\citeauthor{goddard:ssa--k-distance} introduced an approach for simulating distance-2 information,
-  which was later generalized to simulating distance-$k$ information~\autocite{goddard:ssa--k-distance}.
+\citeauthor{gairing:distance-2} introduced an approach for simulating distance-2 information~\autocite{gairing:distance-2},
+  which was later generalized to simulating distance-$k$ information~\autocite{goddard:ssa--k-distance} by~\citeauthor{goddard:ssa--k-distance}.
   (The approach necessarily introduced ploynomial time and space complexities.)
 \citeauthor{Dijkstra:1974:SSS:361179.361202}'s restrictive-yet-practical definition of a self-stabilizing algorithm
   was now \emph{far} less restrictive,
-  since~\autocite{gairing:distance-2,goddard:ssa--k-distance} allowed \emph{any} distance-$k$ algorithm
+  since \citeauthor{goddard:ssa--k-distance} allowed \emph{any} distance-$k$ algorithm
   to be simulated in the original definition within a reasonable complexity increase.
 
 Since then, many such algorithms have been put forward, unsurprisingly.
