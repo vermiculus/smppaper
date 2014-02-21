@@ -146,7 +146,7 @@
 %%% Miscellaneous Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces}
+\def\Dash{\unskip\thinspace\textemdash\thinspace\ignorespaces\allowbreak}
 
 % Local Variables:
 % TeX-PDF-mode: t
