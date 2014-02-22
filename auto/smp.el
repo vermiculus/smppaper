@@ -6,6 +6,7 @@
      "glossaries"
      "xindy"
      "makeidx"
+     "menukeys"
      "hyperref"
      "hidelinks"
      "tikz"

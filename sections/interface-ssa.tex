@@ -1,18 +1,54 @@
 \section{Interface}
 \label{sec:interface-ssa}
 
+While the core codebase has been designed and implemented
+  to be easily accessible to those who wish to use it directly or extend it,
+  the expected everyday interface to this project is
+  the graphical tool presented below.
+It fully supports the creation and automated testing of self-stabilizing algorithms.
+It supports creating and documenting both predicates and moves
+  using a combination of textual and graphical interfaces.
+When such predicates and moves have been consolidated into a library,
+  they can be assembled and organized into a self-stabilizing algorithm
+  using a graphical interface.
+  \todo[reword]{I feel like I'm using the word 'interface' too much}
+
+All of these objects \Dash
+  predicates, moves, and algorithms \Dash
+  can be packaged into libraries that can be
+  saved and distributed to colleagues.
+
 \subsection{Predicates and Moves}
+As reflected in the logical representation
+  (see~\S~\ref{sec:logic-repr:self-stab-algor}),
+  self-stabilizing algorithms persist as a collection
+  of \glspl{predicate} and \glspl{move}.
+
 \subsubsection{Creating}
+\Glspl{predicate} and \glspl{move} are created using a textual interface.
+\todo[idea]{Could have some sort of 'raw logic' to python function processor.
+  Does one exist?
+}
+To create one of these entities,
+  use \menu{File > New > Predicate\dots}
+   or \menu{File > New > Move\dots}.
 \subsubsection{Documenting}
 \subsubsection{Testing}
 \subsubsection{Maintaining}
 \subsubsection{Distributing}
-\subsection{Assembling Algorithms}
-\subsection{Testing Algorithms}
+
+\subsection{Algorithms}
+
+\subsubsection{Assembly}
+\subsubsection{Documenting}
+\subsubsection{Testing}
+\subsubsection{Maintaining}
+\subsubsection{Distributing}
 
 
 %%% Local Variables: 
 %%% mode: latex
-%%% TeX-master: "sections/interface-ssa"
+%%% TeX-master: "../smp.tex"
 %%% reftex-cite-format: "\\autocite{%l}" 
+%%% TeX-PDF-mode: t 
 %%% End: 
