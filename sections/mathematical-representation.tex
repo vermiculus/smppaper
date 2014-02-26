@@ -84,8 +84,9 @@ It was defined in this way to clarify the logical representation of the algorith
 Two properties of the algorithm must be shown
   for a self-stabilizing algorithm to be proven correct:~\autocite{arora:closure-and-convergence}
 \begin{description}
-\item[convergence] The algorithm must cause the system to converge into a correct state
-\item[closure] ? \todo[ask]{Determine the qualities of the algorithm that must be shown.}
+\item[convergence] The algorithm must complete using a finite number of moves.
+\item[closure] If the algorithm completes, the system is in a correct state.
+  \done\todo[ask]{Determine the qualities of the algorithm that must be shown.}
 \end{description}
 
 %%% Local Variables: 
