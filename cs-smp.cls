@@ -160,6 +160,16 @@
   \par
 }
 
+\NewDocumentEnvironment { draftvspace } { m } {
+  \begin{center}
+    \rule{1pt}{\dimexpr #1 / 2 \relax}
+  \end{center}
+}{
+  \begin{center}
+    \rule{1pt}{\dimexpr #1 / 2 \relax}
+  \end{center}
+}
+
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{2}
 
