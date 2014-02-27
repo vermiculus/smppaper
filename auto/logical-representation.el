@@ -5,5 +5,6 @@
      "sec:logic-repr:predicate"
      "sec:logic-repr:move"
      "sec:logic-repr:self-stab-algor"
+     "sec:logic-repr:self-stab-algor:type-checking"
      "sec:logic-repr:daemon")))
 

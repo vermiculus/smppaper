@@ -40,6 +40,16 @@ According to~\eqref{eq:define-ssalg},
   of these \object{Predicate} and \object{Move} objects.
 These must be provided as the Python dictionary \lstinline|moveset|
 \lstinputlisting[linerange=algorithm-endalgorithm]{../src/ssa/core/Algorithm.py}
+\subsubsection{Type Checking}
+\label{sec:logic-repr:self-stab-algor:type-checking}
+
+\lstinputlisting[
+float,
+caption={Ensuring the rule-set we were given is usable as
+  a definition of a self-stabilizing algorithm.},
+label={lst:algorithm-type-check},
+linerange={algorithm-ruleset-assertions}-{end-algorithm-ruleset-assertions},
+]{../src/ssa/core/Algorithm.py}
 
 \subsection{Central Daemon}
 \label{sec:logic-repr:daemon}
