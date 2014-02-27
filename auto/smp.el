@@ -3,9 +3,6 @@
     (LaTeX-add-bibliographies
      "refs")
     (TeX-run-style-hooks
-     "glossaries"
-     "xindy"
-     "makeidx"
      "menukeys"
      "hyperref"
      "hidelinks"
@@ -32,7 +29,6 @@
      "letterpaper"
      "maxp=30"
      "minp=25"
-     "glossary"
      "abstract"
      "sections/introduction"
      "sections/mathematical-representation"

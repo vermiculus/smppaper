@@ -1,13 +1,10 @@
 % arara: xelatex
 % arara: biber
-% arara: makeglossaries
 % arara: xelatex
 % arara: xelatex
 % arara: clean: { files: [ smp.aux, smp.log, smp.out ] }
 % arara: clean: { files: [ smp.toc, smp.lot, smp.lof ] }
 % arara: clean: { files: [ smp.bbl, smp.bcf, smp.blg, smp.run.xml ] }
-% arara: clean: { files: [ smp.glg, smp.glo, smp.gls ] }
-% arara: clean: { files: [ smp.idx, smp.xdy ] }
 \documentclass[
 minp=25,
 maxp=30,
@@ -58,14 +55,6 @@ style=authoryear,
 }
 
 \usepackage{menukeys}           % actually has to be loaded after hyperref?
-\usepackage{makeidx}
-\makeindex
-
-\usepackage[
-  xindy,                        % use xindy for glossary index compilation
-]{glossaries}
-\input{glossary}
-\makeglossaries
 
                                 \title
                          {\texttt{ssa-tool}}%
@@ -130,9 +119,6 @@ style=authoryear,
 \input{sections/reflection}
 
 \appendix
-
-\newpage
-\printglossaries
 
 \newpage
 \printbibliography

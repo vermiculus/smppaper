@@ -11,7 +11,7 @@ The following listings serve to introduce the organization of the library and
 \label{sec:logic-repr:predicate}
 
 According to~\eqref{eq:define-predicate},
-  a \gls{predicate} is defined as some function of
+  a predicate is defined as some function of
   a node and its neighborhood returning a Boolean value.
 This is reflected in~\autoref{lst:predicate},
   where the \object{Predicate} object maintains a pure Python function
@@ -32,7 +32,7 @@ linerange=predicate-endpredicate,
 \label{sec:logic-repr:move}
 
 According to~\eqref{eq:define-move},
-  a \gls{move} is defined as a function
+  a move is defined as a function
   $\Function{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}$.
 This is directly translated into Python in~\autoref{lst:move}.
 \lstinputlisting[
