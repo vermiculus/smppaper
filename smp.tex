@@ -23,7 +23,13 @@ letterpaper,
   rangeprefix=\#\%\ ,
   rangesuffix=\ \%\#,
   includerangemarker=false,
+  gobble=2,% TODO doesn't work for inputlisting
+  frame=single,
+  frameround=tttt,
+  backgroundcolor=\color{blue!5},
+  rulecolor=\color{blue!50!black}, % TODO background color extends past rounded corner
   language=Python,
+  morekeywords={assert,self},
 }
 \usepackage[marginpar]{todo}
 
