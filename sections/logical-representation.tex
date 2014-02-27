@@ -16,11 +16,13 @@ According to~\eqref{eq:define-predicate},
 This is reflected in~\autoref{lst:predicate},
   where the \object{Predicate} object maintains a pure Python function
   which is stored and called with the arguments $n$ and $\OpenNeighborhood{n}$,
-  respectively.\footnote{%
-    It is assumed that the actual neighborhood is given.
-    This object is intended to be used only internally,
-      and all internal functions will indeed pass it the distance-1 neighborhood.
-    It is left as an unintelligent definition to enable later extension.}
+  respectively.
+\begin{warning}
+  It is assumed that the actual neighborhood is given.
+  This object is intended to be used only internally,
+    and all \emph{internal} functions will indeed pass it the distance-1 neighborhood.
+  It is left as an unintelligent definition to enable later extension.
+\end{warning}
 \lstinputlisting[
 float,
 caption={Predicate},
