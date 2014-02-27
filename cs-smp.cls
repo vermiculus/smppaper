@@ -163,9 +163,9 @@
 \NewDocumentEnvironment { draftvspace } { m } {
   \begin{center}
     \rule{1pt}{\dimexpr #1 / 2 \relax}
-  \end{center}
+    \par
 }{
-  \begin{center}
+    \par
     \rule{1pt}{\dimexpr #1 / 2 \relax}
   \end{center}
 }

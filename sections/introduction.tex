@@ -2,7 +2,8 @@
 \label{sec:introduction}
 \done\todo{Author-cite Dijsktra, Goddard}
 In his seminal paper on the topic~\autocite{Dijkstra:1974:SSS:361179.361202},
-  \citeauthor{Dijkstra:1974:SSS:361179.361202} introduced the concept of self-stabilizing algorithms.
+  \citeauthor{Dijkstra:1974:SSS:361179.361202} introduced the concept of
+  self-stabilizing algorithms.
 He visualized the realization of these algorithms as taking advantage of
   a very specific, extensible scenario:
 \begin{displayquote}[\citeay{Dijkstra:1974:SSS:361179.361202}]
@@ -27,10 +28,13 @@ He visualized the realization of these algorithms as taking advantage of
 \end{displayquote}
 This canonical definition is inherently limited, however;
   each node $n$ only knows the state of its distance-1 neighbors $v \in \ClosedNeighborhood{n}$.
-\citeauthor{gairing:distance-2} introduced an approach for simulating distance-2 information~\autocite{gairing:distance-2},
-  which was later generalized to simulating distance-$k$ information~\autocite{goddard:ssa--k-distance} by~\citeauthor{goddard:ssa--k-distance}.
+\citeauthor{gairing:distance-2} introduced an approach for
+  simulating distance-2 information~\autocite{gairing:distance-2},
+  which was later generalized to simulating distance-$k$
+  information~\autocite{goddard:ssa--k-distance} by~\citeauthor{goddard:ssa--k-distance}.
   (The approach necessarily introduced ploynomial time and space complexities.)
-\citeauthor{Dijkstra:1974:SSS:361179.361202}'s restrictive-yet-practical definition of a self-stabilizing algorithm
+\citeauthor{Dijkstra:1974:SSS:361179.361202}'s restrictive-yet-practical definition
+  of a self-stabilizing algorithm
   was now \emph{far} less restrictive,
   since \citeauthor{goddard:ssa--k-distance} allowed \emph{any} distance-$k$ algorithm
   to be simulated in the original definition within a reasonable complexity increase.
@@ -52,11 +56,12 @@ For some programming languages,
 While these libraries assist in modeling the graph itself,
   they provide little to no assistance in creating, testing, or maintaining the algorithm itself.
 
-It seems that this is partly due to the lack of definition as to \emph{what} exactly a self-stabilizing algorithm is.
+It seems that this is partly due to the lack of definition as to
+  \emph{what} exactly a self-stabilizing algorithm is.
 
 \begin{draftvspace}{5in}
   Expand on related work.
-  There are a couple of other things available (see~\autocite{lafon:libcircle}, for instance),
+  There are a couple of other things available (see another reference~\autocite{lafon:libcircle}, for instance),
     but I've yet to do the necessary research to say \emph{what} exactly they do.
   All I know (and cared about) was that I wasn't \emph{duplicating} functionality.
 \end{draftvspace}
