@@ -13,7 +13,7 @@ The following listings serve to introduce the organization of the library and
 According to~\eqref{eq:define-predicate},
   a \gls{predicate} is defined as some function of
   a node and its neighborhood returning a Boolean value.
-This is reflected in the code below,
+This is reflected in~\autoref{lst:predicate},
   where the \object{Predicate} object maintains a pure Python function
   which is stored and called with the arguments $n$ and $\OpenNeighborhood{n}$,
   respectively.\footnote{%
@@ -21,7 +21,12 @@ This is reflected in the code below,
     This object is intended to be used only internally,
       and all internal functions will indeed pass it the distance-1 neighborhood.
     It is left as an unintelligent definition to enable later extension.}
-\lstinputlisting[linerange=predicate-endpredicate]{../src/ssa/core/Predicate.py}
+\lstinputlisting[
+float,
+caption={Predicate},
+label={lst:predicate},
+linerange=predicate-endpredicate,
+]{../src/ssa.org}
 
 \subsection{Move}
 \label{sec:logic-repr:move}
@@ -29,8 +34,13 @@ This is reflected in the code below,
 According to~\eqref{eq:define-move},
   a \gls{move} is defined as a function
   $\Function{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}$.
-This is directly translated into Python as follows.
-\lstinputlisting[linerange=move-endmove]{../src/ssa/core/Move.py}
+This is directly translated into Python in~\autoref{lst:move}.
+\lstinputlisting[
+float,
+caption={Move function},
+label={lst:move},
+linerange=move-endmove,
+]{../src/ssa.org}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:logic-repr:self-stab-algor}
@@ -38,8 +48,17 @@ This is directly translated into Python as follows.
 According to~\eqref{eq:define-ssalg},
   a self-stabilizing algorithm is defined as a collection
   of these \object{Predicate} and \object{Move} objects.
-\lstinputlisting[linerange=algorithm-endalgorithm]{../src/ssa/core/Algorithm.py}
 These must be provided as the Python dictionary \lstinline|ruleset|,
+  as in \autoref{lst:algorithm-init}.
+\lstinputlisting[
+float,
+caption={According to~\eqref{eq:define-ssalg},
+  a self-stabilizing algorithm is exactly a
+  set of rules from predicate to moves.},
+label={lst:algorithm-init},
+linerange=algorithm-endalgorithm,
+]{../src/ssa.org}
+
 \subsubsection{Type Checking}
 \label{sec:logic-repr:self-stab-algor:type-checking}
 
