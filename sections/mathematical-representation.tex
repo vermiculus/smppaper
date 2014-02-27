@@ -24,6 +24,11 @@ When any node $n$ is considered, we define its \gls{open neighborhood} in $G$ to
     \OpenNeighborhood{n} = \Set{v}[(n, v) \in E]
   \end{equation}
   and the \gls{closed neighborhood} is defined as $n$ together with its neighbors:
+  \todo[warn]{Yes, I know that my union notation for
+    \eqref{eq:define-closed-neighborhood} (and others?) is nasty.
+    I'm working on it, but the representation isn't a priority at this stage.
+    (It's a \LaTeX 3 command that can take a comma-separated list of things to union
+    and will then insert unions between them all.)}
   \begin{equation}
     \label{eq:define-closed-neighborhood}
     \ClosedNeighborhood{n} = \Union{\OpenNeighborhood{n}, \Set{n}}.
@@ -76,6 +81,7 @@ Formally, we may define such an algorithm $S$ to be a discrete function
     \label{eq:define-ssalg}
     \Function[S]{P}{\operatorname{RandomChoice}(\Set{M_1, M_2, \dots, M_N})}
   \end{equation}
+\done[Nope! Not really]
 \todo[ask]{Is there a better way of describing random choice?
   Any conventions that are set, notationally speaking?}
 It was defined in this way to clarify the logical representation of the algorithm;
