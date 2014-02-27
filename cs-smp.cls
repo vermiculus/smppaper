@@ -153,6 +153,13 @@
 %%% Parameter Customizations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\NewDocumentEnvironment { warning } { } {
+  \par
+  \textbf{Warning: }
+}{
+  \par
+}
+
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{2}
 
