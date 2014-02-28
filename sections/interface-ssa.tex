@@ -46,6 +46,36 @@ A template is provided for you to begin working from,
 \end{figure}
 
 \subsubsection{Documenting}
+Every predicate and move can be given documentation.
+In addition to human-readable documentation,
+  \TeX nical documentation is also supported and encouraged.\footnote{%
+    See~\autoref{sec:iface:export}.}
+The documentation for predicates and moves is handled Pythonically \Dash
+  the first line of the function's docstring serves as \TeX nical documentation
+  while the remaining text is considered the human-readable documentation.
+Refer to~\autoref{lst:iface:pred-move-documentation} for an example.
+Note that there is a special notation for custom properties to ease its use.
+When referring to a non-standard function
+  \Dash such as "marked" \Dash
+  you can enclose the function name in double quotes (the single character \texttt{\char`"}).
+When exporting documentation,
+  \todo{Need a section for this \Dash exporting documentation.}
+  this notation will be replaced by the more verbose (but typographically correct) "\operatorname".
+See~\autoref{sec:iface:export} for more information.
+\todo[code]{implement}
+\begin{lstlisting}[
+  float,
+  caption={An example of predicate\slash move documentation.},
+  label={lst:iface:pred-move-documentation},
+]
+  def marked_alone(node, neighbors):
+      """\forall n \in N(n), "marked"(n) = 0
+  
+      There are no marked nodes in this node's neighborhood."""
+  
+      return not any(map(lambda n: n['marked'], neighbors))
+\end{lstlisting}
+
 \subsubsection{Testing}
 \subsubsection{Maintaining}
 \subsubsection{Distributing}
