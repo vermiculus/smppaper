@@ -74,6 +74,17 @@ caption={According to~\eqref{eq:define-ssalg},
 label={lst:algorithm-init},
 linerange=algorithm-endalgorithm,
 ]{../src/ssa.org}
+In an \object{Algorithm}, the "ruleset" is assumed to have
+  dictionary-like structure and behavior.
+This is asserted within the constructor (as can be seen in~\autoref{lst:algorithm-type-check}),
+  but perhaps the clearest definition of the structure can be given as an example.
+Refer to
+\lstinputlisting[
+float,
+caption={An example structure to use as an \object{Algorithm}'s \texttt{\small ruleset}},
+label={lst:algorithm-ex},
+linerange={algorithm-ruleset-ex}-{end-algorithm-ruleset-ex},
+]{../src/ssa.org}
 
 \subsubsection{Type Checking}
 \label{sec:logic-repr:self-stab-algor:type-checking}
