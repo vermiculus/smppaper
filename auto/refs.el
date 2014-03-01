@@ -12,5 +12,6 @@
      "python3:ref"
      "arora:closure-and-convergence"
      "brooks:mythical-man-month"
-     "lafon:balanceMQ")))
+     "lafon:balanceMQ"
+     "dolev:talk")))
 
