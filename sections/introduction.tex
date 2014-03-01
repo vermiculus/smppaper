@@ -1,5 +1,6 @@
 \section{Introduction}
 \label{sec:introduction}
+\subsection{Domain Introduction}
 \done[citeauthor does the trick]
 \todo{Author-cite Dijsktra, Goddard}
 In his seminal paper on the topic~\autocite{Dijkstra:1974:SSS:361179.361202},
@@ -53,8 +54,9 @@ In the same vein, these algorithms can be incredibly hard to test
   without spending significant time implementing the algorithm
   from scratch in a programming language.
 For some programming languages,
-  there exist extensive graph representation libraries (\eg NetworkX~\autocite{hagberg:networkx}).
-While these libraries assist in modeling the graph itself,
+  there exist extensive graph representation libraries
+  (\eg Python's NetworkX~\autocite{hagberg:networkx}).
+While these libraries assist in modeling the raw graph,
   they provide little to no assistance in creating, testing, or maintaining the algorithm itself.
 
 It seems that this is partly due to the lack of definition as to
@@ -63,20 +65,22 @@ It seems that this is partly due to the lack of definition as to
 
 \begin{draftvspace}{5in}
   Expand on related work.
-  There are a couple of other things available (see another reference~\autocite{lafon:libcircle}, for instance),
+  There are a couple of other things available
+    (see another reference~\autocite{lafon:libcircle}, for instance),
     but I've yet to do the necessary research to say \emph{what} exactly they do.
   All I know (and cared about) was that I wasn't \emph{duplicating} functionality.
 \end{draftvspace}
 
 \subsection{Current Work}
 \label{sec:introduction:current-work}
-This paper presents and defends such a library and toolset.
+This paper presents and defends such a toolset
+  along with a graphical utility to provide an easy interface and collaboration.
 Complete with a graphical interface which supports
   maintaining libraries of \object{Predicate} and \object{Move} objects for later assembly,
   \texttt{ssa-tool} provides researchers with tools to test algorithms in batch and by hand.
 \begin{draftvspace}{4in}
   Absolutely \emph{must} expand on this more.
-  Go into what exactly happens and why it is necessary.
+  Go into what exactly happens, why it is necessary, what is possible, a potential use case, \dots.
 \end{draftvspace}
 
 %%% Local Variables: 
