@@ -83,12 +83,11 @@
   \textsf{#1}
 }
 
-\ProvideDocumentCommand \Union { m }
+\ProvideDocumentCommand \Union { O{\cup} O{,} m }
 {
-%  \clist_set:Nn \l_lmpa_clist { #1 }
-%  \clist_show:N \l_tmpa_clist
-%  \clist_use:Nn \l_tmpa_clist { \cup }
-  \bigcup \Set { #1 }
+  \seq_set_split:Nnn \l_tmpa_seq { #2 } { #3 }
+  \seq_show:N \l_tmpa_seq
+  \seq_use:Nn \l_tmpa_seq { #1 }
 }
 
 \ProvideDocumentCommand \citeay { m }
