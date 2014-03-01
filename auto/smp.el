@@ -2,22 +2,25 @@
  (lambda ()
     (LaTeX-add-bibliographies
      "refs")
+    (TeX-add-symbols
+     '("inputsection" 1))
     (TeX-run-style-hooks
      "menukeys"
+     "gitinfo"
      "hyperref"
      "hidelinks"
      "tikz"
      "biblatex"
-     "style=authoryear"
-     "autocite=footnote"
      "backend=biber"
      "microtype"
      "todo"
      "marginpar"
+     "fancyhdr"
      "listings"
+     "verbatim"
      "csquotes"
      "markup"
-     "smcm-cosc-danda"
+     "smcm-cosc-graphs"
      "smcm-math"
      "amsthm"
      "amssymb"
@@ -29,11 +32,5 @@
      "letterpaper"
      "maxp=30"
      "minp=25"
-     "abstract"
-     "sections/introduction"
-     "sections/mathematical-representation"
-     "sections/logical-representation"
-     "sections/interface-ssa"
-     "sections/interface-test"
-     "sections/reflection")))
+     "abstract")))
 

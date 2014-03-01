@@ -10,5 +10,7 @@
      "sec:math-define:self-stab-algor"
      "eq:define-predicate"
      "eq:define-move"
-     "eq:define-ssalg")))
+     "eq:define-ssalg"
+     "eq:define-ssalg:converge"
+     "eq:define-ssalg:closure")))
 

@@ -16,6 +16,7 @@ letterpaper,
 \usepackage{markup}
 \usepackage{csquotes}
 \usepackage{listings}
+\usepackage{fancyhdr}
 \lstset{
   rangeprefix=\#\%\ ,
   rangesuffix=\ \%\#,
@@ -53,6 +54,18 @@ style=authoryear,
   pdfkeywords={Graph,Algorithm,Distributed},
   pdfcreator={XeTeX}
 }
+
+\usepackage{gitinfo}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \rfoot{\color{gray}r@\gitAbbrevHash\slash\gitAuthorIsoDate}
+  \renewcommand\headrulewidth{0pt}
+  \cfoot{\thepage}}
+\pagestyle{plain}
+
+\newcommand\inputsection[1]{\include{sections/#1}}
+
+%\includeonly{sections/logical-representation}
 
 \usepackage{menukeys}           % actually has to be loaded after hyperref?
 
