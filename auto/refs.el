@@ -2,8 +2,8 @@
  (lambda ()
     (LaTeX-add-bibitems
      "atallah2009algorithms"
-     "Chen1991147"
-     "Dijkstra:1974:SSS:361179.361202"
+     "chen:spanning-trees"
+     "dew:sem"
      "goddard:ssa--k-distance"
      "gairing:distance-2"
      "hagberg:networkx"
