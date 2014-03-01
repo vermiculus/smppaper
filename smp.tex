@@ -101,36 +101,38 @@ style=authoryear,
 % Define what a self-stabilizing algorithm is and their applications.
 % This will give an argument as to why they are necessary, why they
 % are useful, and why a tool like this is warranted.
-\input{sections/introduction}
+\inputsection{introduction}
 
 % Run through the mathematical definitions of a graph, nodes/edges,
 % and self-stabilizing algorithms.  In the last, stress the pairing of
 % predicate and action functions.
-\input{sections/mathematical-representation}
+\inputsection{mathematical-representation}
 
 % Draw from the mathematical definitions and implement them in Python.
 % In doing so, create the core classes.
-\input{sections/logical-representation}
+\inputsection{logical-representation}
 
 % Now we have the ability to logically manipulate graphs and
 % algorithms.  Without an interface, however, we are still where we
 % were.  Create an interface to compose an algorithm and argue the
 % necessity and utility of each aspect.
-\input{sections/interface-ssa}
+\inputsection{interface-ssa}
 
 % We have the ability to create algorithms, but nothing to test them
 % on.  Introduce an interface to create graphs and import/export them
 % to common formats.  This section is simply presentation; it needs no
 % argument.
-%\input{sections/interface-graph-builder}
+%\inputsection{interface-graph-builder}
 
 % We have algorithms and graphs to test them on, but nothing to
 % facilitate the testing.  Introduce an interface to load algorithms
 % and test with specific graphs (or those of an arbitrary degree).
-\input{sections/interface-test}
+\inputsection{interface-test}
+
+\inputsection{interface-interop}
 
 % Dunno
-\input{sections/reflection}
+\inputsection{reflection}
 
 \appendix
 \nocite{*}
