@@ -45,7 +45,8 @@ letterpaper,
 }
 \renewcommand*\lstlistlistingname{List of Listings}
 \lstMakeShortInline[basicstyle=\small\ttfamily]"
-\usepackage[marginpar]{todo}
+\usepackage[hide]{todo}
+\makeatletter\renewcommand*\@tododisplay[1]{}\makeatother
 
 \usepackage{microtype}
 
@@ -91,7 +92,7 @@ backend=biber,
                                 \date
                            {14 April 2013}
 
-\geometry{showframe}
+%\geometry{showframe}
 \setlength\parskip{1ex}
 \setlength\parindent{0em}
 
@@ -104,10 +105,8 @@ backend=biber,
 \end{abstract}
 
 \tableofcontents
-\vfill
 \listoffigures
 \lstlistoflistings
-\vfill
 \newpage
 \begin{quote}
   Alan,
@@ -171,7 +170,7 @@ backend=biber,
 
 \appendix
 
-\section{Example Code}
+\section*{Example Code}
 \lstinputlisting[caption=Example Code]{../src/example.py}
 
 \nocite{*}
