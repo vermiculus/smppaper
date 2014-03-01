@@ -86,7 +86,6 @@
 \ProvideDocumentCommand \Union { O{\cup} O{,} m }
 {
   \seq_set_split:Nnn \l_tmpa_seq { #2 } { #3 }
-  \seq_show:N \l_tmpa_seq
   \seq_use:Nn \l_tmpa_seq { #1 }
 }
 
