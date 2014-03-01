@@ -37,6 +37,19 @@ According to~\eqref{eq:define-move},
   a move is defined as a function
   $\Function{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}$.
 This is directly translated into Python in~\autoref{lst:move}.
+\begin{warning}
+  As with \object{Predicate}s above,
+    it is assumed that the function definition matches
+    the mathematical definition given in~\eqref{eq:define-move}.
+  Specifically, the function \emph{must} return a tuple of
+    the new node and new neighborhood as its move.
+  This object is intended to be used only internally,
+    and all \emph{internal} functions will indeed pass it appropriate values.
+  It is left as an unintelligent definition to enable later extension.
+\end{warning}
+\todo[code]{Make sure this is as advertised.}
+\todo[code]{Perhaps this can be mitigated?
+  Pass a simple star graph to the function to see if it returns the right thing?}
 \lstinputlisting[
 float,
 caption={A move is a function $\Function{n, \OpenNeighborhood{n}}
@@ -65,6 +78,22 @@ linerange=algorithm-endalgorithm,
 \subsubsection{Type Checking}
 \label{sec:logic-repr:self-stab-algor:type-checking}
 
+\todo[reword]{awkward phrasiing}
+Since there is a strict definition on an algorithm's ruleset
+  where neglecting to adhere to a specific format and behaviour
+  will cause other parts of the system to fail,
+  a set of assertions is made upon "ruleset" that ensures at least non-crashing behaviour.
+These assertions (which can be reviewed in~\autoref{lst:algorithm-type-check}) check the following:
+\begin{itemize}
+\item "ruleset" is a collection that can be iterated upon directly,
+\item all key-items in "ruleset" can be called directly,
+\item all key-items in "ruleset" are functions of two arguments, and
+\item all key-items in "ruleset" map to a collection of predicates, where
+  \begin{itemize}
+  \item each predicate can be called directly, and
+  \item each predicate is a function of two arguments.
+  \end{itemize}
+\end{itemize}
 \lstinputlisting[
 float,
 caption={Ensuring the rule-set we were given is usable as
@@ -79,6 +108,78 @@ linerange={algorithm-ruleset-assertions}-{end-algorithm-ruleset-assertions},
 This implementation's testing model is based of the concept of a \Term{central daemon}.
 (This was the first model explicitly introduced
   by \citeauthor{Dijkstra:1974:SSS:361179.361202}~\autocite{Dijkstra:1974:SSS:361179.361202}.)
+The \object{Algorithm} class plays double-duty to fulfill this role as a default behavior,
+  but perhaps this should be altered.
+\todo[code]{Should \object{Algorithm} actually know how to run itself,
+  or should a separate \object{Daemon} object be created to handle this?
+  Honestly, I'm leaning toward the latter.}
+The overall implementation and interface is available in~\autoref{lst:daemon-run},
+  but we will look at each part individually.
+\todo[code]{The algorithm should automatically stop when it has stabilized.}
+\lstinputlisting[
+float=p,
+caption={A generalized run of a self-stabilizing algorithm.},
+label={lst:daemon-run},
+linerange={daemon-run}-{end-daemon-run},
+]{../src/ssa.org}
+The daemon begins by finding assembling a list of privileged nodes.
+To do this, it \emph{must} go through each node and check it for privilege.
+\begin{warning}
+  I consider this the greatest single bottleneck in the entire project.
+  It is feasible that this can be altered into a distributed\slash threaded algorithm,
+    but I haven't the knowledge to do so.
+  The fact that predicates whould \emph{never} write to a node or its neighbors
+    allows this distribution of work among threads.
+  This should be implemented in a future iteration.
+\end{warning}
+\lstinputlisting[
+float=p,
+caption={Finding privileged nodes.},
+label={lst:daemon-find-privileged-nodes},
+linerange={daemon-find-privileged-nodes}-{end-daemon-find-privileged-nodes},
+]{../src/ssa.org}
+Within each iteration of the loop through the nodes in the graph
+  (see~\autoref{lst:daemon-find-privileged-nodes}),
+  we check to see if the node is privileged or not
+  (see~\autoref{lst:daemon-get-privileges}).
+If it is privileged, we add the privileged node to a dictionary called "privileged_nodes".
+\begin{warning}[2]
+  We can also increase performance here with threading.
+  Be careful of the difference, however:
+    in the above we were simply reading information and
+    running it through a predicate function.
+  (In fact, we are doing the same here,
+    but the above is a separate idea that can be sorted out.)
+  The difference here is that we are altering the "privileged_nodes" data structure.
+  The branch in~\autoref{lst:daemon-get-privileges} introduces a race condition:
+    if two predicates $P_1, P_2$ simultaneously succeed for
+    an as-yet unprivileged node $n$ at time $t$,
+    time $t+1$ will result in only one unknown predicate
+    $P_i$ being written to "privileged_nodes".
+  Altering the data structure used for "privileged_nodes" may remove this limitation.
+\end{warning}
+\todo[code]{Perhaps we should just collect all predicate--move pairs in a set
+  and randomly choose one?  This would be more statistically sound, but does it matter?}
+
+\lstinputlisting[
+float=p,
+caption={Getting the privileges of a single node.},
+label={lst:daemon-get-privileges},
+linerange={daemon-get-privileges}-{end-daemon-get-privileges},
+]{../src/ssa.org}
+\lstinputlisting[
+float=p,
+caption={Picking a random, satisfied predicate.},
+label={lst:daemon-pick-predicate},
+linerange={daemon-pick-predicate}-{end-daemon-pick-predicate},
+]{../src/ssa.org}
+\lstinputlisting[
+float=p,
+caption={Applying a random move enabled by the satisifed predicate.},
+label={lst:daemon-apply-move},
+linerange={daemon-apply-move}-{end-daemon-apply-move},
+]{../src/ssa.org}
+
 
 %%% Local Variables: 
 %%% mode: latex
