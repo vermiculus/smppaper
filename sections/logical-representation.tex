@@ -25,7 +25,7 @@ This is reflected in~\autoref{lst:predicate},
 \end{warning}
 \lstinputlisting[
 float,
-caption={Predicate},
+caption={A predicate is a function $\Function{n, \OpenNeighborhood{n}}{\SetBoolean}$},
 label={lst:predicate},
 linerange=predicate-endpredicate,
 ]{../src/ssa.org}
@@ -39,7 +39,8 @@ According to~\eqref{eq:define-move},
 This is directly translated into Python in~\autoref{lst:move}.
 \lstinputlisting[
 float,
-caption={Move function},
+caption={A move is a function $\Function{n, \OpenNeighborhood{n}}
+  {n^\prime, \OpenNeighborhood[\prime]{n}}$},
 label={lst:move},
 linerange=move-endmove,
 ]{../src/ssa.org}
