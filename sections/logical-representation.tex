@@ -28,7 +28,7 @@ float,
 caption={A predicate is a function $\Function{n, \OpenNeighborhood{n}}{\SetBoolean}$},
 label={lst:predicate},
 linerange=predicate-endpredicate,
-]{../src/ssa.org}
+]{../src/README.org}
 
 \subsection{Move}
 \label{sec:logic-repr:move}
@@ -56,7 +56,7 @@ caption={A move is a function $\Function{n, \OpenNeighborhood{n}}
   {n^\prime, \OpenNeighborhood[\prime]{n}}$},
 label={lst:move},
 linerange=move-endmove,
-]{../src/ssa.org}
+]{../src/README.org}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:logic-repr:self-stab-algor}
@@ -73,7 +73,7 @@ caption={According to~\eqref{eq:define-ssalg},
   set of rules from predicate to moves.},
 label={lst:algorithm-init},
 linerange=algorithm-endalgorithm,
-]{../src/ssa.org}
+]{../src/README.org}
 In an \object{Algorithm}, the "ruleset" is assumed to have
   dictionary-like structure and behavior.
 This is asserted within the constructor (as can be seen in~\autoref{lst:algorithm-type-check}),
@@ -84,7 +84,7 @@ float,
 caption={An example structure to use as an \object{Algorithm}'s \texttt{\small ruleset}},
 label={lst:algorithm-ex},
 linerange={algorithm-ruleset-ex}-{end-algorithm-ruleset-ex},
-]{../src/ssa.org}
+]{../src/README.org}
 
 \subsubsection{Type Checking}
 \label{sec:logic-repr:self-stab-algor:type-checking}
@@ -132,7 +132,7 @@ float=p,
 caption={A generalized run of a self-stabilizing algorithm.},
 label={lst:daemon-run},
 linerange={daemon-run}-{end-daemon-run},
-]{../src/ssa.org}
+]{../src/README.org}
 The daemon begins by finding assembling a list of privileged nodes.
 To do this, it \emph{must} go through each node and check it for privilege.
 \begin{warning}
@@ -148,7 +148,7 @@ float=p,
 caption={Finding privileged nodes.},
 label={lst:daemon-find-privileged-nodes},
 linerange={daemon-find-privileged-nodes}-{end-daemon-find-privileged-nodes},
-]{../src/ssa.org}
+]{../src/README.org}
 Within each iteration of the loop through the nodes in the graph
   (see~\autoref{lst:daemon-find-privileged-nodes}),
   we check to see if the node is privileged or not
@@ -177,19 +177,19 @@ float=p,
 caption={Getting the privileges of a single node.},
 label={lst:daemon-get-privileges},
 linerange={daemon-get-privileges}-{end-daemon-get-privileges},
-]{../src/ssa.org}
+]{../src/README.org}
 \lstinputlisting[
 float=p,
 caption={Picking a random, satisfied predicate.},
 label={lst:daemon-pick-predicate},
 linerange={daemon-pick-predicate}-{end-daemon-pick-predicate},
-]{../src/ssa.org}
+]{../src/README.org}
 \lstinputlisting[
 float=p,
 caption={Applying a random move enabled by the satisifed predicate.},
 label={lst:daemon-apply-move},
 linerange={daemon-apply-move}-{end-daemon-apply-move},
-]{../src/ssa.org}
+]{../src/README.org}
 
 
 %%% Local Variables: 
