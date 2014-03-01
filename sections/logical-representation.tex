@@ -89,11 +89,11 @@ linerange={algorithm-ruleset-ex}-{end-algorithm-ruleset-ex},
 \subsubsection{Type Checking}
 \label{sec:logic-repr:self-stab-algor:type-checking}
 
-\todo[reword]{awkward phrasiing}
+\todo[reword]{awkward phrasing}
 Since there is a strict definition on an algorithm's ruleset
-  where neglecting to adhere to a specific format and behaviour
+  where neglecting to adhere to a specific format and behavior
   will cause other parts of the system to fail,
-  a set of assertions is made upon "ruleset" that ensures at least non-crashing behaviour.
+  a set of assertions is made upon "ruleset" that ensures at least non-crashing behavior.
 These assertions (which can be reviewed in~\autoref{lst:algorithm-type-check}) check the following:
 \begin{itemize}
 \item "ruleset" is a collection that can be iterated upon directly,
@@ -143,7 +143,7 @@ To do this, it \emph{must} go through each node and check it for privilege.
   I consider this the greatest single bottleneck in the entire project.
   It is feasible that this can be altered into a distributed\slash threaded algorithm,
     but I haven't the knowledge to do so.
-  The fact that predicates whould \emph{never} write to a node or its neighbors
+  The fact that predicates should \emph{never} write to a node or its neighbors
     allows this distribution of work among threads.
   This should be implemented in a future iteration.
 \end{warning}
@@ -190,7 +190,7 @@ linerange={daemon-pick-predicate}-{end-daemon-pick-predicate},
 ]{../src/README.org}
 \lstinputlisting[
 float=p,
-caption={Applying a random move enabled by the satisifed predicate.},
+caption={Applying a random move enabled by the satisfied predicate.},
 label={lst:daemon-apply-move},
 linerange={daemon-apply-move}-{end-daemon-apply-move},
 ]{../src/README.org}
