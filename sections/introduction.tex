@@ -59,6 +59,24 @@ For some programming languages,
 While these libraries assist in modeling the raw graph,
   they provide little to no assistance in creating, testing, or maintaining the algorithm itself.
 
+This is not to say that there aren't many excellent frameworks in which to \emph{deploy} self-stabilizing algorithms.
+For example, "libcircle" is \enquote{an API to provide an efficient distributed queue on a cluster}.
+Using a blazingly fast algorithm described by~\autocite{lafon:libcircle},
+  it is able to \enquote{quickly traverse and perform operations on a file tree which contains several hundred-million file nodes}.
+This is a good tool to use, but is unfriendly as far as self-stabilization research is concerned.
+The tool is written in and requires the use of C
+  \Dash an \emph{excellent} choice of language in industries where speed is of the essence \Dash
+but it would seem unwise to create the algorithm itself by interactively testing with its use \Dash "ssa-tool" fills that hole.
+
+On GitHub, "fintler/balancemq" provides another such API, this time written in Python,
+  using an algorithm described by \autocite{lafon:balanceMQ}.
+Again, while claiming to be an API for self-stabilizing algorithms,
+  this (albeit useful) project does not provide true tools to create and work with fault-tolerant systems in the general case.
+Nevertheless, these projects are excellent examples of the usefulness of these algorithms to the industry and
+  the necessity of their existence and exploration.
+\todo[cite]{How do I cite GitHub projects?
+  I'm not sure who they're by, but they cite papers containing the algorithms used.}
+
 It seems that this is partly due to the lack of definition as to
   \emph{what} exactly a self-stabilizing algorithm is.
 \todo{Is this still valid?  Check sources.  I think I found rigorous definitions.  Cf. reflection.}
@@ -77,7 +95,7 @@ This paper presents and defends such a toolset
   along with a graphical utility to provide an easy interface and collaboration.
 Complete with a graphical interface which supports
   maintaining libraries of \object{Predicate} and \object{Move} objects for later assembly,
-  \texttt{ssa-tool} provides researchers with tools to test algorithms in batch and by hand.
+  "ssa-tool" provides researchers with tools to test algorithms in batch and by hand.
 \begin{draftvspace}{4in}
   Absolutely \emph{must} expand on this more.
   Go into what exactly happens, why it is necessary, what is possible, a potential use case, \dots.
