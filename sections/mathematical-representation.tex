@@ -109,17 +109,19 @@ A self-stabilizing algorithm converges if and only if
   \label{eq:define-ssalg:converge}
   \Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}.
 \end{equation}
-That is, after some finite number of moves $N$, no vertex in the graph is privileged.
+That is, after some finite number of moves $N \in \Naturals$,
+  no predicate $p \in P$ privileges any vertex $v \in G$.
 \todo[ask]{Is there a mathematical way of expressing repeated application like this?
   Ask Susan or Sandy or one of the math profs if Alan doesn't know.}
-If there are node, no node can make a move and
+If there are no privileged nodes, no node can make a move and
   the system is considered \Term{stable}~\autocite{Dijkstra:1974:SSS:361179.361202}.
 
 A self-stabilizing algorithm satisfies closure if and only
   the absence of a privileged node necessarily implies a correct overall state:
 \begin{equation}
   \label{eq:define-ssalg:closure}
-  \ForAll{p \in P, v \in V}{p(v) = 0} \implies \text{$G$ is in a correct state}.
+  \Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}
+  \implies \text{$G$ is in a correct state}.
 \end{equation}
 
 %%% Local Variables: 
