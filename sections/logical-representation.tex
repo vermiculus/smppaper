@@ -36,7 +36,7 @@ linerange=predicate-endpredicate,
 According to~\eqref{eq:define-move},
   a move is defined as a function
   $\Function{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}$.
-This is directly translated into Python in~\autoref{lst:move}.
+This is directly translated into Python as a \object{Move} object in~\autoref{lst:move}.
 \begin{warning}
   As with \object{Predicate}s above,
     it is assumed that the function definition matches
@@ -64,7 +64,7 @@ linerange=move-endmove,
 According to~\eqref{eq:define-ssalg},
   a self-stabilizing algorithm is defined as a collection
   of these \object{Predicate} and \object{Move} objects.
-These must be provided as the Python dictionary "ruleset",
+These must be provided as the constructor argument "ruleset",
   as in \autoref{lst:algorithm-init}.
 \lstinputlisting[
 float,

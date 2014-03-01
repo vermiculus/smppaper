@@ -2,8 +2,6 @@
  (lambda ()
     (LaTeX-add-bibliographies
      "refs")
-    (TeX-add-symbols
-     '("inputsection" 1))
     (TeX-run-style-hooks
      "menukeys"
      "gitinfo"
@@ -32,5 +30,12 @@
      "letterpaper"
      "maxp=30"
      "minp=25"
-     "abstract")))
+     "abstract"
+     "sections/introduction"
+     "sections/mathematical-representation"
+     "sections/logical-representation"
+     "sections/interface-ssa"
+     "sections/interface-test"
+     "sections/interface-interop"
+     "sections/reflection")))
 
