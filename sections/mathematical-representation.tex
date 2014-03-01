@@ -9,30 +9,15 @@ To prove its correctness, all necessary definitions will be
 \label{sec:math-defin:graphs}
 
 A graph is a mathematical construct
-  consisting of nodes (or \Term{vertices}) and edges between them:
-  \begin{equation}
-    \label{eq:define-graph}
-    G = (V, E).
-  \end{equation}
+  consisting of vertices $V$ and edges $E$ between them: $G = (V, E)$.
 \done[don't need to worry about it]
 \todo[ask]{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated? do I even need to worry about this?}
 
-When any node $n$ is considered, we define its open neighborhood in $G$ to be
-  the set of all nodes $v$ such that $n$ is connected (or \Term{adjacent} to) $v$:
-  \begin{equation}
-    \label{eq:define-open-neighborhood}
-    \OpenNeighborhood{n} = \Set{v}[(n, v) \in E]
-  \end{equation}
-  and the closed neighborhood is defined as $n$ together with its neighbors:
-  \todo[warn]{Yes, I know that my union notation for
-    \eqref{eq:define-closed-neighborhood} (and others?) is nasty.
-    I'm working on it, but the representation isn't a priority at this stage.
-    (It's a \LaTeX 3 command that can take a comma-separated list of things to union
-    and will then insert unions between them all.)}
-  \begin{equation}
-    \label{eq:define-closed-neighborhood}
-    \ClosedNeighborhood{n} = \Union{\OpenNeighborhood{n}, \Set{n}}.
-  \end{equation}
+We define its open neighborhood of $v \in G$ to be
+  the set of all nodes $u$ such that $v$ is adjacent to $u$:
+  $\OpenNeighborhood{n} = \Set{v}[(n, v) \in E]$
+  and the closed neighborhood is defined as $v$ together with its neighbors:
+  $\ClosedNeighborhood{n} = \Union{\OpenNeighborhood{n}, \Set{n}}$.
 
 \begin{comment}
 \subsection{Finite State Machine}
