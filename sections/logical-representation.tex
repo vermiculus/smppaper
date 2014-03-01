@@ -105,6 +105,10 @@ These assertions (which can be reviewed in~\autoref{lst:algorithm-type-check}) c
   \item each predicate is a function of two arguments.
   \end{itemize}
 \end{itemize}
+It is quite possible that time could be saved by
+  forgoing this initial type-check and simply assuming the behavior exists.
+It is unknown to me whether dynamic error-catching (as in a "try"--"catch" block)
+  introduces a time constraint, where it would be far more detrimental to actual use.
 \lstinputlisting[
 float,
 caption={Ensuring the rule-set we were given is usable as
