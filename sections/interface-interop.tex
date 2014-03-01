@@ -4,9 +4,46 @@ There are several graph formats already in existence.
 As this project uses NetworkX~\autocite{hagberg:networkx} for its internal representation,
   it inherits all of the abilities of this library.
 Several input and output formats are available.
+\begin{table}
+  \centering
+  \providecommand\yes{T}
+  \providecommand\no{F}
+  \begin{tabular}{rcccc}
+    \toprule
+    Format  & Predicate & Move & Graph & Algorithm \\
+    \midrule
+    Text    & \yes      & \yes & \yes  & \yes      \\
+    GraphML & \no       & \no  & \yes  & \no       \\
+    GEXF    & \no       & \no  & \yes  & \no       \\
+    PDF     & \yes      & \yes & \yes  & \yes      \\
+    \bottomrule
+  \end{tabular}
+  \caption{Import possibilities}
+  \label{tab:interop:import}
+\end{table}
+\begin{table}
+  \centering
+  \providecommand\yes{T}
+  \providecommand\no{F}
+  \begin{tabular}{rcccc}
+    \toprule
+    Format  & Predicate & Move & Graph & Algorithm \\
+    \midrule
+    Text    & \yes      & \yes & \yes  & \yes      \\
+    GraphML & \no       & \no  & \yes  & \no       \\
+    GEXF    & \no       & \no  & \yes  & \no       \\
+    PDF     & \yes      & \yes & \yes  & \yes      \\
+    \bottomrule
+  \end{tabular}
+  \caption{Export possibilities}
+  \label{tab:interop:export}
+\end{table}
+
 
 \subsection{Import}
 \label{sec:interop:import}
+
+To import a graph
 
 \subsection{Export}
 \label{sec:interop:export}
