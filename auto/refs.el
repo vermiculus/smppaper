@@ -13,5 +13,6 @@
      "arora:closure-and-convergence"
      "brooks:mythical-man-month"
      "lafon:balanceMQ"
-     "dolev:talk")))
+     "dolev:talk"
+     "palesz:graphsharp")))
 
