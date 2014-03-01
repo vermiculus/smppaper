@@ -11,5 +11,6 @@
      "qadeer:verifying-ssa"
      "python3:ref"
      "arora:closure-and-convergence"
-     "brooks:mythical-man-month")))
+     "brooks:mythical-man-month"
+     "lafon:balanceMQ")))
 
