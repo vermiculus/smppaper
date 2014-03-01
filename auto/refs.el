@@ -14,5 +14,6 @@
      "brooks:mythical-man-month"
      "lafon:balanceMQ"
      "dolev:talk"
+     "knuth:lit-prog"
      "palesz:graphsharp")))
 
