@@ -44,6 +44,8 @@ letterpaper,
   showstringspaces=false,
   showspaces=false,
   showtabs=false,
+  basicstyle=\ttfamily,
+  morecomment=[s]{<<}{>>},
 }
 \renewcommand*\lstlistlistingname{List of Listings}
 \lstMakeShortInline[basicstyle=\small\ttfamily]"
@@ -51,6 +53,11 @@ letterpaper,
 \makeatletter\renewcommand*\@tododisplay[1]{}\makeatother
 
 \usepackage{microtype}
+\usepackage{fontspec}
+\setmainfont[Ligatures={TeX}]{Baskerville}
+\setmathrm{Baskerville}
+\setsansfont[Scale=.9]{Helvetica Neue Light}
+\setmonofont{Courier}
 
 \usepackage[
 backend=biber,

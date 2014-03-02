@@ -63,16 +63,23 @@ I'm not saying the creation of an interface is trivial \Dash quite the contrary 
   but I am saying it will require a very different throughout process to do well.
 I haven't formally decided on the graphical interface I want to use yet, but Tkinter seems like the natural choice.
 \todo[cite]{tkinter}
-When I discovered PyGame \Dash realizing that what I needed was a bare-bones graphics library for the graph-drawing portion \Dash
+When I discovered PyGame \Dash realizing that what I needed was
+  a bare-bones graphics library for the graph-drawing portion \Dash
   it was a frustrating install to say the least on my late 2009 MacBook.
 \todo[cite]{pygame}
-When I finally upgraded to the current model MacBook Pro, the install process went smoothly and quickly.
-I will insert the install scripts of the packages I installed with Homebrew.
-\todo{insert package install scripts \Dash they are in setup.org and should probably be moved into README.org}
+When I finally upgraded to the current model MacBook Pro,
+  the install process went smoothly and quickly.
+\autoref{lst:dev-install} details the installation procedure for development.
 
-\begin{draftvspace}{3in}
-  Install script space
-\end{draftvspace}
+\begin{lstlisting}[
+language=sh,
+caption={Development installation on Mac OS\,X},
+label={lst:dev-install},
+morekeywords={brew,sudo,pip,install},
+]
+$ brew install sdl sdl_image sdl_mixer sdl_ttf portmidi hg
+$ sudo pip install networkx hg+http://bitbucket.org/pygame/pygame
+\end{lstlisting}
 
 \subsection{The Grand Distraction}
 Everyone loves well-documented software.
