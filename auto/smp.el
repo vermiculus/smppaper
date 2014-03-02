@@ -2,6 +2,8 @@
  (lambda ()
     (LaTeX-add-bibliographies
      "refs")
+    (TeX-add-symbols
+     '("meta" 1))
     (TeX-run-style-hooks
      "menukeys"
      "gitinfo"
@@ -13,7 +15,7 @@
      "fontspec"
      "microtype"
      "todo"
-     "hide"
+     "marginpar"
      "array"
      "booktabs"
      "fancyhdr"
@@ -28,9 +30,10 @@
      "amssymb"
      "amsmath"
      "latex2e"
-     "smcm-cosc-smp10"
+     "smcm-cosc-smp12"
      "smcm-cosc-smp"
      ""
+     "12pt"
      "letterpaper"
      "maxp=30"
      "minp=25"

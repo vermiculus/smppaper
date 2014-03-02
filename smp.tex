@@ -49,8 +49,8 @@ letterpaper,
 }
 \renewcommand*\lstlistlistingname{List of Listings}
 \lstMakeShortInline[basicstyle=\small\ttfamily]"
-\usepackage[hide]{todo}
-\makeatletter\renewcommand*\@tododisplay[1]{}\makeatother
+\usepackage[marginpar]{todo}
+%\makeatletter\renewcommand*\@tododisplay[1]{}\makeatother
 
 \usepackage{microtype}
 \usepackage{fontspec}
@@ -61,8 +61,6 @@ letterpaper,
 
 \usepackage[
 backend=biber,
-%autocite=footnote,
-%style=authoryear,
 ]{biblatex}
 
 \addbibresource{refs.bib}
@@ -104,6 +102,7 @@ backend=biber,
 %\geometry{showframe}
 \setlength\parskip{1ex}
 \setlength\parindent{0em}
+\newcommand\meta[1]{[\itshape#1]}
 
 \begin{document}
 \maketitle
