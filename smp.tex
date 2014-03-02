@@ -44,8 +44,9 @@ letterpaper,
   showstringspaces=false,
   showspaces=false,
   showtabs=false,
-  basicstyle=\ttfamily,
-  morecomment=[s]{<<}{>>},
+  basicstyle=\small\ttfamily,
+  moredelim=*[s][\lst@stringstyle]{"""}{"""},
+  moredelim=[s][\lst@commentstyle]{<<}{>>},
 }
 \renewcommand*\lstlistlistingname{List of Listings}
 \lstMakeShortInline[basicstyle=\small\ttfamily]"
