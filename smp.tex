@@ -21,6 +21,7 @@ letterpaper,
 ]{smcm-cosc-smp}[2013/12/23]
 
 \usepackage{amsmath, amssymb, amsthm}
+\usepackage{pifont}
 \usepackage{smcm-math, smcm-cosc-graphs}
 \usepackage{markup}
 \usepackage{csquotes}
@@ -28,6 +29,7 @@ letterpaper,
 \usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage{booktabs}
+\usepackage{array}
 \lstset{
   rangeprefix=\#\%\ ,
   rangesuffix=\ \%\#,
@@ -105,6 +107,7 @@ backend=biber,
 \end{abstract}
 
 \tableofcontents
+\listoftables
 \listoffigures
 \lstlistoflistings
 \newpage
@@ -173,7 +176,6 @@ backend=biber,
 \section*{Example Code}
 \lstinputlisting[caption=Example Code]{../src/example.py}
 
-\nocite{*}
 \newpage
 \printbibliography
 
