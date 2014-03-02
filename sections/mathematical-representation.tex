@@ -11,7 +11,7 @@ To prove its correctness, all necessary definitions will be
 A graph is a mathematical construct
   consisting of vertices $V$ and edges $E$ between them: $G = (V, E)$.
 \done[don't need to worry about it]
-\todo[ask]{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated? do I even need to worry about this?}
+\todo[ask]{graphs are also rep'd as sets of edges $v_1v_2$, but how are orphans notated? do I even need to worry about this?}%
 We define its open neighborhood of $v \in G$ to be
   the set of all nodes $u$ such that $v$ is adjacent to $u$:
   $\OpenNeighborhood{n} = \Set{v}[(n, v) \in E]$
@@ -23,8 +23,8 @@ We define its open neighborhood of $v \in G$ to be
 \label{sec:math-define:fsm}
 
 A finite state machine (\textsc{fsm})
-  \todo{use acro package}
-  \todo{may not even \emph{need} this section}
+  \todo{use acro package}%
+  \todo{may not even \emph{need} this section}%
   is a mathematical model of computation
   described by an alphabet $\Sigma$,
   a finite number of states $Q$,
@@ -35,7 +35,7 @@ Thus, a fsm is defined by the five-tuple %TODO
   \[ M = (\Sigma, Q, q_0, F, \delta). \]
 These can be represented as graphs where nodes are states in $Q$ and
   transitions are directed edges between them.
-\todo[cite]{finite state machine}
+\todo[cite]{finite state machine}%
 \end{comment}
 
 \subsection{Self-Stabilizing Algorithm}
@@ -43,7 +43,7 @@ These can be represented as graphs where nodes are states in $Q$ and
 
 As defined by \citeauthor{dew:sem}~\autocite{dew:sem},
   \done[Looks so much better this way]
-  \todo{\texttt{citefield} the author}
+  \todo{\texttt{citefield} the author}%
   a self-stabilizing algorithm is a contruct composed of
   predicates and corresponding moves.
 Both are functions of a single node and its neighbors.\footnote{%
@@ -71,7 +71,7 @@ Formally, we may define such an algorithm $S$ to be a discrete function
   \end{equation}
 \done[Nope! Not really]
 \todo[ask]{Is there a better way of describing random choice?
-  Any conventions that are set, notationally speaking?}
+  Any conventions that are set, notationally speaking?}%
 It was defined in this way to clarify the logical representation of the algorithm;
   see Section~\ref{sec:logic-repr:self-stab-algor}.
 To distinguish from other uses of \Term{algorithm},
@@ -83,11 +83,11 @@ Two properties of the algorithm must be shown
 \item[convergence] The algorithm must complete using a finite number of moves.
 \item[closure] If the algorithm completes, the system is in a correct state.
   \done[closure and convergence are \emph{it}]
-  \todo[ask]{Determine the qualities of the algorithm that must be shown.}
+  \todo[ask]{Determine the qualities of the algorithm that must be shown.}%
 \end{description}
 
 A self-stabilizing algorithm converges if and only if $\Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}.$
-\todo[ask]{should this be a citation or a lemma?}
+\todo[ask]{should this be a citation or a lemma?}%
 \begin{comment}
   \label{eq:define-ssalg:converge}
   \Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}.
@@ -95,7 +95,7 @@ A self-stabilizing algorithm converges if and only if $\Exists{N \in \Naturals}{
 That is, after some finite number of moves $N \in \Naturals$,
   no predicate $p \in P$ privileges any vertex $v \in G$.
 \todo[ask]{Is there a mathematical way of expressing repeated application like this?
-  Ask Susan or Sandy or one of the math profs if Alan doesn't know.}
+  Ask Susan or Sandy or one of the math profs if Alan doesn't know.}%
 If there are no privileged nodes, no node can make a move and
   the system is considered \Term{stable}~\autocite{dew:sem}.
 

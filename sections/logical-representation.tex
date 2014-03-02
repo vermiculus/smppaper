@@ -47,9 +47,9 @@ This is directly translated into Python as a \object{Move} object in~\autoref{ls
     and all \emph{internal} functions will indeed pass it appropriate values.
   It is left as an unintelligent definition to enable later extension.
 \end{warning}
-\todo[code]{Make sure this is as advertised.}
+\todo[code]{Make sure this is as advertised.}%
 \todo[code]{Perhaps this can be mitigated?
-  Pass a simple star graph to the function to see if it returns the right thing?}
+  Pass a simple star graph to the function to see if it returns the right thing?}%
 \lstinputlisting[
 float,
 caption={A move is a function $\Function{n, \OpenNeighborhood{n}}
@@ -89,7 +89,7 @@ linerange={algorithm-ruleset-ex}-{end-algorithm-ruleset-ex},
 \subsubsection{Type Checking}
 \label{sec:logic-repr:self-stab-algor:type-checking}
 
-\todo[reword]{awkward phrasing}
+\todo[reword]{awkward phrasing}%
 Since there is a strict definition on an algorithm's ruleset
   where neglecting to adhere to a specific format and behavior
   will cause other parts of the system to fail,
@@ -127,10 +127,10 @@ The \object{Algorithm} class plays double-duty to fulfill this role as a default
   but perhaps this should be altered.
 \todo[code]{Should \object{Algorithm} actually know how to run itself,
   or should a separate \object{Daemon} object be created to handle this?
-  Honestly, I'm leaning toward the latter.}
+  Honestly, I'm leaning toward the latter.}%
 The overall implementation and interface is available in~\autoref{lst:daemon-run},
   but we will look at each part individually.
-\todo[code]{The algorithm should automatically stop when it has stabilized.}
+\todo[code]{The algorithm should automatically stop when it has stabilized.}%
 \lstinputlisting[
 float=p,
 caption={A generalized run of a self-stabilizing algorithm.},
@@ -174,7 +174,7 @@ If it is privileged, we add the privileged node to a dictionary called "privileg
   Altering the data structure used for "privileged_nodes" may remove this limitation.
 \end{warning}
 \todo[code]{Perhaps we should just collect all predicate--move pairs in a set
-  and randomly choose one?  This would be more statistically sound, but does it matter?}
+  and randomly choose one?  This would be more statistically sound, but does it matter?}%
 
 \lstinputlisting[
 float=p,
