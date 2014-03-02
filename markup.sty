@@ -36,9 +36,9 @@
     { N            [ #2 ] }
 }
 
-\ProvideDocumentCommand \Function { O{\lambda} m m }
+\ProvideDocumentCommand \Function { s O{\lambda} m m }
 {
-  #1 \colon #2 \to #3
+  #2 \colon #3 \IfBooleanT{#1}{&} \to #4
 }
 
 \ProvideDocumentCommand \cross { }
