@@ -1,5 +1,60 @@
 \section{Interoperability}
 \label{sec:iface-interoperability}
+Since "ssa-tool" deals with many different entities (see~\autoref{tab:format-spec}),
+  there is only one formal file type that it deals with natively: XML.
+This single format (extension ".ssa") branches of into several \Term{sub-formats}
+  that are controlled by the format specifiers listed in~\autoref{tab:format-spec}.
+Formal schemas for these are available in the sources,
+  but I produce a simple example of the "predicate" format in~\autoref{lst:interop:xml-pred}.
+\begin{lstlisting}[
+language=xml,
+caption={An example predicate in XML format},
+alsodigit={-}
+label={lst:interop:xml-pred},
+morekeywords={ssa:save,ssa:format,ssa:predicate,ssa:function,ssa:human-documentation,ssa:texnical-documentation,ssa:function-body,name,function-name,node-arg,neighborhood-arg},
+]
+<ssa:save>
+  <ssa:format version="1.0" entity="predicate" />
+  <ssa:predicate name="All Neighbors Unmarked"
+        function-name="all_neighbors_unmarked"
+             node-arg="this_node"
+     neighborhood-arg="neighbors">
+    <ssa:texnical-documentation>
+      \forall u in N(v) "marked"(u) = 0
+    </ssa:texnical-documentation>
+    <ssa:human-documentation>
+      Each node in the neighborhood of
+      the current node is unmarked.
+    </ssa:human-documentation>
+    <ssa:function-body>
+      return all(map(lambda u: not u['marked'],
+                     neighbors))
+    </ssa:function-body>
+  </ssa:predicate>
+</ssa:save>
+\end{lstlisting}
+\begin{warning}[2]
+  This file format may introduce bugs where the function documentation includes valid XML.
+  Work \emph{must} be done to either mitigate this risk or remove it entirely.
+\end{warning}
+
+\begin{table}
+  \centering
+  \begin{tabular}{r>{\ttfamily\small entity=\char`"}l<{\char`"}}
+    \toprule
+    Entity    & format    \\
+    \midrule
+    Predicate & predicate \\
+    Move      & move      \\
+    Graph     & graph     \\
+    Algorithm & algorithm \\
+    Test      & algtest   \\
+    \bottomrule
+  \end{tabular}
+  \caption{Entity specifiers of the native SSA format}
+  \label{tab:format-spec}
+\end{table}
+
 There are several graph formats already in existence.
 As this project uses NetworkX~\autocite{hagberg:networkx} for its internal representation,
   it inherits all of the abilities of this library.
@@ -43,7 +98,18 @@ Several input and output formats are available.
 \subsection{Import}
 \label{sec:interop:import}
 
-To import a graph
+\begin{figure}
+  \centering
+  \includegraphics{example-image-a}
+  \caption{Importing an algorithm test (packaged as algorithm + graph)}
+  \label{fig:iface:alg-test-import}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics{example-image-b}
+  \caption{Exporting an algorithm test (packaged as algorithm + graph)}
+  \label{fig:iface:alg-test-export}
+\end{figure}
 
 \subsection{Export}
 \label{sec:interop:export}
