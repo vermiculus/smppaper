@@ -48,19 +48,18 @@ As defined by \citeauthor{dew:sem}~\autocite{dew:sem},
   predicates and corresponding moves.
 Both are functions of a single node and its neighbors.\footnote{%
   Note that this is not the same as the closed neighborhood of a node.
-  Consider these as functions $\Function{n, \OpenNeighborhood{n}}{\Set ?}$}
-Predicate are functions to the Boolean values,
-  \begin{equation}
-  \label{eq:define-predicate}
-  \Function[P]{n, \OpenNeighborhood{n}}{\SetBoolean},
-  \end{equation}
-  where each move updates the state of the system:
-  \begin{equation}
-  \label{eq:define-move}
-  \Function[M]{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}.
-  \end{equation}
+  Consider these as functions $\Function{n, \OpenNeighborhood{n}}{\Set ?}$.}
+\Term{Predicates} are functions to the Boolean values~\eqref{eq:define-predicate},
+  where each \Term{moves} updates the state of the system~\eqref{eq:define-move}.
 When a predicate evaluates to $\BooleanTrueValue$ for any node $n$,
   it is said that $n$'s privilege is present.
+\begin{align}
+  \label{eq:define-predicate}
+  \Function[P]{n, \OpenNeighborhood{n}}{\SetBoolean},
+  \\
+  \label{eq:define-move}
+  \Function[M]{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}.
+\end{align}
 
 A self-stabilizing algorithm can thus be seen as
   a collection of these predicate--move pairs.
@@ -87,12 +86,12 @@ Two properties of the algorithm must be shown
   \todo[ask]{Determine the qualities of the algorithm that must be shown.}
 \end{description}
 
-A self-stabilizing algorithm converges if and only if
+A self-stabilizing algorithm converges if and only if $\Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}.$
 \todo[ask]{should this be a citation or a lemma?}
-\begin{equation}
+\begin{comment}
   \label{eq:define-ssalg:converge}
   \Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}.
-\end{equation}
+\end{comment}
 That is, after some finite number of moves $N \in \Naturals$,
   no predicate $p \in P$ privileges any vertex $v \in G$.
 \todo[ask]{Is there a mathematical way of expressing repeated application like this?
