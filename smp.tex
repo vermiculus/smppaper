@@ -9,94 +9,18 @@
 \documentclass[
 minp=25,
 maxp=30,
-letterpaper,
-12pt,
+literate,
+todo=marginpar,
 ]{smcm-cosc-smp}[2013/12/23]
 
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{pifont}
-\usepackage{smcm-math, smcm-cosc-graphs}
-\usepackage{markup}
-\usepackage{csquotes}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{fancyhdr}
-\usepackage{booktabs}
-\usepackage{array}
-\lstset{
-  rangeprefix=\#\%\ ,
-  rangesuffix=\ \%\#,
-  includerangemarker=false,
-  %gobble=2,% TODO doesn't work for inputlisting
-  frame=single,
-  frameround=tttt,
-  backgroundcolor=\color{blue!5},
-  rulecolor=\color{blue!50!black}, % TODO background color extends past rounded corner
-  language=Python,
-  morekeywords={assert,self},
-  showstringspaces=false,
-  showspaces=false,
-  showtabs=false,
-  basicstyle=\small\ttfamily,
-  moredelim=*[s][\lst@stringstyle]{"""}{"""},
-  moredelim=[s][\lst@commentstyle]{<<}{>>},
-}
-\renewcommand*\lstlistlistingname{List of Listings}
-\lstMakeShortInline[basicstyle=\small\ttfamily]"
-\usepackage[marginpar]{todo}
-%\makeatletter\renewcommand*\@tododisplay[1]{}\makeatother
-
-\usepackage{microtype}
-\usepackage{fontspec}
-\setmainfont[Ligatures={TeX}]{Baskerville}
-\setmathrm{Latin Modern Roman}
-\setsansfont[Scale=.8]{Helvetica Light}
-\setmonofont{Courier}
-
-\usepackage[
-backend=biber,
-]{biblatex}
+\usepackage{packages, pagesetup, markup, lstconf}
 
 \addbibresource{refs.bib}
 
-\usepackage{tikz}
-\usetikzlibrary{automata}
-
-\usepackage[hidelinks]{hyperref}
-\hypersetup{
-  pdfauthor={Sean Allred},
-  pdftitle={SSA-Tool: A Utility for the Creation and Evaluation of Self-Stabilizing Algorithms},
-  pdfsubject={Graph Theory},
-  pdfkeywords={Graph,Algorithm,Distributed},
-  pdfcreator={XeTeX}
-}
-
-\usepackage{gitinfo}
-\fancypagestyle{plain}{%
-  \fancyhf{}
-  \rfoot{\color{gray}\ttfamily\small r@\gitAbbrevHash}
-  \renewcommand\headrulewidth{0pt}
-  \cfoot{\thepage}}
-\pagestyle{plain}
-
-\usepackage{menukeys}           % actually has to be loaded after hyperref?
-
-                                \title
-                         {\texttt{ssa-tool}}%
-              [A Utility for the Creation and Evaluation \\
-                   of Self-Stabilizing Algorithms]
-
-                               \author
-                            {Sean Allred}%
-                           [Alan Jamieson]
-
-                                \date
-                           {14 April 2013}
-
-%\geometry{showframe}
-\setlength\parskip{1ex}
-\setlength\parindent{0em}
-\newcommand\meta[1]{[\textit{#1}]}
+\title{\texttt{ssa-tool}}[A Utility for the Creation and Evaluation \\
+                               of Self-Stabilizing Algorithms]
+\author{Sean Allred}[Alan Jamieson]
+\date{14 April 2013}
 
 \begin{document}
 \maketitle

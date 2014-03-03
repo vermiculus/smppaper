@@ -1,101 +1,46 @@
-\ProvidesExplPackage
-{markup}
-{2013/12/20}
-{1.0}
-{Markup commands for my SMP}
+\RequirePackage{packages}
 
-\ProvideDocumentCommand \suchthat { } { : }
+\lstMakeShortInline[basicstyle=\small\ttfamily]"
 
-% \Set\bigg{v}[uv \in G]
-\ProvideDocumentCommand \Set { o m o }
-{
-  \IfValueT { #1 } { #1 }
-  \{
-  #2
-  \IfValueT { #3 } { \suchthat #3 }
-  \IfValueT { #1 } { #1 }
-  \}
+\ExplSyntaxOn
+\NewDocumentCommand \meta { m } {
+  [ \textit{#1} ]
 }
 
-% \OpenNeighborhood{n}[G]
-
-% Note that \sb is used as the subscript character - this is defined
-% in Plain to be the subscript underscore, where expl3 syntax declares
-% the underscore to be a letter.
-\ProvideDocumentCommand \OpenNeighborhood { o m }
-{
-  \IfValueTF { #1 }
-    { N ^   { #1 } ( #2 ) }
-    { N            ( #2 ) }
-}
-
-\ProvideDocumentCommand \ClosedNeighborhood { o m }
-{
-  \IfValueTF { #1 }
-    { N ^   { #1 } [ #2 ] }
-    { N            [ #2 ] }
-}
-
-\ProvideDocumentCommand \Function { s O{\lambda} m m }
-{
-  #2 \colon #3 \IfBooleanT{#1}{&} \to #4
-}
-
-\ProvideDocumentCommand \cross { }
-{
-  \times
-}
-
-\ProvideDocumentCommand \Term { m }
-{
+\NewDocumentCommand \Term { m } {
   \enquote* { #1 }
 }
 
-\ProvideDocumentCommand \BooleanTrueValue { }
-{
-  \text{True}
-}
-
-\ProvideDocumentCommand \BooleanFalseValue { }
-{
-  \text{False}
-}
-
-\ProvideDocumentCommand \SetBoolean { }
-{
-  \Set{\BooleanTrueValue, \BooleanFalseValue}
-}
-
-\ProvideDocumentCommand \ie { }
-{
+\NewDocumentCommand \ie { } {
   i.\,e.
   \nobreakspace
 }
 
-\ProvideDocumentCommand \eg { }
-{
+\NewDocumentCommand \eg { } {
   e.\,g.
   \nobreakspace
 }
 
-\ProvideDocumentCommand \object { m }
-{
+\NewDocumentCommand \object { m } {
   \textsf{#1}
 }
 
-\ProvideDocumentCommand \Union { O{\cup} O{,} m }
-{
-  \seq_set_split:Nnn \l_tmpa_seq { #2 } { #3 }
-  \seq_use:Nn \l_tmpa_seq { #1 }
-}
-
-\ProvideDocumentCommand \citeay { m }
-{
+\NewDocumentCommand \citeay { m } {
   \citeauthor{#1},\nobreakspace\citeyear{#1}
 }
 
-\renewcommand\Elide{\unskip\nobreakspace\textup{[\dots]}~\ignorespaces\allowbreak}
+\NewDocumentCommand \BooleanTrueValue { } {
+  \text{True}
+}
 
+\NewDocumentCommand \BooleanFalseValue { } {
+  \text{False}
+}
+
+\NewDocumentCommand \SetBoolean { } {
+  \Set{\BooleanTrueValue, \BooleanFalseValue}
+}
+\ExplSyntaxOff
 
 %%% Local Variables:
 %%% mode: latex

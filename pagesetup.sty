@@ -1,0 +1,26 @@
+\RequirePackage{packages}
+
+\RequirePackage{gitinfo}
+\RequirePackage{fancyhdr}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \rfoot{\color{gray}\ttfamily\small r@\gitAbbrevHash}
+  \renewcommand\headrulewidth{0pt}
+  \cfoot{\thepage}}
+\pagestyle{plain}
+
+\RequirePackage{microtype}
+\RequirePackage{fontspec}
+\setmainfont[Ligatures={TeX}]{Baskerville}
+\setmathrm{Latin Modern Roman}
+\setsansfont[Scale=.8]{Helvetica Light}
+\setmonofont{Courier}
+
+\hypersetup{
+  hidelinks,
+  pdfauthor={Sean Allred},
+  pdftitle={SSA-Tool: A Utility for the Creation and Evaluation of Self-Stabilizing Algorithms},
+  pdfsubject={Graph Theory},
+  pdfkeywords={Graph,Algorithm,Distributed},
+  pdfcreator={XeTeX}
+}
