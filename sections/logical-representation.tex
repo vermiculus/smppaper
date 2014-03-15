@@ -7,56 +7,74 @@ The following listings serve to introduce the organization of the library and
     All development is tracked as a literate program on GitHub
     at \url{http://www.github.com/vermiculus/ssa-tool}.}
 
-\subsection{Predicate}
-\label{sec:logic-repr:predicate}
+\subsection{Predicate and Moves}
+\label{sec:logic-repr:predicate-move}
 
-According to~\eqref{eq:define-predicate},
-  a predicate is defined as some function of
-  a node and its neighborhood returning a Boolean value.
-This is reflected in~\autoref{lst:predicate},
-  where the \object{Predicate} object maintains a pure Python function
-  which is stored and called with the arguments $n$ and $\OpenNeighborhood{n}$,
-  respectively.
+According to~\eqref{eq:define-predicate} and \eqref{eq:define-move},
+  both predicates and moves are defined as simple functions of
+  a node and its neighbors, where
+  each predicate returns a Boolean value and
+  each move returns an updated node and neighborhood.
+In order for the tool to be useful however,
+  there needs to be both documentation (discussed in \S\ref{iface:document:pred-move})
+  and at least a few pieces of other metadata attached to these basic elements.
+The population of this metadata is the responsibility of two distinct decorators
+  \Dash "@predicate" and "@move" \Dash
+  that take a number of arguments to provide mandatory metadata
+  and also parse the following function's docstring
+  to come up with the following standard pieces of metadata:
+\begin{itemize}
+\item mandatory metadata given as arguments to the decorator
+  \begin{description}
+  \item[author] author(s) of the function
+  \item[version] version of the function
+  \item[others\dots] any other optional metadata
+  \end{description}
+\item optional metadata parsed from docstring
+  \begin{description}
+  \item[summary] parsed from docstring; short summary of function
+  \item[\TeX nical documentation] parsed from docstring; mathematical definition
+  \item[long form] parsed from docstring; long form discussion of the function
+  \end{description}
+\end{itemize}
+\autoref{lst:decorate:overview} provides the general structure for each decorator,
+  where \autoref{lst:decorate:metadata} specifically provides the metadata to the function.
+\lstinputlisting[
+float,
+caption={Predicates and moves are defined similarly as decorators to functions.},
+label={lst:decorate:overview},
+litkey=predicate,
+]{src/core/Algorithm.org}
+\lstinputlisting[
+float,
+caption={Each decorator defines some metadata for its function.},
+label={lst:decorate:metadata},
+litkey={define-metadata}
+]{src/core/Algorithm.org}
+
 \begin{warning}
   It is assumed that the actual neighborhood is given.
   This object is intended to be used only internally,
     and all \emph{internal} functions will indeed pass it the distance-1 neighborhood.
   It is left as an unintelligent definition to enable later extension.
-\end{warning}
-\lstinputlisting[
-float,
-caption={A predicate is a function $\Function{n, \OpenNeighborhood{n}}{\SetBoolean}$},
-label={lst:predicate},
-linerange={predicate}-{end-predicate},
-]{src/core/Algorithm.org}
 
-\subsection{Move}
-\label{sec:logic-repr:move}
+  Note that there are \emph{absolutely no sanity checks} concerning
+    the proper signatures of each function save only the number of arguments it takes.
+  Any such checking would seem to be faulty for at least a small set of edge cases
+    depending on the method taken.
+  The only thing that can be reliably checked is the argument count of the function definition.
+  (It is perhaps possible to parse the function definition's source code
+    using the "inspect" module, but this is already well outside the scope of this first release.
 
-According to~\eqref{eq:define-move},
-  a move is defined as a function
-  $\Function{n, \OpenNeighborhood{n}}{n^\prime, \OpenNeighborhood[\prime]{n}}$.
-This is directly translated into Python as a \object{Move} object in~\autoref{lst:move}.
-\begin{warning}
-  As with \object{Predicate}s above,
-    it is assumed that the function definition matches
-    the mathematical definition given in~\eqref{eq:define-move}.
-  Specifically, the function \emph{must} return a tuple of
-    the new node and new neighborhood as its move.
-  This object is intended to be used only internally,
-    and all \emph{internal} functions will indeed pass it appropriate values.
-  It is left as an unintelligent definition to enable later extension.
-\end{warning}
+  As such, it is critical to remember that predicates \emph{must} return a value
+    that can at least be cast as a Boolean value (as "bool(...)" does).
+  Likewise, moves \emph{must} return a "tuple" (or other indexed collection)
+    that contains an updated node as the first index (index "0") and
+    its updated neighborhood as the second (index "1").
 \todo[code]{Make sure this is as advertised.}
 \todo[code]{Perhaps this can be mitigated?
   Pass a simple star graph to the function to see if it returns the right thing?}
-\lstinputlisting[
-float,
-caption={A move is a function $\Function{n, \OpenNeighborhood{n}}
-  {n^\prime, \OpenNeighborhood[\prime]{n}}$},
-label={lst:move},
-linerange={move}-{end-move},
-]{src/core/Algorithm.org}
+\end{warning}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:logic-repr:self-stab-algor}
@@ -68,22 +86,21 @@ These must be provided as the constructor argument "ruleset",
   as in \autoref{lst:algorithm-init}.
 \lstinputlisting[
 float,
-caption={According to~\eqref{eq:define-ssalg},
-  a self-stabilizing algorithm is exactly a
-  set of rules from predicate to moves.},
+caption={According to~\eqref{eq:define-ssalg}, a self-stabilizing algorithm is exactly
+  a set of rules from predicate to moves.},
 label={lst:algorithm-init},
-linerange=algorithm-endalgorithm,
+litkey=algorithm,
 ]{src/core/Algorithm.org}
 In an \object{Algorithm}, the "ruleset" is assumed to have
   dictionary-like structure and behavior.
 This is asserted within the constructor (as can be seen in~\autoref{lst:algorithm-type-check}),
   but perhaps the clearest definition of the structure can be given as an example.
-Refer to
+Refer to \autoref{lst:algorithm-ex} for an example of this data structure.
 \lstinputlisting[
 float,
 caption={An example structure to use as an \object{Algorithm}'s \texttt{\small ruleset}},
 label={lst:algorithm-ex},
-linerange={algorithm-ruleset-ex}-{end-algorithm-ruleset-ex},
+litkey=algorithm-ruleset-ex,
 ]{src/core/Algorithm.org}
 
 \subsubsection{Type Checking}
@@ -114,7 +131,7 @@ float,
 caption={Ensuring the rule-set we were given is usable as
   a definition of a self-stabilizing algorithm.},
 label={lst:algorithm-type-check},
-linerange={algorithm-ruleset-assertions}-{end-algorithm-ruleset-assertions},
+litkey={algorithm-ruleset-assertions},
 ]{src/core/Algorithm.py}
 
 \subsection{Central Daemon}
@@ -135,7 +152,7 @@ The overall implementation and interface is available in~\autoref{lst:daemon-run
 float=p,
 caption={A generalized run of a self-stabilizing algorithm.},
 label={lst:daemon-run},
-linerange={daemon-run}-{end-daemon-run},
+litkey={daemon-run},
 ]{src/core/Algorithm.org}
 The daemon begins by finding assembling a list of privileged nodes.
 To do this, it \emph{must} go through each node and check it for privilege.
@@ -151,14 +168,15 @@ To do this, it \emph{must} go through each node and check it for privilege.
 float=p,
 caption={Finding privileged nodes.},
 label={lst:daemon-find-privileged-nodes},
-linerange={daemon-find-privileged-nodes}-{end-daemon-find-privileged-nodes},
+litkey={daemon-find-privileged-nodes},
 ]{src/core/Algorithm.org}
+
 Within each iteration of the loop through the nodes in the graph
   (see~\autoref{lst:daemon-find-privileged-nodes}),
   we check to see if the node is privileged or not
   (see~\autoref{lst:daemon-get-privileges}).
 If it is privileged, we add the privileged node to a dictionary called "privileged_nodes".
-\begin{warning}[2]
+\begin{warning}
   We can also increase performance here with threading.
   Be careful of the difference, however:
     in the above we were simply reading information and
@@ -180,19 +198,19 @@ If it is privileged, we add the privileged node to a dictionary called "privileg
 float=p,
 caption={Getting the privileges of a single node.},
 label={lst:daemon-get-privileges},
-linerange={daemon-get-privileges}-{end-daemon-get-privileges},
+litkey={daemon-get-privileges},
 ]{src/core/Algorithm.org}
 \lstinputlisting[
 float=p,
 caption={Picking a random, satisfied predicate.},
 label={lst:daemon-pick-predicate},
-linerange={daemon-pick-predicate}-{end-daemon-pick-predicate},
+litkey={daemon-pick-predicate},
 ]{src/core/Algorithm.org}
 \lstinputlisting[
 float=p,
 caption={Applying a random move enabled by the satisfied predicate.},
 label={lst:daemon-apply-move},
-linerange={daemon-apply-move}-{end-daemon-apply-move},
+litkey={daemon-apply-move},
 ]{src/core/Algorithm.org}
 
 

@@ -6,34 +6,15 @@ This single format (extension ".ssa") branches of into several \Term{sub-formats
   that are controlled by the format specifiers listed in~\autoref{tab:format-spec}.
 Formal schemas for these are available in the sources,
   but I produce a simple example of the "predicate" format in~\autoref{lst:interop:xml-pred}.
-\begin{lstlisting}[
+\lstinputlisting[
 language=xml,
-caption={An example predicate in XML format},
-alsodigit={-},
+basicstyle=\small\ttfamily,
+caption={An example algorithm in XML format},
 label={lst:interop:xml-pred},
-morekeywords={ssa:save,ssa:format,ssa:predicate,ssa:function,ssa:human-documentation,ssa:texnical-documentation,ssa:function-body,name,function-name,node-arg,neighborhood-arg},
-]
-<ssa:save>
-  <ssa:format version="1.0" entity="predicate" />
-  <ssa:predicate name="All Neighbors Unmarked"
-        function-name="all_neighbors_unmarked"
-             node-arg="this_node"
-     neighborhood-arg="neighbors">
-    <ssa:texnical-documentation>
-      \forall u in N(v) "marked"(u) = 0
-    </ssa:texnical-documentation>
-    <ssa:human-documentation>
-      Each node in the neighborhood of
-      the current node is unmarked.
-    </ssa:human-documentation>
-    <ssa:function-body>
-      return all(map(lambda u: not u['marked'],
-                     neighbors))
-    </ssa:function-body>
-  </ssa:predicate>
-</ssa:save>
-\end{lstlisting}
-\begin{warning}[2]
+morekeywords={xmlns:ssa,ssa:algorithm,ssa:rule,ssa:move,name,description,predicate,file},
+]{src/core/example-save.xml}
+
+\begin{warning}
   This file format may introduce bugs where the function documentation includes valid XML.
   Work \emph{must} be done to either mitigate this risk or remove it entirely.
 \end{warning}

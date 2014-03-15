@@ -3,7 +3,6 @@
     (LaTeX-add-bibliographies
      "refs")
     (TeX-run-style-hooks
-     "lstconf"
      "markup"
      "pagesetup"
      "packages"
