@@ -12,8 +12,8 @@ He visualized the realization of these algorithms as taking advantage of
     a finite state machine is placed at each node;
     machines placed in directly connected nodes are called each other's neighbors.
   For each machine one or more so-called \enquote{privileges} are defined,
-    \ie boolean functions of its own state and the states of its neighbors;
-    when such a boolean function is true,
+    \ie Boolean functions of its own state and the states of its neighbors;
+    when such a Boolean function is true,
     we say that the privilege is \enquote{present}.
   In order to model the undefined speed ratios of the various machines,
     we introduce a central daemon \Dash
@@ -74,10 +74,10 @@ This is a good tool to use, but is unfriendly as far as self-stabilization resea
 The tool is written in and requires the use of C
   \Dash an \emph{excellent} choice of language in industries where speed is of the essence \Dash
   but it would seem unwise to create the algorithm itself
-  by interactively testing with its use \Dash "ssa-tool" fills that hole.
+  (and test it interactively) with such a language.
 
 On GitHub, "fintler/balancemq" provides another such API, this time written in Python,
-  using an algorithm described by \autocite{lafon:balanceMQ}.
+  using an algorithm described by \citeauthor{lafon:balanceMQ}~\autocite{lafon:balanceMQ}.
 Again, while claiming to be an API for self-stabilizing algorithms,
   this (albeit useful) project does not provide true tools to create and work with
   fault-tolerant systems in the general case.
@@ -101,11 +101,12 @@ It seems that this is partly due to the lack of definition as to
 
 \subsection{Current Work}
 \label{sec:introduction:current-work}
-This paper presents and defends such a tool-set
-  along with a graphical utility to provide an easy interface and collaboration.
+This paper presents a Python framework within which to
+  create, define, and test these algorithms.
 Complete with a graphical interface which supports
-  maintaining libraries of \object{Predicate} and \object{Move} objects for later assembly,
-  "ssa-tool" provides researchers with tools to test algorithms in batch and by hand.
+  maintaining libraries of predicate and moves for later assembly,
+  "ssa-tool" provides researchers with usefool functionality
+  to create and test algorithms in batch and by hand.
 \begin{draftvspace}{4in}
   Absolutely \emph{must} expand on this more.
   Go into what exactly happens, why it is necessary, what is possible, a potential use case, \dots.
@@ -117,4 +118,5 @@ Complete with a graphical interface which supports
 %%% TeX-PDF-mode: t 
 %%% reftex-cite-format: "\\autocite{%l}" 
 %%% TeX-command-default: "arara"
+%%% TeX-engine: xetex
 %%% End: 
