@@ -12,7 +12,7 @@
      ""
      "todo=marginpar"
      "literate"
-     "maxp=30"
+     "maxp=35"
      "minp=25"
      "abstract"
      "sections/introduction"
