@@ -1,18 +1,18 @@
 \section{Interoperability}
 \label{sec:iface-interoperability}
 Since "ssa-tool" deals with many different entities (see~\autoref{tab:format-spec}),
-  there is only one formal file type that it deals with natively: XML.
-This single format (extension ".ssa") branches of into several \Term{sub-formats}
+  it leverages XML to enable multiple different types of entities within a single file.
+This single format (extension ".ssax") branches of into several \enquote*{sub-formats}
   that are controlled by the format specifiers listed in~\autoref{tab:format-spec}.
 Formal schemas for these are available in the sources,
-  but I produce a simple example of the "predicate" format in~\autoref{lst:interop:xml-pred}.
+  but I produce a simple example of the "algorithm" format in~\autoref{lst:interop:xml-alg}.
 \lstinputlisting[
 language=xml,
+style=ssax,
 basicstyle=\small\ttfamily,
 caption={An example algorithm in XML format},
-label={lst:interop:xml-pred},
-morekeywords={xmlns:ssa,ssa:algorithm,ssa:rule,ssa:move,name,description,predicate,file},
-]{src/core/example-save.xml}
+label={lst:interop:xml-alg},
+]{src/core/ind-set.ssax}
 
 \begin{table}
   \centering
