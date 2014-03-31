@@ -1,0 +1,51 @@
+#%BUNDLE 1.0
+- predicate: node should unmark
+  description: >
+    Returns True if the node is marked
+    when a neighbor is also marked.
+  author: Sean Allred
+  date: 2014-05-17
+  tex: >
+    'marked'(n) = 1 `land
+    `exists v `in N(n) : 'marked'(n) = 1
+  file: marked-and-neighbor-marked.py
+
+- predicate: node should mark
+  description: >
+    Returns True is the node is unmarked
+    when none of its neighbors are marked.
+  author: Sean Allred
+  date: 2014-05-17
+  tex: >
+    'marked'(n) = 0 `land
+    `forall v `in N(n) : 'marked'(n) = 0
+  file: unmarked-and-neighbors-unmarked.py
+
+- move: mark node
+  description: mark this node
+  author: Sean Allred
+  date: 2014-05-17
+  tex: "'marked'(n) = 1"
+  file: mark.py
+
+- move: unmark node
+  description: unmark this node
+  author: Sean Allred
+  date: 2014-05-17
+  tex: "'marked'(n) = 0"
+  file: unmark.py
+
+- algorithm: Independent Set
+  author: Sean Allred
+  date: 2014-05-17
+  rules:
+    - description: if a neighbor is marked, unmark
+      author: Sean Allred
+      date: 2014-05-17
+      predicate: node should unmark
+      moves: [ unmark node ]
+    - description: if no neighbors are marked, mark
+      author: Sean Allred
+      date: 2014-05-17
+      predicate: node should mark
+      moves: [ mark node ]

@@ -1,0 +1,4 @@
+marked = n['marked']
+neighbor_marked = any(map(lambda v: v['marked'],
+                          neighborhood))
+return marked and neighbor_marked
