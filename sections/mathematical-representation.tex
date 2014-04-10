@@ -3,7 +3,7 @@
 
 The core engine must be correct above all.
 To prove its correctness, all necessary definitions will be
-  presented, cited, and referred to throughout the remainder of the paper.
+  presented, cited as necessary, and referred to throughout the remainder of the paper.
 
 \subsection{Graph}
 \label{sec:math-defin:graphs}
@@ -17,26 +17,6 @@ We define its open neighborhood of $v \in G$ to be
   $\OpenNeighborhood{n} = \Set{v}[(n, v) \in E]$
   and the closed neighborhood is defined as $v$ together with its neighbors:
   $\ClosedNeighborhood{n} = \Union{\OpenNeighborhood{n}, \Set{n}}$.
-
-\begin{comment}
-\subsection{Finite State Machine}
-\label{sec:math-define:fsm}
-
-A finite state machine (\textsc{fsm})
-  \todo{use acro package}
-  \todo{may not even \emph{need} this section}
-  is a mathematical model of computation
-  described by an alphabet $\Sigma$,
-  a finite number of states $Q$,
-  an initial state $q_0 \in Q$,
-  a set of accept states $F \subseteq Q$,
-  and a transition function $\Function[\delta]{Q \cross \Sigma}{Q}$ between those states.
-Thus, a fsm is defined by the five-tuple %TODO
-  \[ M = (\Sigma, Q, q_0, F, \delta). \]
-These can be represented as graphs where nodes are states in $Q$ and
-  transitions are directed edges between them.
-\todo[cite]{finite state machine}
-\end{comment}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:math-define:self-stab-algor}
@@ -75,7 +55,7 @@ Formally, we may define such an algorithm $S$ to be a discrete function
 It was defined in this way to clarify the logical representation of the algorithm;
   see Section~\ref{sec:logic-repr:self-stab-algor}.
 To distinguish from other uses of \Term{algorithm},
-  this particular data structure will be called the \Term{ruleset}.
+  this particular data structure will be called the \Term{rule set}.
 
 Two properties of the algorithm must be shown
   for a self-stabilizing algorithm to be proven correct:~\autocite{arora:closure-and-convergence}
@@ -106,6 +86,77 @@ A self-stabilizing algorithm satisfies closure if and only
   \Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}
   \implies \text{$G$ is in a correct state}.
 \end{equation}
+
+\paragraph{Example Algorithm and Run}
+A popular problem in graph theory is \Algorithm{IndSet} \Dash
+  the maximal independent set \Dash
+  and it has a particularly simple self-stabilizing algorithm (see~\autoref{alg:ind-set}).
+For clarity, the maximal independent set is defined as the set with the greatest cardinality
+  within the power~set of the vertex~subsets $H \subseteq G$ such that
+  no two nodes in $H$ are adjacent in $G$.
+
+\begin{algorithm}[float]
+  \caption{Maximal Independent Set, definition from \autocite{goddard:ssa--k-distance}}
+  \label{alg:ind-set}
+\begin{lstlisting}[language=ssa]
+local $f$
+
+ENTER
+  if $f(i) = 0 \land \ForAll{j \in \OpenNeighborhood{i}}{f(j) = 0}$
+  then:
+    $f(i) = 1$
+
+LEAVE
+  if $f(i) = 1 \land \Exists{j \in \OpenNeighborhood{i}}{f(j) = 1}$
+  then:
+    $f(i) = 0$
+\end{lstlisting}
+\end{algorithm}
+
+Considering~\autoref{alg:ind-set},
+  the first rule simply says if some node $i$ is marked
+  (where $f$ is a node-indexed Boolean array)
+  \emph{and} no neighboring nodes $j$ are marked,
+  then we \enquote*{enter} the set by setting our value in $f$ to 1.
+Similarly, the second rule (\enquote*{leave})
+  applys when, for some node $i$, the node is marked and a neighbor is as well.
+
+The algorithm is thereby defined and is ready to be applied to
+  some graph $G$ and nodes $i$ and neighbors $j$.
+Consider the graph in~\autoref{fig:math-run:0}.
+\begin{figure}
+  \centering
+  \includegraphics{example-image-a}
+  \caption{An arbitrarily marked graph $G$ at time $t = 0$.}
+  \label{fig:math-run:0}
+\end{figure}
+Nodes have been marked arbitrarily,
+  representative of a system that is in a possibly incorrect state.
+We pick a node \emph{arbitrarily}, in this case $v_0$,
+  and apply the predicates from~\autoref{alg:ind-set} to the node
+  to see which privileges are present.
+The only present privilege is \enquote*{enter},
+  so we execute the move prescribed by the rule and mark $v_0$: $f(v_0)=1$.
+The graph from~\autoref{fig:math-run:0} is now~\autoref{fig:math-run:1},
+  and the process begins again, perhaps now $v_4$ is picked and
+  satisfies the \enquote*{leave} predicate and, with the privilege present,
+  executes its moves.
+\begin{figure}
+  \centering
+  \includegraphics{example-image-b}
+  \caption{The graph from \autoref{fig:math-run:0} at time $t = 1$.}
+  \label{fig:math-run:1}
+\end{figure}
+
+\paragraph{Different Models}
+The paradigm given above is known as the central-daemon model~\autocite{dew:sem}.
+At least one other model exists where each node acts
+  of its own accord distinct from any central daemon.
+\todo[cite]{Find a resource that talks about non-daemonized algorithm executions in-depth}
+To simplify initial development, the daemon model was implemented
+  as opposed to any truly distributed model.
+An extension may later be added, perhaps using the Python~variant Stackless~\autocite{stackless},
+  that implements an alternative run-mode that uses distributed techniques.
 
 %%% Local Variables: 
 %%% mode: latex
