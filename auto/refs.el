@@ -25,5 +25,8 @@
      "pygexf"
      "noweb"
      "nose"
-     "pyyaml")))
+     "pyyaml"
+     "ssa:dist"
+     "gh:libcircle"
+     "gh:balancemq")))
 

@@ -67,7 +67,8 @@ They are simply not designed for such a relatively specific task.
 
 This is not to say that there aren't many excellent frameworks in which
   to \emph{deploy} self-stabilizing algorithms.
-For example, "hpc/libcircle" is \enquote{an API to provide an efficient distributed queue on a cluster}.
+For example, "hpc/libcircle"~\autocite{gh:libcircle} is
+  \enquote{an API to provide an efficient distributed queue on a cluster}.
 Using a blazingly fast algorithm described by~\autocite{lafon:balanceMQ},
   it is able to \enquote{quickly traverse and perform operations on a file tree
     which contains several hundred-million file nodes}.
@@ -77,7 +78,8 @@ The tool is written in and requires the use of C
   but it would seem unwise to create the algorithm itself
   (and test it interactively) with such a language.
 
-On GitHub, "fintler/balancemq" provides another such API, this time written in Python,
+On GitHub, "fintler/balancemq"~\autocite{gh:balancemq} provides another such API,
+  this time written in Python,
   using an algorithm described by \citeauthor{lafon:balanceMQ}~\autocite{lafon:balanceMQ}.
 Again, while claiming to be an API for self-stabilizing algorithms,
   this (albeit useful) project does not provide true tools to create and work with
