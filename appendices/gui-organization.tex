@@ -1,0 +1,61 @@
+\section{Organization of Graphical Interface}
+\label{sec:gui-org}
+
+The graphical interface is logically organized into several dictionaries based on tabs
+  (see~\autoref{tab:gui-variables}).
+The keys of these dictionaries are string-descriptions of the purpose of the entity,
+  and the value is either a single variable or function (in the cases of "??v" and "??f")
+  or a pair (as a "tuple") of positional coordinates and the widget itself (within "??w").
+The coordinates are relative to the upper-left corner of the containing frame.
+If the first element of the tuple is "None" (instead of a pair),
+  the widget will simply be \enquote*{packed} instead of \enquote*{placed}.
+To create the widgets, a utility function is declared that will assemble the widget
+  and log any information about it that is necessary,
+  providing a centralized interface to manage data bindings (see~\autoref{lst:gui:wgt-creator}).
+
+\begin{lstlisting}[float,caption={A standardized widget creator},label={lst:gui:wgt-creator}]
+def new(cls, widget_dictionary, name, **kwargs):
+    print('Creating widget {0:<14} under {1}'.format(cls.__name__, name))
+    return cls(widget_dictionary[name][1], **kwargs)
+\end{lstlisting}
+\begin{table}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    Type      & File Manager & Algorithm & Predicate & Move  \\ \midrule
+    Variables & "fmv"        & "agv"     & "pdv"     & "mvv" \\
+    Functions & "fmf"        & "agf"     & "pdf"     & "mvf" \\
+    Widgets   & "fmw"        & "agw"     & "pdw"     & "mvw" \\
+    \bottomrule
+  \end{tabular}
+  \caption{Standardized interface dictionaries, indexed by description.}
+  \label{tab:gui-variables}
+\end{table}
+
+For example, to add some text entry field for a predicate's name,
+  I would call "new" from~\autoref{lst:gui:wgt-creator} with the arguments
+  "(Entry, pdw, 'tab', textvariable = pdv['predicate name])".
+
+Bindings between graphical elements and their logical counterparts
+  are maintained in a dictionary called "bind", primarily indexed by class
+  and secondarily indexed by the object's name.
+This dictionary is reset upon calling "refresh",
+  which purges data from the interface and rebuilds it using
+  the "bundle" data structure.
+
+\paragraph{About the Dictionary-Based Approach}
+The choice to use dictionaries was spurred by
+  what has proven to be a common problem in my own software implementations.
+Within the dynamic functions of the interface
+  (\eg the function to transfer moves to and from a rule),
+  it is always possible that the widget the function is altering has not yet been created.
+By using dictionaries, resolution is deferred until the interface is completely built,
+  thereby side-stepping the need to carefully order the creation of widgets
+  and instead order them in a way that makes sense or is aesthetically pleasing.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../smp.tex"
+%%% TeX-engine: xetex
+%%% TeX-PDF-mode: t
+%%% End:

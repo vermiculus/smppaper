@@ -1,0 +1,25 @@
+(TeX-add-style-hook "further-work"
+ (lambda ()
+    (LaTeX-add-labels
+     "sec:further-work"
+     "sec:tasks:bugs"
+     "task:test"
+     "task:testing-interface"
+     "task:interface"
+     "task:gui-syntax-highlighting"
+     "task:gui-definition-wrapping"
+     "task:smarter-def"
+     "task:temp-files"
+     "sec:tasks:ext"
+     "tast:autodate"
+     "task:gephi-glue"
+     "task:anigexf"
+     "task:gui-visualizer"
+     "task:texport"
+     "task:bundle-graphs"
+     "task:save-history"
+     "task:arbitrary-attributes"
+     "task:magical-references"
+     "task:stackless"
+     "task:genetic")))
+

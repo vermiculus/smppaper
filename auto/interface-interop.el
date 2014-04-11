@@ -2,13 +2,9 @@
  (lambda ()
     (LaTeX-add-labels
      "sec:iface-interoperability"
-     "tab:format-spec"
+     "sec:interop:native"
      "tab:interop:import"
-     "tab:interop:export"
-     "sec:interop:import"
-     "fig:iface:alg-test-import"
-     "fig:iface:alg-test-export"
-     "sec:interop:export")
+     "tab:interop:export")
     (TeX-add-symbols
      "yes"
      "no")))

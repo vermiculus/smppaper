@@ -3,5 +3,7 @@
     (LaTeX-add-labels
      "sec:introduction"
      "sec:introduction:related-work"
-     "sec:introduction:current-work")))
+     "sec:introduction:current-work")
+    (TeX-add-symbols
+     '("TaskRef" 1))))
 

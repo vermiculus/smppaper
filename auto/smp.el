@@ -10,7 +10,6 @@
      "smcm-cosc-smp10"
      "smcm-cosc-smp"
      ""
-     "todo=marginpar"
      "literate"
      "maxp=35"
      "minp=25"
@@ -18,8 +17,10 @@
      "sections/introduction"
      "sections/mathematical-representation"
      "sections/logical-representation"
-     "sections/interface-ssa"
      "sections/interface-test"
-     "sections/interface-interop"
-     "sections/reflection")))
+     "sections/interface-ssa"
+     "sections/further-work"
+     "sections/reflection"
+     "appendices/bundle-format"
+     "appendices/gui-organization")))
 
