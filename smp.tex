@@ -17,6 +17,8 @@ literate,
 
 \setcounter{tocdepth}{1}
 
+\renewcommand\include[1]{\input{#1}}
+
 \addbibresource{refs.bib}
 
 \title{\texttt{ssa-tool}}[A Utility for the Creation and Evaluation \\
@@ -27,11 +29,10 @@ literate,
 \begin{document}
 \maketitle
 \thispagestyle{empty}
-\vfill
+\vspace{10ex}
 \begin{abstract}
   \input{abstract.txt}
 \end{abstract}
-\vfill
 \newpage
 
 \tableofcontents
