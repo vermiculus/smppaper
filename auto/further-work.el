@@ -4,6 +4,7 @@
      "sec:further-work"
      "sec:tasks:bugs"
      "task:test"
+     "task:valid-pred"
      "task:testing-interface"
      "task:interface"
      "task:gui-syntax-highlighting"

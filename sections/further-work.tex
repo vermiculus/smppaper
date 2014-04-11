@@ -20,6 +20,12 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
 \end{task}
 
 \begin{task}
+  \label{task:valid-pred}
+  Prohibit the permanent modification of graph entities when applying a predicate.
+  This can be effected as part of~\autoref{task:gui-definition-wrapping}.
+\end{task}
+
+\begin{task}
   \label{task:testing-interface}
   There is currently no graphical interface to the algorithm testing functionality.
   This should eventually be married with the visualizer~(\autoref{task:gui-visualizer}),
@@ -95,7 +101,7 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
   Gephi~\autocite{gephi} is a very popular tool used in graph theory research.
   Equipped with an extraordinarily powerful visualizer,
     it is well-suited to run simulations using advanced graphical methods
-    that may not be easily achievable within Pygame~\autocite{pygame},
+    that may not be easily achievable within PyGame~\autocite{pygame},
     what would be the standard visualizer.
   
   Gephi is written in Java and some work will need to be done
@@ -115,7 +121,7 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
     but there is no facility within NetworkX's exporters to use this.
 
   To some extent this is to be expected; the model that NetworkX uses to represent a graph
-    does not seme to allow any representation of change.
+    does not seem to allow any representation of change.
   As such, a custom exporter will need to be written (perhaps using~\autocite{pygexf}) that
     can take a graph and a list of deltas and can output the correct notation.
   This notation is detailed in the official documentation~\autocite{gexf}.
@@ -127,7 +133,7 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
     but is not yet ready for release.
   It is still available within the GitHub repository at "vermiculus/ssa-tool".
   It leverages the graph representation and layout facilities of NetworkX~\autocite{hagberg:networkx}
-    and uses Pygame~\autocite{pygame} to draw the graph on-screen.
+    and uses PyGame~\autocite{pygame} to draw the graph on-screen.
   Given the nature of Python reference types, any and all changes to the graph
     will be immediately reflected on-screen.
   This task is merely concerned with the integration of these two tools.
@@ -145,8 +151,8 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
 
 \begin{task}
   \label{task:bundle-graphs}
-  In order to fully facilitate reproducable research
-    (as reproducable as it could be,
+  In order to fully facilitate reproducible research
+    (as reproducible as it could be,
       considering the arbitrary nature of selection),
     graphs and corresponding tests should be included as part of bundles.
 \end{task}

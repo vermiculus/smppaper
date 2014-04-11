@@ -11,5 +11,6 @@
      "eq:define-ssalg:closure"
      "alg:ind-set"
      "fig:math-run:0"
-     "fig:math-run:1")))
+     "fig:math-run:1"
+     "fig:math-run:2")))
 

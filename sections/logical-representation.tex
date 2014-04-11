@@ -30,7 +30,7 @@ The population of this metadata is the responsibility of two distinct classes
   \end{description}
 
 \paragraph{Definition and Loading}
-As a bundle is desgined to be
+As a bundle is designed to be
   a self-sufficient representation
   of one or more algorithms,
   all predicate and move definitions are stored locally
@@ -71,7 +71,7 @@ The contents of this file will be evaluated as
 \begin{warning}
   Do not alter the values of "v" or "N" in a predicate function.
   In future versions these values may be copied
-    before they are made available to the function body,
+    before they are made available to the function body (see~\autoref{task:valid-pred}),
     but no such provisions are currently being made.
   Altering them will introduce race conditions in execution.
 \end{warning} % don't alter v or N
@@ -184,13 +184,13 @@ To do this, it \emph{must} go through each node and check it for privilege.
     but I haven't the knowledge to do so.
   The fact that predicates should \emph{never} write to a node or its neighbors
     allows this distribution of work among threads.
-  This should be implemented in a future iteration.
+  This should be implemented in a future iteration \Dash see~\autoref{task:stackless}.
 \end{warning}
 
 \begin{lstlisting}[float=p, caption={Finding privileged nodes.}, label={lst:daemon-find-privileged-nodes}]
 for node in graph:
     neighborhood = Algorithm.neighbor_data(graph, node)
-    <<determin if node is privileged>>
+    <<determine if node is privileged>>
 \end{lstlisting}
 
 Within each iteration of the loop through the nodes in the graph
@@ -199,7 +199,7 @@ Within each iteration of the loop through the nodes in the graph
   (see~\autoref{lst:daemon-get-privileges}).
 If it is privileged, we add the privileged node to a dictionary called "privileged_nodes".
 \begin{warning}
-  We can also increase performance here with threading.
+  We can also increase performance here with threading (see~\autoref{task:stackless}).
   Be careful of the difference, however:
     in the above we were simply reading information and
     running it through a predicate function.

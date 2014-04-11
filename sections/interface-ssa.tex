@@ -1,7 +1,7 @@
 \section{Interface}
 \label{sec:interface-ssa}
 
-While the core codebase has been designed and implemented
+While the core code-base has been designed and implemented
   to be easily accessible to those who wish to use it directly or extend it,
   the expected everyday interface to this project is
   the graphical tool presented below.
@@ -19,7 +19,7 @@ Since the bundle format is self-contained,
 
 \subsection{Predicates and Moves}
 As reflected in the logical representation
-  (see~\S\ref{sec:logic-repr:self-stab-algor}),
+  (see~\autoref{sec:logic-repr:self-stab-algor}),
   self-stabilizing algorithms persist as a collection
   of predicates and moves.
 As such, this tool supports the convenient creation of these basic components.
@@ -32,11 +32,11 @@ Predicates and moves can be created using the graphical interface,
   see \autoref{sec:logic-repr:predicate-move}.)
 To create them, navigate to the \ifacefield{Predicates} or \ifacefield{Moves} tabs
   and click the "add" button beneath the list on the far left
-  (\autoref{fig:iface:create-pred}, area~1).
+  (\autoref{fig:iface:create-pred}).
 This will add an empty item \Dash in this case, a predicate \Dash to the list.
-Editing its \ifacefield{Name} field (area~2) will update its name in the list accordingly.
-Fill in the \ifacefield{Author} (area~3), \ifacefield{Date} (area~4),
-  and \ifacefield{\TeX} fields as approriate.
+Editing its \ifacefield{Name} field will update its name in the list accordingly.
+Fill in the \ifacefield{Author}, \ifacefield{Date},
+  and \ifacefield{\TeX} fields as appropriate.
 
 When you are ready to provide a definition,
   click the ellipsis ("...") next to the \ifacefield{File} field.
@@ -98,7 +98,7 @@ As bundles should be self-sufficient,
   there is an easy syntax to use to denote the properties of a node.
 Considering \Algorithm{IndSet}, the quality of being \enquote*{in the set}
   may be denoted as \texttt{\QuoteLiteral{marked}(n) = 1}.
-Note the literal double quotes (the single character \char`") around the function name;
+Note the literal double quotes (the single character \texttt{\char`"}) around the function name;
   in addition to clearly describing the purpose of a value,
   this notation will be replaced as appropriate by
   the more verbose (but correct) "\operatorname{marked}".
@@ -110,7 +110,8 @@ See~\autoref{task:texport}.
 \subsection{Algorithms}
 
 Algorithm assembly is fully supported using the graphical interface.
-To create an algorithm, simply click the "+" button underneath the list of algorithms to the right.
+To create an algorithm, simply click the "add" button
+  underneath the list of algorithms to the right.
 (This list will be empty in a new bundle.)
 Once this has been done, giving the Algorithm a name (via the \ifacefield{Name} field)
   will update its text in the listing accordingly.

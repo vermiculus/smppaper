@@ -24,7 +24,7 @@ We define its open neighborhood of $v \in G$ to be
 As defined by \citeauthor{dew:sem}~\autocite{dew:sem},
   \done[Looks so much better this way]
   \todo{\texttt{citefield} the author}
-  a self-stabilizing algorithm is a contruct composed of
+  a self-stabilizing algorithm is a construct composed of
   predicates and corresponding moves.
 Both are functions of a single node and its neighbors.\footnote{%
   Note that this is not the same as the closed neighborhood of a node.
@@ -122,7 +122,7 @@ Considering~\autoref{alg:ind-set},
   \emph{and} no neighboring nodes $j$ are marked,
   then we \enquote*{enter} the set by setting our value in $f$ to 1.
 Similarly, the second rule (\enquote*{leave})
-  applys when, for some node $i$, the node is marked and a neighbor is as well.
+  applies when, for some node $i$, the node is marked and a neighbor is as well.
 
 The algorithm is thereby defined and is ready to be applied to
   some graph $G$ and nodes $i$ and neighbors $j$.
@@ -136,8 +136,22 @@ The only present privilege is \enquote*{enter},
   so we execute the move prescribed by the rule and mark $v_5$: $f(v_5)=1$.
 The graph from~\autoref{fig:math-run:0} is now~\autoref{fig:math-run:1},
   and the process begins again, perhaps now $v_4$ is picked and
-  satisfies the \enquote*{leave} predicate and, with the privilege present,
-  executes its moves.
+  satisfies the \enquote*{leave} predicate and executes its moves,
+  leaving~\autoref{fig:math-run:2}.
+Since no other predicates apply, we say that \Term{no privileges are present}
+  and the graph is considered \Term{stable}.
+
+The fact that we have reached an iteration where no privileges are present
+  gives evidence that \Algorithm{IndSet} \Term{converges}.
+Since no other node can be marked and no two marked nodes are adjacent to each other,
+  this is indeed a maximal independent set.
+Since the algorithm did what it said it was going to do,
+  there is evidence that \Algorithm{IndSet} as \Term{closure}.
+
+Obviously these properties would require \emph{formal} proof,
+  but many examples of an algorithm succeeding would make it
+  more \enquote*{worthwhile} to invest the time in its pursuit.
+\todo[r/w]{Need a different word for worthwhile}
 \begin{figure}[p]
   \centering
   \begin{tikzpicture}
@@ -192,8 +206,8 @@ The graph from~\autoref{fig:math-run:0} is now~\autoref{fig:math-run:1},
         (3) --[bend right] (5)
       };
   \end{tikzpicture}
-  \caption{The graph from \autoref{fig:math-run:0} at time $t = 2$.  No more privileges are present for any node $v_i$, so $G$ is now called \Term{stable} and the marked nodes represent a maximal independant set.}
-  \label{fig:math-run:1}
+  \caption{The graph from \autoref{fig:math-run:0} at time $t = 2$.  No more privileges are present for any node $v_i$, so $G$ is now called \Term{stable} and the marked nodes represent a maximal independent set.}
+  \label{fig:math-run:2}
 \end{figure}
 
 \paragraph{Different Models}
