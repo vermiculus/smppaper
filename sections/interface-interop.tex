@@ -1,40 +1,24 @@
 \section{Interoperability}
 \label{sec:iface-interoperability}
-Since "ssa-tool" deals with many different entities (see~\autoref{tab:format-spec}),
-  it leverages XML to enable multiple different types of entities within a single file.
-This single format (extension ".ssax") branches of into several \enquote*{sub-formats}
-  that are controlled by the format specifiers listed in~\autoref{tab:format-spec}.
-Formal schemas for these are available in the sources,
-  but I produce a simple example of the "algorithm" format in~\autoref{lst:interop:xml-alg}.
-\lstinputlisting[
-language=xml,
-style=ssax,
-basicstyle=\small\ttfamily,
-caption={An example algorithm in XML format},
-label={lst:interop:xml-alg},
-]{src/core/ind-set.ssax}
-
-\begin{table}
-  \centering
-  \begin{tabular}{r>{\ttfamily\small entity=\char`"}l<{\char`"}}
-    \toprule
-    Entity    & format    \\
-    \midrule
-    Predicate & predicate \\
-    Move      & move      \\
-    Graph     & graph     \\
-    Algorithm & algorithm \\
-    Test      & algtest   \\
-    \bottomrule
-  \end{tabular}
-  \caption{Entity specifiers of the native SSA format}
-  \label{tab:format-spec}
-\end{table}
+\subsection{Native Format}
+\label{sec:interop:native}
+An "ssax" document is in fact a simple directory
+  (see~\autoref{fig:interop:ssax-structure})
+  of all files necessary to recreate and run
+  every algorithm included in the bundle.
+The directory is dominated by a bundle description document
+  that depicts the structure of the bundle.
+This description document is a YAML file
+  (which \emph{must} be called "bundle.yaml")
+  to allow for easy manual editing.
+A full and formal description of the format is given in~\autoref{sec:bundle-descr-docum},
+  but an example description document for \Algorithm{IndSet} is given in~\autoref{lst:interop:yaml-alg}.
 
 There are several graph formats already in existence.
 As this project uses NetworkX~\autocite{hagberg:networkx} for its internal representation,
   it inherits all of the abilities of this library.
-Several input and output formats are available.
+Several input and output formats are available,
+  detailed in~\autoref{tab:interop:import} and~\autoref{tab:interop:export} respectively.
 \begin{table}
   \centering
   \providecommand\yes{\ding{51}}
@@ -47,6 +31,7 @@ Several input and output formats are available.
     GraphML & \no       & \no  & \yes  & \no       \\
     GEXF    & \no       & \no  & \yes  & \no       \\
     PDF     & \yes      & \yes & \yes  & \yes      \\
+    YAML    & \yes      & \yes & \yes  & \yes      \\
     \bottomrule
   \end{tabular}
   \caption{Import possibilities}
@@ -64,33 +49,12 @@ Several input and output formats are available.
     GraphML & \no       & \no  & \yes  & \no       \\
     GEXF    & \no       & \no  & \yes  & \no       \\
     PDF     & \yes      & \yes & \yes  & \yes      \\
+    YAML    & \yes      & \yes & \yes  & \yes      \\
     \bottomrule
   \end{tabular}
   \caption{Export possibilities}
   \label{tab:interop:export}
 \end{table}
-
-
-\subsection{Import}
-\label{sec:interop:import}
-
-\begin{figure}
-  \centering
-  \includegraphics{example-image-a}
-  \caption{Importing an algorithm test (packaged as algorithm + graph)}
-  \label{fig:iface:alg-test-import}
-\end{figure}
-\begin{figure}
-  \centering
-  \includegraphics{example-image-b}
-  \caption{Exporting an algorithm test (packaged as algorithm + graph)}
-  \label{fig:iface:alg-test-export}
-\end{figure}
-
-\subsection{Export}
-\label{sec:interop:export}
-
-
 
 %%% Local Variables: 
 %%% mode: latex

@@ -10,151 +10,172 @@ The following listings serve to introduce the organization of the library and
 \subsection{Predicate and Moves}
 \label{sec:logic-repr:predicate-move}
 
-According to~\eqref{eq:define-predicate} and \eqref{eq:define-move},
+According to~\autoref{eq:define-predicate} and~\autoref{eq:define-move},
   both predicates and moves are defined as simple functions of
   a node and its neighbors, where
   each predicate returns a Boolean value and
   each move returns an updated node and neighborhood.
-In order for the tool to be useful however,
-  there needs to be both documentation (discussed in \S\ref{iface:document:pred-move})
+However, in order for the tool to be useful in a collaborative setting,
+  there needs to be both documentation
   and at least a few pieces of other metadata attached to these basic elements.
-The population of this metadata is the responsibility of two distinct decorators
-  \Dash "@predicate" and "@move" \Dash
-  that take a number of arguments to provide mandatory metadata
-  and also parse the following function's docstring
-  to come up with the following standard pieces of metadata:
-\begin{itemize}
-\item mandatory metadata given as arguments to the decorator
+The population of this metadata is the responsibility of two distinct classes
+  \Dash \object{Predicate} and \object{Move} \Dash
+  that provide fields for the following information:
   \begin{description}
   \item[author] author(s) of the function
-  \item[version] version of the function
-  \item[others\dots] any other optional metadata
+  \item[date] timestamp for editing
+  \item[name] short summary of function\footnote{Must be unique; see~\autoref{sec:bundle-descr-docum}.}
+  \item[\TeX nical documentation] mathematical definition
+  \item[description] long form discussion of the function
   \end{description}
-\item optional metadata parsed from docstring
-  \begin{description}
-  \item[summary] parsed from docstring; short summary of function
-  \item[\TeX nical documentation] parsed from docstring; mathematical definition
-  \item[long form] parsed from docstring; long form discussion of the function
-  \end{description}
-\end{itemize}
-\autoref{lst:decorate:overview} provides the general structure for each decorator,
-  where \autoref{lst:decorate:metadata} specifically provides the metadata to the function.
-\lstinputlisting[
-float,
-caption={Predicates and moves are defined similarly as decorators to functions.},
-label={lst:decorate:overview},
-litkey=predicate,
-]{src/core/Algorithm.org}
-\lstinputlisting[
-float,
-caption={Each decorator defines some metadata for its function.},
-label={lst:decorate:metadata},
-litkey={define-metadata}
-]{src/core/Algorithm.org}
 
+\paragraph{Definition and Loading}
+As a bundle is desgined to be
+  a self-sufficient representation
+  of one or more algorithms,
+  all predicate and move definitions are stored locally
+  as Python~3 function bodies within the
+  \directory{predicate} and \directory{move} directories
+  under root.
+For example, if we wished to create a predicate
+  to determine if a node could mark itself
+  (considering the \Algorithm{IndSet} problem),
+  we could put~\autoref{lst:logic:pred-def} in
+  \directory{predicates/my-pred.py}.
+\begin{lstlisting}[
+float,
+caption={A model definition for a predicate:
+  $\ForAll{n \in \ClosedNeighborhood{v}}
+          {\text{$n$ is not marked}}$.},
+label={lst:logic:pred-def},
+]
+if v['marked']:
+  return False
+for neighbor in N:
+  if n['marked']:
+    return False
+return True
+\end{lstlisting} % unmarked-and-neighbors-unmarked.py
+The contents of this file will be evaluated as
+  a function of three arguments:
+\begin{description}
+\item[\texttt{self}] The current bundle.
+  It is not recommended that this variable is used,
+    but it exists and is a reserved word.
+  Do not alter this variable unless you are confident in your actions.
+\item[\texttt{v}] The current node ("v" for \enquote*{vertex}).
+  Its data may be accessed dictionary-style as in~\autoref{lst:logic:pred-def}.
+\item[\texttt{N}] The neighborhood of "v" as a Python~3 "set".
+  Each member may be viewed as the above.
+\end{description} % description of arguments self, v, and N
 \begin{warning}
-  It is assumed that the actual neighborhood is given.
-  This object is intended to be used only internally,
-    and all \emph{internal} functions will indeed pass it the distance-1 neighborhood.
-  It is left as an unintelligent definition to enable later extension.
+  Do not alter the values of "v" or "N" in a predicate function.
+  In future versions these values may be copied
+    before they are made available to the function body,
+    but no such provisions are currently being made.
+  Altering them will introduce race conditions in execution.
+\end{warning} % don't alter v or N
+\begin{warning}
+  You may view the contents of "self" if you so desire
+    (with the recognition that this potentially invalidates
+    the definition of a self-stabilizing algorithm),
+  but under no circumstances should you \emph{ever} alter its contents.
+  Doing so will almost certainly compromise the logical consistency
+    of the bundle and could irreversibly destroy all unsaved work
+    in the current bundle.
+\end{warning} % don't alter self. really though.
+\begin{warning}
+  Since Python is a whitespace-sensitive language,
+    all function body definitions \emph{must} be indented
+    using four spaces.
+  The use of tabs (or inconsistent use of spaces)
+    will cause the parser to crash at~\autoref{lst:decorate:overview}.
+\end{warning} % whitespace sensitive language
 
-  Note that there are \emph{absolutely no sanity checks} concerning
-    the proper signatures of each function save only the number of arguments it takes.
-  Any such checking would seem to be faulty for at least a small set of edge cases
-    depending on the method taken.
-  The only thing that can be reliably checked is the argument count of the function definition.
-  (It is perhaps possible to parse the function definition's source code
-    using the "inspect" module, but this is already well outside the scope of this first release.
+\begin{lstlisting}[float, caption={Predicates and moves are defined by named files in the bundle.  See also~\autoref{task:smarter-def}.}, label={lst:decorate:overview}]
+def load_definition(self, path, obj):
+  if hasattr(obj, 'filename'):
+    <<inherit class variables for YAML export>>
 
-  As such, it is critical to remember that predicates \emph{must} return a value
-    that can at least be cast as a Boolean value (as "bool(...)" does).
-  Likewise, moves \emph{must} return a "tuple" (or other indexed collection)
-    that contains an updated node as the first index (index "0") and
-    its updated neighborhood as the second (index "1").
-\todo[code]{Make sure this is as advertised.}
-\todo[code]{Perhaps this can be mitigated?
-  Pass a simple star graph to the function to see if it returns the right thing?}
-\end{warning}
+    # read definition file
+    with open('/'.join([path, obj.ssa_folder, obj.filename])) as f:
+      lines = f.readlines()
+
+    # store the definition in a 'hidden' variable
+    obj._definition = lines
+
+    # prepare a string to execute as a definition
+    lines = ['def temp(self, v, N):\n'] + \
+            ['    ' + l for l in lines]
+
+    # execute the string, defining the 'temp' function
+    exec(''.join(lines), locals())
+
+    # set this function as the behavior for the singleton class
+    ssa_obj.__class__.__call__ = locals()['temp']
+\end{lstlisting}
 
 \subsection{Self-Stabilizing Algorithm}
 \label{sec:logic-repr:self-stab-algor}
 
-According to~\eqref{eq:define-ssalg},
+According to~\autoref{eq:define-ssalg},
   a self-stabilizing algorithm is defined as a collection
   \Dash actually a \emph{mapping} \Dash 
   of these predicates to a set of their potential moves.
 These must be provided as the constructor argument "ruleset",
   as in \autoref{lst:algorithm-init}.
-\lstinputlisting[
-float,
-caption={According to~\eqref{eq:define-ssalg}, a self-stabilizing algorithm is exactly
-  a set of rules from predicate to moves.},
-label={lst:algorithm-init},
-litkey=algorithm,
-]{src/core/Algorithm.org}
+\begin{lstlisting}[float, caption={Each rule must be resolved \emph{after} all predicates and moves have been defined.}, label={lst:algorithm-init}]
+mapping = {entity.name if hasattr(entity, 'name')
+                       else repr(entity)          : entity
+           for entity in entities}
+for rule in self.rules:
+    rule.predicate = mapping[rule.predicate]
+    rule.moves = [mapping[m] for m in rule.moves]
+\end{lstlisting}
+
 In an \object{Algorithm}, the "ruleset" is assumed to have
   dictionary-like structure and behavior.
-This is asserted within the constructor (as can be seen in~\autoref{lst:algorithm-type-check}),
-  but perhaps the clearest definition of the structure can be given as an example.
+A single predicate maps to a "list" or "set" of potential moves, as in~\autoref{eq:define-ssalg}.
 Refer to \autoref{lst:algorithm-ex} for an example of this data structure.
-\lstinputlisting[
-float,
-caption={An example structure to use as an \object{Algorithm}'s \texttt{\small ruleset}},
-label={lst:algorithm-ex},
-litkey=algorithm-ruleset-ex,
-]{src/core/Algorithm.org}
-
-\subsubsection{Type Checking}
-\label{sec:logic-repr:self-stab-algor:type-checking}
-
-Since there is a strict definition on an algorithm's ruleset
-  where neglecting to adhere to a specific format and behavior
-  will cause other parts of the system to fail,
-  a set of assertions is made upon "ruleset" that ensures at least non-crashing behavior.
-\todo[r/w]{awkward phrasing}
-These assertions (which can be reviewed in~\autoref{lst:algorithm-type-check}) check the following:
-\begin{itemize}
-\item "ruleset" is a collection that can be iterated upon directly,
-\item all key-items in "ruleset" can be called directly,
-\item all key-items in "ruleset" are functions of two arguments, and
-\item all key-items in "ruleset" map to a collection of predicates, where
-  \begin{itemize}
-  \item each predicate can be called directly, and
-  \item each predicate is a function of two arguments.
-  \end{itemize}
-\end{itemize}
-It is quite possible that time could be saved by
-  forgoing this initial type-check and simply assuming the behavior exists.
-It is unknown to me whether dynamic error-catching (as in a "try"--"except" block)
-  introduces a time constraint, where it would be far more detrimental to actual use.
-\lstinputlisting[
-float,
-caption={Ensuring the rule-set we were given is usable as
-  a definition of a self-stabilizing algorithm.},
-label={lst:algorithm-type-check},
-litkey={algorithm-ruleset-assertions},
-]{src/core/Algorithm.py}
+\begin{lstlisting}[float, caption={An example structure to use as an \object{Algorithm}'s \texttt{\small ruleset}}, label={lst:algorithm-ex}]
+ruleset = {
+    some_predicate: [some_move, some_move],
+    some_predicate: [some_move, some_move, some_move],
+    some_predicate: [some_move]
+}
+\end{lstlisting}
+In addition to basic constraints on overall structure,
+  every single basic component in the structure
+  (each predicate and each move)
+  must be directly callable with two arguments (a vertex and its neighborhood).
+If both of these constraints are met, this data structure can logically be used as the algorithm's definition.
 
 \subsection{Central Daemon}
 \label{sec:logic-repr:daemon}
 
 This implementation's testing model is based of the concept of a \Term{central daemon}.
 (This was the first model explicitly introduced
-  by \citeauthor{dew:sem}~\autocite{dew:sem}.)
+  by \citeauthor{dew:sem}~\autocite{dew:sem}; see also~\autoref{sec:math-define:self-stab-algor}.)
 The \object{Algorithm} class plays double-duty to fulfill this role as a default behavior,
   but perhaps this should be altered.
-\todo[code]{Should \object{Algorithm} actually know how to run itself,
-  or should a separate \object{Daemon} object be created to handle this?
-  Honestly, I'm leaning toward the latter.}
 The overall implementation and interface is available in~\autoref{lst:daemon-run},
   but we will look at each part individually.
-\todo[code]{The algorithm should automatically stop when it has stabilized.}
-\lstinputlisting[
-float=p,
-caption={A generalized run of a self-stabilizing algorithm.},
-label={lst:daemon-run},
-litkey={daemon-run},
-]{src/core/Algorithm.org}
+
+\begin{lstlisting}[float=p, caption={A generalized run of a self-stabilizing algorithm.}, label={lst:daemon-run}]
+def run(self, graph, count=1):
+    """Run the algorithm `count` times.
+
+    <<run documentation>>
+    """
+    assert count >= 0
+
+    history = list()
+    while count > 0:
+        <<run once>>
+        count -= 1
+    return history
+\end{lstlisting}
+
 The daemon begins by finding assembling a list of privileged nodes.
 To do this, it \emph{must} go through each node and check it for privilege.
 \begin{warning}
@@ -165,12 +186,12 @@ To do this, it \emph{must} go through each node and check it for privilege.
     allows this distribution of work among threads.
   This should be implemented in a future iteration.
 \end{warning}
-\lstinputlisting[
-float=p,
-caption={Finding privileged nodes.},
-label={lst:daemon-find-privileged-nodes},
-litkey={daemon-find-privileged-nodes},
-]{src/core/Algorithm.org}
+
+\begin{lstlisting}[float=p, caption={Finding privileged nodes.}, label={lst:daemon-find-privileged-nodes}]
+for node in graph:
+    neighborhood = Algorithm.neighbor_data(graph, node)
+    <<determin if node is privileged>>
+\end{lstlisting}
 
 Within each iteration of the loop through the nodes in the graph
   (see~\autoref{lst:daemon-find-privileged-nodes}),
@@ -195,24 +216,29 @@ If it is privileged, we add the privileged node to a dictionary called "privileg
 \todo[code]{Perhaps we should just collect all predicate--move pairs in a set
   and randomly choose one?  This would be more statistically sound, but does it matter?}
 
-\lstinputlisting[
-float=p,
-caption={Getting the privileges of a single node.},
-label={lst:daemon-get-privileges},
-litkey={daemon-get-privileges},
-]{src/core/Algorithm.org}
-\lstinputlisting[
-float=p,
-caption={Picking a random, satisfied predicate.},
-label={lst:daemon-pick-predicate},
-litkey={daemon-pick-predicate},
-]{src/core/Algorithm.org}
-\lstinputlisting[
-float=p,
-caption={Applying a random move enabled by the satisfied predicate.},
-label={lst:daemon-apply-move},
-litkey={daemon-apply-move},
-]{src/core/Algorithm.org}
+\begin{lstlisting}[float=p, caption={Getting the privileges of a single node.}, label={lst:daemon-get-privileges}]
+for predicate in self.ruleset:
+    if predicate(graph.node[node], neighborhood.values()):
+        if node in privileged_nodes:
+            privileged_nodes[node] += predicate
+        else:
+            privileged_nodes[node] = [predicate]
+\end{lstlisting}
+
+\begin{lstlisting}[float=p, caption={Picking a random, satisfied predicate.}, label={lst:daemon-pick-predicate}]
+node = random.choice(list(privileged_nodes.keys()))
+neighborhood = Algorithm.neighbor_data(graph, node)
+satisfied_predicate = random.choice(privileged_nodes[node])
+\end{lstlisting}
+
+\begin{lstlisting}[float=p, caption={Applying a random move enabled by the satisfied predicate.}, label={lst:daemon-apply-move}]
+old_node = copy.deepcopy(node)
+old_node_data = copy.deepcopy(graph.node[node])
+old_neighborhood = copy.deepcopy(neighborhood)
+
+next_move = random.choice(self.ruleset[satisfied_predicate])
+next_move(graph.node[node], neighborhood)
+\end{lstlisting}
 
 
 %%% Local Variables: 

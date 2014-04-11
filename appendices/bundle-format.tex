@@ -1,0 +1,149 @@
+\section{Bundle Description Document Specification}
+\label{sec:bundle-descr-docum}
+
+\begin{figure}[p]
+  \centering
+  \small
+  \begin{minipage}{.4\textwidth}
+    \dirtree{%
+      .1 ind-set.ssax.
+      .2 bundle.yaml.
+      .2 moves.
+      .3 mark.py.
+      .3 unmark.py.
+      .2 predicates.
+      .3 should-mark.py.
+      .3 should-unmark.py.
+    }
+  \end{minipage}
+  \caption{The layout of an example algorithm, \Algorithm{IndSet}}
+  \label{fig:interop:ssax-structure}
+\end{figure}
+\begin{lstlisting}[float=p,caption={\directory{moves/mark.py}},label={lst:ex:mark}]
+v['marked'] = True
+\end{lstlisting}
+\begin{lstlisting}[float=p,caption={\directory{moves/unmark.py}},label={lst:ex:unmark}]
+v['marked'] = False
+\end{lstlisting}
+\begin{lstlisting}[float=p,caption={\directory{predicates/marked-and-neighbor-marked.py}},label={lst:ex:should-unmark}]
+marked = v['marked']
+neighbor_marked = any(map(lambda n: n['marked'], N))
+return marked and neighbor_marked
+\end{lstlisting}
+\begin{lstlisting}[float=p,caption={\directory{predicates/unmarked-and-neighbors-unmarked.py}},label={lst:ex:should-mark}]
+marked = v['marked']
+neighbor_marked = any(map(lambda n: n['marked'], N))
+return not (marked or neighbor_marked)
+\end{lstlisting}
+\begin{lstlisting}[float=p, language=yaml, basicstyle=\ttfamily\footnotesize, caption={\directory{bundle.yaml}}, label={lst:interop:yaml-alg}]
+--- !Move
+name: mark node
+description: mark this node
+author: Sean Allred
+date: 2014-05-17
+tex: '"marked"(n) = 1'
+filename: mark.py
+--- !Move
+name: unmark node
+description: unmark this node
+author: Sean Allred
+date: 2014-05-17
+tex: '"marked"(n) = 0'
+filename: unmark.py
+--- !Predicate
+name: marked and neighbor marked
+filename: marked-and-neighbor-marked.py
+description: two adjacent nodes are marked
+author: Sean Allred
+date: 2014-05-17
+tex: '"marked"(n) = 1 \land \exists v \in N(n) : "marked"(v) = 1'
+--- !Predicate
+name: unmarked and neighbors unmarked
+filename: unmarked-and-neighbors-unmarked.py
+description: All nodes in N[n] are unmarked
+author: Sean Allred
+date: 2014-05-17
+tex: '"marked"(n) = 0 \land \forall v \in N(n) : "marked"(v) = 0'
+--- !Algorithm
+name: Independent Set
+author: Sean Allred
+date: 2014-05-17
+rules:
+  - !Rule
+    name: unmark if touching
+    description: if a neighbor is marked, unmark
+    author: Sean Allred
+    date: 2014-05-17
+    predicate: marked and neighbor marked
+    moves: [ unmark node ]
+  - !Rule
+    name: mark if able
+    description: if no neighbors are marked, mark
+    author: Sean Allred
+    date: 2014-05-17
+    predicate: unmarked and neighbors unmarked
+    moves: [ mark node ]
+\end{lstlisting}
+
+The file format that "ssa-tool" natively works with
+  is actually an OS\,X-style \enquote*{package} \Dash 
+  it is a standardized directory with a specific extension.
+The recommended extension to use is \fileformat{ssax},
+  but the tool itself does not require it.
+An example directory structure can be seen in~\autoref{fig:interop:ssax-structure},
+  but the following sections will formally describe each portion.
+
+\subsection{Predicates and Moves}
+\label{sec:bundle:predicates-moves}
+
+Predicates and moves are stored under the
+  separate directories "predicates" and "moves" as in~\autoref{fig:interop:ssax-structure}.
+Each file in these directories is a
+  (potentially very short, see~\autoref{lst:logic:pred-def}) Python~3 script
+  that defines the body of a templated function
+  which is hardcoded as in to~\autoref{lst:decorate:overview}.
+
+Within the bundle description document,
+predicates and moves must be set off with the YAML \enquote*{tags} "!Predicate" and "!Move", respectively.
+The recommended attributes\footnote{See~\autoref{task:arbitrary-attributes}.}
+  for these objects \Dash \emph{required} for the graphical interface \Dash
+  are as follows:
+\begin{description}
+\item[name] a unique name (with respect to class)\footnote{That is, I could have a predicate named \texttt{marknode} and a move named \texttt{marknode}, but I can't have two of either.} for the component
+\item[description] a description of this component (\eg this predicate
+  will be true if and only if the node is unmarked and isn't adjacent
+  to any marked nodes).
+\item[author] the author(s) of this component
+\item[date] the date of the last edit (not automatically tracked; see~\autoref{tast:autodate})
+\item[filename] the name of the file (without the directory) containing the definition for the component.
+  That is, \directory{mark.py} rather than \directory{moves/mark.py}.%
+  \footnote{Filenames \Dash as long as they are consistent \Dash are arbitrary.
+    The core tool has not been tested with atypical filenames (see~\autoref{task:test}).
+    It is recommended that filenames are kept to alphanumeric characters and hyphens.}
+\end{description}
+Per \autoref{task:texport}, there is a final \emph{recommended} attribute:
+\begin{description}
+\item[tex] \TeX nical documentation for the component
+\end{description}
+
+
+\subsection{Rules}
+\label{sec:rules}
+
+Rules are declared as items (with the "!Rule" tag)
+  under the "rules" attribute of an algorithm.
+They are given much the same attributes as predicates and moves,
+  but with additional attributes of "predicate" and "moves"
+  that map to the name of a predicate and names of moves within the bundle.
+
+\subsection{Algorithms}
+\label{sec:algorithms}
+
+Algorithms (tagged as "!Algorithm") are simply the aggregation of their rules,
+  with additional attributes for "name", "author", and "date".
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../smp.tex"
+%%% TeX-engine: xetex 
+%%% TeX-PDF-mode: t 
+%%% End: 

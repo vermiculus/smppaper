@@ -5,174 +5,148 @@ While the core codebase has been designed and implemented
   to be easily accessible to those who wish to use it directly or extend it,
   the expected everyday interface to this project is
   the graphical tool presented below.
-It fully supports the creation and automated testing of self-stabilizing algorithms.
-It supports creating and documenting both predicates and moves
+It fully supports the creation and documentation of
+  self-stabilizing algorithms,
+  rules,
+  predicates,
+  and moves
   using a combination of textual and graphical interfaces.
-When such predicates and moves have been consolidated into a library,
-  they can be assembled and organized into a self-stabilizing algorithm
-  using a graphical interface.
-  \todo[r/w]{I feel like I'm using the word `interface' too much}
-
-All of these objects \Dash
+Since the bundle format is self-contained,
+  all of these objects \Dash
   predicates, moves, and algorithms \Dash
-  can be packaged into libraries that can be
-  saved and distributed to colleagues.
+  can be saved and distributed to colleagues
+  that are using the same or derivative software.
 
 \subsection{Predicates and Moves}
 As reflected in the logical representation
   (see~\S\ref{sec:logic-repr:self-stab-algor}),
   self-stabilizing algorithms persist as a collection
   of predicates and moves.
+As such, this tool supports the convenient creation of these basic components.
 
-\subsubsection{Creating}
-Predicates and moves are created using a textual interface.
-\todo[idea]{Could have some sort of 'raw logic' to python function processor.
-  Does one exist?}
-To create one of these entities,
-  use \menu{File > New > Predicate\dots}
-   or \menu{File > New > Move\dots}.
-This presents you with a screen similar to~\autoref{fig:iface:create-pred},
-  allowing you to provide the code (in Python~\autocite{python3:ref}).
-A template is provided for you to begin working from,
-  along with short examples of how to access nodes, edges, node data, and edge data.
-(If you are familiar with the tool,
-  the syntax is from NetworkX~\autocite{hagberg:networkx}.)
+Predicates and moves can be created using the graphical interface,
+  but it should be noted that the \emph{definition} of these is left
+  as plain-text input.
+(See also~\autoref{task:gui-syntax-highlighting} and~\autoref{task:gui-definition-wrapping}.)
+(This definition will be written verbatim to disk;
+  see \autoref{sec:logic-repr:predicate-move}.)
+To create them, navigate to the \ifacefield{Predicates} or \ifacefield{Moves} tabs
+  and click the "add" button beneath the list on the far left
+  (\autoref{fig:iface:create-pred}, area~1).
+This will add an empty item \Dash in this case, a predicate \Dash to the list.
+Editing its \ifacefield{Name} field (area~2) will update its name in the list accordingly.
+Fill in the \ifacefield{Author} (area~3), \ifacefield{Date} (area~4),
+  and \ifacefield{\TeX} fields as approriate.
+
+When you are ready to provide a definition,
+  click the ellipsis ("...") next to the \ifacefield{File} field.
+This will present you with a modal dialog within which to provide
+  the technical definition for whatever has been created.
+The definition must be in Python~3 syntax~\autocite{python3:ref}.
+When the definition window opens, you will be presented with
+  a short definition of the active variables and their format \Dash
+  along with example uses \Dash
+  as a comment.
+(This can remain as part of the file if you wish.)
+Click \ifacefield{OK} to save the file.
 \begin{figure}
   \centering
-  \includegraphics{example-image-a}
+  \includegraphics[width=\textwidth]{predicate-move}
+  \caption{The predicate\slash move creation screen.}
+  \label{fig:iface:pred-screen}
+\end{figure}
+\begin{figure}
+  \centering
+\begin{lstlisting}
+# This is the definition of a predicate of a self-stabilizing algorithm.
+# What follows is the body of a function with the signature given below:
+#
+#     def privilege(self, v, N)
+#
+# where `v` is a node (as a dictionary) and `N` is the open neighborhood
+# of `v` as a list of dictionaries.
+
+if not v['marked']:
+    return False
+for neighbor in N:
+    if neighbor['marked']:
+        return False
+return True
+\end{lstlisting}
   \caption{When creating an entirely new predicate or move,
     you are presented with a helpful template to start working from.}
   \label{fig:iface:create-pred}
 \end{figure}
+\begin{warning}
+  When you have finished editing the definition for a predicate or move,
+    the file is immediately written to disk.
+  This action cannot be undone and is unaffected by the \menu{File Manager > Save Bundle} operation.
+  This can be mitigated by~\autoref{task:temp-files}.
+\end{warning}
 
-\subsubsection{Documenting}
-\label{iface:document:pred-move}
-Every predicate and move can be given documentation.
-In addition to human-readable documentation,
-  \TeX nical documentation is also supported and encouraged.\footnote{%
-    See~\autoref{sec:iface:export}.}
-The documentation for predicates and moves is handled very Pythonically \Dash
-  the first line of the function's docstring serves as \TeX nical documentation
-  while the remaining text is considered the human-readable documentation.
-Refer to~\autoref{lst:iface:pred-move-documentation} for an example.
-\lstinputlisting[
-style=pythonex,
-float,
-caption={\directory{ind-set.ssax}: an example of predicate\slash move documentation.},
-label={lst:iface:pred-move-documentation},
-litkey=example-predicate,
-]{src/core/Algorithm.org}
+\subsection{Documentation}
+All entities \Dash predicates, moves, rules, and algorithms \Dash support documentation in various manifestations.
+In the graphical interface, these fields include the author,
+  a name,\footnote{Required and must be unique.  See~\autoref{sec:bundle-descr-docum}.}
+  a description, and \TeX nical documentation.
+\paragraph{\TeX nical documentation}
+When exporting an algorithm as a PDF (processed via \TeX\slash\TikZ),\footnote{%
+  Not yet supported via the graphical interface.
+  See~\autoref{task:texport}.}
+  the \TeX nical documentation for each entity is given special treatment.
+As bundles should be self-sufficient,
+  there is an easy syntax to use to denote the properties of a node.
+Considering \Algorithm{IndSet}, the quality of being \enquote*{in the set}
+  may be denoted as \texttt{\QuoteLiteral{marked}(n) = 1}.
+Note the literal double quotes (the single character \char`") around the function name;
+  in addition to clearly describing the purpose of a value,
+  this notation will be replaced as appropriate by
+  the more verbose (but correct) "\operatorname{marked}".
 
-Note that there is a special notation for custom properties to ease its use.
-When referring to a non-standard function
-  \Dash such as "marked" \Dash
-  you can enclose the function name in double quotes (the single character \texttt{\char`"}).
-When exporting documentation,
-  \todo{Need a section for this \Dash exporting documentation.}
-  this notation will be replaced by the more verbose
-  (but typographically correct) "\operatorname{marked}".
-See~\autoref{sec:iface:export} for more information.
-\todo[code]{implement}
-
-\subsubsection{Testing}
-
-\begin{figure}
-  \centering
-  \begin{tikzpicture}
-    \tikzset{node/.style={minimum size=24pt}}
-    \def\neighbors{9}
-    \node[graph vertex] (source) at (0, 0) {$n$};
-    \foreach \i in {1,...,\neighbors} {
-      \node[graph vertex] (neighbor \i)
-        at ({360/\neighbors * (\i - 1)}:1in) {$v_{\i}$};
-      \path[graph undirected edge] (source) edge (neighbor \i);
-    }
-  \end{tikzpicture}
-  \caption{An example of a star graph, more importantly realized as a
-    node $n$ and its neighbors $v_i \in N(n)$.
-    \meta{This will probably be a screenshot of the test environment instead.
-      Most people know what a star graph is.}}
-  \label{fig:iface:star-graph}
-\end{figure}
-Each predicate and move is tested on a star graph of varying size.
-(See~\autoref{fig:iface:star-graph}.)
-If a predicate is being tested and does not return a value that
-  can be interpreted as \BooleanTrueValue\ or \BooleanFalseValue,
-  the editor will not let you submit it to the database.
-Similarly, if a move is being tested and does not return a node and a collection of nodes,
-  it will not be internally marked as complete when saved.
-
-When testing, you can set the properties of each node individually
-  or load the entire from a supported data file (see~\autoref{sec:interface-testing:import}).
-You can then step through each line of code to make sure it is acting as expected,
-  while being able to see\slash inspect node data in real time.
-\todo[code]{This may be \emph{very hard}, depending on tools available for the python debugger.
-  IDLE manages it, but I'm not sure how yet.  Isn't it open source?}
-
-\subsubsection{Maintaining}
-\menu{File>Save}
-\begin{figure}
-  \centering
-  \includegraphics{example-image-b}
-  \caption{The Rule Database \Dash
-    a listing of all created predicates and moves,
-    packageable from here.}
-  \label{fig:iface:ruledb}
-\end{figure}
-\subsubsection{Distributing}
-\menu{File>Save Bundle}
-\begin{draftvspace}{1in}
-  Simply package components you wish to send off and export as XML.
-\end{draftvspace}
-
+It should be noted that {\TeX} export is not yet functional in the core tool;
+  this syntax is merely set in place to guide further development.
+\todo{Update as necessary}
+See~\autoref{task:texport}.
 \subsection{Algorithms}
 
-\subsubsection{Assembling}
+Algorithm assembly is fully supported using the graphical interface.
+To create an algorithm, simply click the "+" button underneath the list of algorithms to the right.
+(This list will be empty in a new bundle.)
+Once this has been done, giving the Algorithm a name (via the \ifacefield{Name} field)
+  will update its text in the listing accordingly.
+
+The process is similar to add new rules to the algorithm.
+To create a new rule, simply press the "add" button under the list of rules.
+Give it a predicate via the drop-down (which is populated by the list of predicates in their tab)
+  and transfer moves between the master list on the left (similarly populated) and the rule's list on the right
+  using the angle bracket buttons (">" and "<") between them.
 \begin{figure}
   \centering
-  \includegraphics{example-image-a}
+  \includegraphics[width=\textwidth]{algorithms}
   \caption{The algorithm assembly screen}
   \label{fig:iface:alg-asm}
 \end{figure}
-\begin{draftvspace}{3in}
-  Talk about how to create an algorithm and
-    what the interface is actually doing underneath
-    (to aid in extension).
-\end{draftvspace}
-\subsubsection{Documenting}
-\begin{draftvspace}{2in}
-  Documenting your algorithm.
-\end{draftvspace}
-\subsubsection{Testing}
-\begin{draftvspace}{2in}
-  Testing your algorithm.
-\end{draftvspace}
+
+\subsection{Creating, Loading, and Saving}
+\label{sec:iface:saving}
+
+To save and load bundles, navigate to \menu{File Manager} tab.
+Enter the \emph{full}, \emph{absolute} path of the bundle you wish to load and,
+  taking special care not to press \menu{Save Bundle}
+  (as this will overwrite it),
+  press \menu{Load Bundle}.
+Successively loading bundles will aggregate them under a union operation
+  to allow for distributed work toward larger and larger bundles.
+
+If you wish to create a \emph{new} bundle, simply press \menu{New Bundle}.
+This will clear the interface and allow you to start fresh.
+
 \begin{figure}
   \centering
-  \includegraphics{example-image-b}
-  \caption{Algorithm testing interface}
-  \label{fig:iface:alg-test}
+  \includegraphics[width=\textwidth]{file-manager}
+  \caption{The file management interface}
+  \label{fig:iface:fmgr}
 \end{figure}
-\subsubsection{Maintaining}
-\begin{draftvspace}{3in}
-  How to save algorithms and package as all-in-ones.
-  \todo[ask]{Should there be copies of each predicate and rule in the save file?
-    I don't know how often people would change rules\dots}
-\end{draftvspace}
-\subsubsection{Distributing}
-\begin{draftvspace}{1in}
-  Package as an all-in-one and ship off by file transfer.
-\end{draftvspace}
-
-\subsection{Collaboration}
-\label{sec:iface:collab}
-(Perhaps it would be better to collect all of the collaborative
-elements in here?  File-saving, etc.?)
-\subsubsection{Import}
-\label{sec:iface:import}
-\subsubsection{Export}
-\label{sec:iface:export}
-
 
 %%% Local Variables: 
 %%% mode: latex

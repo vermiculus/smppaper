@@ -74,8 +74,6 @@ A self-stabilizing algorithm converges if and only if $\Exists{N \in \Naturals}{
 \end{comment}
 That is, after some finite number of moves $N \in \Naturals$,
   no predicate $p \in P$ privileges any vertex $v \in G$.
-\todo[ask]{Is there a mathematical way of expressing repeated application like this?
-  Ask Susan or Sandy or one of the math profs if Alan doesn't know.}
 If there are no privileged nodes, no node can make a move and
   the system is considered \Term{stable}~\autocite{dew:sem}.
 
@@ -154,7 +152,7 @@ At least one other model exists where each node acts
   of its own accord distinct from any central daemon.
 \todo[cite]{Find a resource that talks about non-daemonized algorithm executions in-depth}
 To simplify initial development, the daemon model was implemented
-  as opposed to any truly distributed model.
+  as opposed to any truly distributed model (see~\autoref{sec:logic-repr:daemon}).
 An extension may later be added, perhaps using the Python~variant Stackless~\autocite{stackless},
   that implements an alternative run-mode that uses distributed techniques.
 

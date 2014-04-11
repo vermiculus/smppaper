@@ -2,7 +2,7 @@
 
 \lstset{style=litpython}
 
-\lstMakeShortInline[basicstyle=\small\ttfamily]"
+\lstMakeShortInline[language={},basicstyle=\small\ttfamily]"
 
 \ExplSyntaxOn
 \NewDocumentCommand \meta { m } {
@@ -24,7 +24,7 @@
 }
 
 \NewDocumentCommand \object { m } {
-  \textsf{#1}
+  \enquote*{#1}
 }
 
 \NewDocumentCommand \citeay { m } {
@@ -42,6 +42,67 @@
 \NewDocumentCommand \SetBoolean { } {
   \Set{\BooleanTrueValue, \BooleanFalseValue}
 }
+
+\NewDocumentCommand \Algorithm { m } {
+  \textsc{#1}
+}
+
+\NewDocumentCommand \ifacefield { m } {
+  \textsf{#1}
+}
+
+\RenewDocumentCommand \textsc { m } {
+  {
+    \fontspec{Latin ~ Modern ~ Roman ~ Caps}
+    #1
+  }
+}
+
+\NewDocumentCommand \fileformat { m } {
+  \texttt{#1}
+}
+
+\NewDocumentCommand \TikZ { } {
+  Ti\emph{k}z
+}
+
+\NewDocumentCommand \QuoteLiteral { m } {
+  \char`" #1 \char`"
+}
+
+\lstset{
+  stringstyle=\color{green!50!black},
+  showstringspaces=true,
+}
+
+\lstdefinestyle { ssax } {
+  morekeywords = {
+    xmlns,
+    bundle,
+    algorithm,
+    rule,
+    move,
+    name,
+    description,
+    predicate,
+    file,
+  },
+}
+
+\newtheoremstyle{task}%
+  {4ex}% space above
+  {4ex}% space below
+  {}% body font
+  {}% indent amount
+  {\bfseries}% head font
+  {.}%punctuation after head
+  {.5em}%space after head
+  {}%head spec
+
+\theoremstyle{task}
+\newtheorem{task}{Task}
+\def\taskautorefname{Task}
+
 \ExplSyntaxOff
 
 %%% Local Variables:

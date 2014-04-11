@@ -1,39 +1,50 @@
 \section{Testing Interface}
 \label{sec:interface-testing}
 
-\subsection{Test Graphs}
-\subsubsection{Creating from Scratch}
-\subsubsection{Loading from Files}
-\label{sec:interface-testing:import}
-Supported by NetworkX~\autocite{hagberg:networkx}
+Testing is currently only supported via the text interface (see~\autoref{task:testing-interface}).
+See~\autoref{lst:test-cmd} for an example run of \Algorithm{IndSet} on a star graph.
+Valid graph input formats are \fileformat{gexf}, \fileformat{gml}, and \fileformat{yaml}.
 
-\subsection{Loading Algorithms} % from a file
-To load
-\subsection{Applying Algorithms}
-\subsubsection{Controlled Iteration}
-\begin{figure}[p]
-  \centering
-  \includegraphics{example-image-a}
-  \caption{Graphical Play\slash Pause\slash FF\slash Rewind\slash\dots}
-  \label{fig:iface:alg-test-controlled}
-\end{figure}
-\begin{draftvspace}{.5in}
-  Controlled iteration.
-\end{draftvspace}
-\subsubsection{Uncontrolled Iteration}
-\begin{figure}[p]
-  \centering
-  \includegraphics{example-image-b}
-  \caption{Batch Mode Run}
-  \label{fig:iface:alg-test-batch}
-\end{figure}
-\begin{draftvspace}{.5in}
-  Batch mode.
-\end{draftvspace}
-\subsubsection{Keeping History}
-\begin{draftvspace}{.5in}
-  Saveable as an animated GEXF.
-\end{draftvspace}
+\begin{lstlisting}[language={},float=!h,caption={A model testing session using the command-line utility.},label={lst:test-cmd}]
+$ ./ssa-tool run "Independent Set" \
+             from examples/ind-set.ssax \
+             on test.gml \
+             --non-interactive
+Welcome to SSA-Tool, version 1.
+Running:
+  Algorithm: "Independent Set"
+       from: "examples/ind-set.ssax"
+         on: "test.gml"
+    (format: "gml")
+Read Graph:
+[(0, {'id': 0, 'label': 0, 'marked': 0}),
+ (1, {'id': 1, 'label': 1, 'marked': 1}),
+ (2, {'id': 2, 'label': 2, 'marked': 0}),
+ (3, {'id': 3, 'label': 3, 'marked': 0}),
+ (4, {'id': 4, 'label': 4, 'marked': 0})]
+History:
+[{'move': move 'mark node',
+  'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new node': 2,
+  'node': (2, {'id': 2, 'label': 2, 'marked': 0})},
+ {'move': move 'mark node',
+  'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new node': 3,
+  'node': (3, {'id': 3, 'label': 3, 'marked': 0})},
+ {'move': move 'mark node',
+  'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new node': 4,
+  'node': (4, {'id': 4, 'label': 4, 'marked': 0})}]
+Stable Graph:
+[(0, {'id': 0, 'label': 0, 'marked': 0}),
+ (1, {'id': 1, 'label': 1, 'marked': 1}),
+ (2, {'id': 2, 'label': 2, 'marked': True}),
+ (3, {'id': 3, 'label': 3, 'marked': True}),
+ (4, {'id': 4, 'label': 4, 'marked': True})]
+\end{lstlisting}
 
 %%% Local Variables: 
 %%% mode: latex

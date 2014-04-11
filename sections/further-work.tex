@@ -1,0 +1,211 @@
+\section{Further Work}
+\label{sec:further-work}
+
+There are many things that, due to the sheer time constraints of the project,
+  have been left undone.
+Some are tasks that I consider to be bugs or areas of severe lacking,
+
+\subsection{Remaining Tasks}
+\label{sec:tasks:bugs}
+
+\begin{task}
+  \label{task:test}
+  Leverage the Nose system~\autocite{nose} to automate tests.
+  Randomized graph construction tools have been developed in the repository
+    (under \directory{simulation/generators});
+  these will be helpful.
+  Several tests have already been written for the generator itself \Dash
+    it would be best to follow the example set forth there as tests hope to be
+    efficient with the larger data structures the they would create.
+\end{task}
+
+\begin{task}
+  \label{task:testing-interface}
+  There is currently no graphical interface to the algorithm testing functionality.
+  This should eventually be married with the visualizer~(\autoref{task:gui-visualizer}),
+    but even a simple interface to select a graph and run the test \Dash
+    piping output on-screen \Dash would suffice.
+\end{task}
+
+\begin{task}
+  \label{task:interface}
+  Continue work on and thoroughly test the interface.
+  There are likely many issues that have not yet been discovered,
+    and there are certainly best-practices in human--computer interaction
+    that are not being followed.
+\end{task}
+
+\begin{task}
+  \label{task:gui-syntax-highlighting}
+  The predicate\slash move definition area in the graphical interface
+    should have some amount of syntax highlighting.
+  Code may be borrowed from the IDLE tool for Python,
+    which aside from syntax highlighting, also supports interactive documentation.
+  Such interactive documentation may potentially take the place of the template comments.
+\end{task}
+
+\begin{task}
+  \label{task:gui-definition-wrapping}
+  The predicate\slash move definition area in the graphical interface
+    wraps lines in a context where line-wrapping is not desirable.
+  This might be solved in either (or both) of two ways:
+  \begin{itemize*}
+  \item providing a second, resizable dialog that consists solely of the definition area, or
+  \item providing horizontal (and vertical) scroll bars to navigate the definition.
+  \end{itemize*}
+  I would personally hope definitions for such basic components to remain small
+    (in favor of working with~\autoref{task:smarter-def}),
+    but this obviously cannot be assumed.
+\end{task}
+
+\begin{task}
+  \label{task:smarter-def}
+  Currently, a new class is being created for every predicate and move
+  object loaded from a bundle in order to accommodate their ability to
+  be called.  This can be simplified by loading the definition into
+  the temporary function and then setting a \enquote*{hidden} local
+  function-variable (say,~"_def") to this definition.  The
+  class-level "__call__" may then simply pass the call onto this
+  member variable.
+\end{task}
+
+\begin{task}
+  \label{task:temp-files}
+  Under the current interface, frequent saves must be made in order to
+  maintain state from tab to tab.  This can by mitigated with the
+  automated use of temporary files.
+\end{task}
+
+
+\subsection{Potential Extensions}
+\label{sec:tasks:ext}
+
+\begin{task}
+  \label{tast:autodate}
+  In a bundle description document (\autoref{sec:bundle-descr-docum})
+    and the graphical interface (~\autoref{sec:interface-ssa}),
+    a date is a timestamp of the last edit.
+  This can be automated, but is not currently.
+  It requires tracking changes made to the bundle during the current session,
+    but shouldn't be to difficult.
+\end{task}
+
+\begin{task}
+  \label{task:gephi-glue}
+  Gephi~\autocite{gephi} is a very popular tool used in graph theory research.
+  Equipped with an extraordinarily powerful visualizer,
+    it is well-suited to run simulations using advanced graphical methods
+    that may not be easily achievable within Pygame~\autocite{pygame},
+    what would be the standard visualizer.
+  
+  Gephi is written in Java and some work will need to be done
+    to glue the two together, but it is perhaps a very useful tool to have
+    integrated into an already-pervasive utility.
+\end{task}
+
+\begin{task}
+  \label{task:anigexf}
+  The core utility keeps a history of each run of an algorithm on any graph.
+  Unfortunately, there are no obvious interfaces
+    (within NetworkX~\autocite{hagberg:networkx} or otherwise)
+    with which to export this to a standardized format.
+
+  One such format is \fileformat{gexf}: the Graph Exchange Format.
+  Notation is available to represent change over time with respect to a node,
+    but there is no facility within NetworkX's exporters to use this.
+
+  To some extent this is to be expected; the model that NetworkX uses to represent a graph
+    does not seme to allow any representation of change.
+  As such, a custom exporter will need to be written (perhaps using~\autocite{pygexf}) that
+    can take a graph and a list of deltas and can output the correct notation.
+  This notation is detailed in the official documentation~\autocite{gexf}.
+\end{task}
+
+\begin{task}
+  \label{task:gui-visualizer}
+  A prototype visualizer has been written for use with the tool,
+    but is not yet ready for release.
+  It is still available within the GitHub repository at "vermiculus/ssa-tool".
+  It leverages the graph representation and layout facilities of NetworkX~\autocite{hagberg:networkx}
+    and uses Pygame~\autocite{pygame} to draw the graph on-screen.
+  Given the nature of Python reference types, any and all changes to the graph
+    will be immediately reflected on-screen.
+  This task is merely concerned with the integration of these two tools.
+\end{task}
+
+\begin{task}
+  \label{task:texport}
+  It would be exceptionally useful to have printed output from the
+  tool that details the definition of an algorithm or set of
+  algorithms within a bundle, perhaps even typeset histories (using
+  \TikZ) of a run.  \TeX nical documentation is being kept to allow
+  this, but serious work in text processing will need to be done in
+  order to do this cleanly.
+\end{task}
+
+\begin{task}
+  \label{task:bundle-graphs}
+  In order to fully facilitate reproducable research
+    (as reproducable as it could be,
+      considering the arbitrary nature of selection),
+    graphs and corresponding tests should be included as part of bundles.
+\end{task}
+
+\begin{task}
+  \label{task:save-history}
+  Implement a history browser within the graphical interface.
+  This is a simple parsing of the data-structure described in~\autoref{sec:logic-repr},
+    and may also be integrated into the visualizer from~\autoref{task:gui-visualizer}.
+\end{task}
+
+\begin{task}
+  \label{task:arbitrary-attributes}
+  PyYAML~\autocite{pyyaml} is able to read and write arbitrary YAML
+  attributes to and from Python objects, but there is no way to explore
+  any additional attributes that might exist within the file.
+  It may be useful to have a sort of \enquote*{data explorer} that can
+    browse and edit these attributes.
+\end{task}
+
+\begin{task}
+  \label{task:magical-references}
+  Some predicates and moves may eventually be defined as the aggregation of others.
+  Design and implement a syntax to refer to predicates and moves defined within the bundle
+    within the definition of the predicate or move itself.
+  I would suggest Noweb syntax~\autocite{noweb}, but I am far from attached to it
+    (\emph{especially} if the syntax is used elsewhere in Python~3).
+\end{task}
+
+\begin{task}
+  \label{task:stackless}
+  The tool currently implements only the centralized daemon model of execution,
+    but other models exist that are far more distributed.
+  There are many real-world simulation possibilities when using a truly distributed system,
+    but the current implementation is single-threaded.
+
+  The project may be tweaked and re-targeted toward the Stackless variant of Python~\autocite{stackless}.
+  Stackless supports multi-threading as a core goal, and this task would likely be easiest to complete with it.
+
+  This runs the risk, however, of breaking NetworkX~\autocite{hagberg:networkx}, PyYAML~\autocite{pyyaml}, or PyGame~\autocite{pygame}.
+\end{task}
+
+\subsection{Further Research Now Possible}
+
+\begin{task}
+  \label{task:genetic}
+  Given how it represents algorithms as a population of predicates, moves, and rules,
+    "ssa-tool" could feasibly be used to genetic algorithms that generate
+    self-stabilizing algorithms.
+  To do so effectively would require a quick and completely autonomous
+    evaluation of effectiveness as a fitness function \Dash
+    perhaps how quickly the algorithm converges or if it converges at all.
+\end{task}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../smp.tex"
+%%% TeX-PDF-mode: t
+%%% reftex-cite-format: "\\autocite{%l}"
+%%% TeX-command-default: "arara"
+%%% TeX-engine: xetex
+%%% End:
