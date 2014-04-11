@@ -7,9 +7,9 @@ Valid graph input formats are \fileformat{gexf}, \fileformat{gml}, and \fileform
 
 \begin{lstlisting}[language={},float=!h,caption={A model testing session using the command-line utility.},label={lst:test-cmd}]
 $ ./ssa-tool run "Independent Set" \
-             from examples/ind-set.ssax \
-             on test.gml \
-             --non-interactive
+            from examples/ind-set.ssax \
+              on test.gml \
+                 --non-interactive
 Welcome to SSA-Tool, version 1.
 Running:
   Algorithm: "Independent Set"
@@ -25,19 +25,16 @@ Read Graph:
 History:
 [{'move': move 'mark node',
   'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
-  'new neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
+  'new node': 4,
+  'node': (4, {'id': 4, 'label': 4, 'marked': 0})},
+ {'move': move 'mark node',
+  'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
   'new node': 2,
   'node': (2, {'id': 2, 'label': 2, 'marked': 0})},
  {'move': move 'mark node',
   'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
-  'new neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
   'new node': 3,
-  'node': (3, {'id': 3, 'label': 3, 'marked': 0})},
- {'move': move 'mark node',
-  'neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
-  'new neighbors': {0: {'id': 0, 'label': 0, 'marked': 0}},
-  'new node': 4,
-  'node': (4, {'id': 4, 'label': 4, 'marked': 0})}]
+  'node': (3, {'id': 3, 'label': 3, 'marked': 0})}]
 Stable Graph:
 [(0, {'id': 0, 'label': 0, 'marked': 0}),
  (1, {'id': 1, 'label': 1, 'marked': 1}),
