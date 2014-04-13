@@ -1,7 +1,18 @@
 \section{Reflection}
 \label{sec:reflection}
 
-This project has been long and difficult, \dots
+This project has been long and difficult.
+After starting soon after my return to campus in the fall of~2013,
+  the project is finally coming to a close at the time of writing.
+There are many things left to be done (see~\autoref{sec:further-work}),
+  but there are also many things that have been accomplished.
+Some of these accomplishments are in and of the project itself,
+  but the greater accomplishments \Dash
+  those that will remain with and influence me \Dash
+  are those practices and perspectives that I've acquired
+  through the course of this capstone experience.
+
+\subsection{Restraints per Constraints}
 
 Like several of my peers during this project,
   the first great challenge was perhaps initial restraint and discipline.
@@ -18,14 +29,10 @@ The phenomenon describes the woes of even the careful the software architect,
 My reflection on my general project-management decisions bring this passage to mind
   not because I added such frills, but because I fell victim to my own reckless hubris
   in believing I knew enough about the domain to begin modeling it in a program.
-\todo[ask]{Find the quote that falls along the lines of \enquote*{to program is to be absolutely certain}.
-  I can't really remember how it goes
-  \Dash I \emph{think} it was in the Mythical Man-Month \Dash
-  but it went student--teacher--?--programmer or something of the like.}
 Logically representing the system without a full \Dash or even working \Dash
   knowledge of the current research and definitions set the project back at least a month, possibly longer.
 Once I relented to \emph{reading} before I \emph{wrote},
-  progress began to accelerate to the point of noticeable and measurable progress.
+  the project accelerated to the point of noticeable and measurable progress.
 
 This naturally led to the second great challenge: self-motivation and discipline (again).
 As I began to research the topic in earnest,
@@ -34,59 +41,109 @@ This was a short-lived period of near-frenzied research
   \Dash in print, online, and in-person \Dash
   where I read a wide variety of different articles that utilized or talked about fault-tolerant systems.
 (This frenzy was started by reading~\citetitle{goddard:ssa--k-distance}
-  by~\citeauthor{goddard:ssa--k-distance} for a separate assignment.)
-Before separate time constraints won over with sheer pressure,
+  by~\citeauthor{goddard:ssa--k-distance} for an assignment in a separate class.)
+Before other time constraints won over with the sheer pressure of impending due dates,
   I was able to more clearly see the project's place in the overall arena of research.
 This clarity of purpose \Dash
   coupled with the understanding offered by the research itself \Dash
   unsurprisingly gave me the necessary tools and motivation to fully design
   the concepts and relationships of the underlying system.
 
-\subsection{A Brief History of Time (Since September~2013)}
-Everyone loves well-documented software.
-Documentation is essential \Dash without it, a project has virtually no hope of getting off the ground.
-As a matter of fact, the lack of documentation in another project \Dash
-  Graph\# for WPF/C\#~\autocite{palesz:graphsharp} \Dash
-  drove me to choose to implement the entire project in Python over the original plan of C\#.
-By all accounts, C\# seemed to be a better fit for the task at hand \Dash
-  create a graphical user interface for the creation and maintainence of self-stabilizing algorithms \Dash
-  but the basic tools available were not documented in the slightest.
-I became frustrated enough with the experience to abandon it entirely.
+Thus, the core engine \Dash "ssa-tool" itself \Dash was written and re-written time and time again.
+Each successive iteration took very little time when considered on its own,
+  but each was significant in marking an increase in understanding.
+The final engine \Dash
+  including the time for all previous iterations and less the persistent aspects \Dash
+  was working within a month.
+As happy as I was to complete this milestone,
+  what the coming months had in store would
+  overturn the perspectives I had assumed
+  in creating this pre-release.
 
-Taking my advisor's\dots advice\dots, I re-implemented what I had in Python.
-\todo{expand, perhaps?}
+\subsection{Thinking Ahead}
 
-\bigskip
+The project's initial goal was \enquote*{simple}:
+\begin{quote}
+  Create a graphical tool for the simple creation, manipulation,
+    and evaluation of self-stabilizing algorithms
+    while minimizing the purely technical requirement of the user.
+\end{quote}
+The project was to manifest itself in a fully-featured graphical user interface.
 
-With the logical definitions behind me and the graphical interface ahead of me,
-  I have very little crucial \emph{thinking} left to do, it would seem.
-I'm not saying the creation of an interface is trivial \Dash quite the contrary \Dash
-  but I am saying it will require a very different throughout process to do well.
-I haven't formally decided on the graphical interface I want to use yet,
-  but Tkinter~\autocite{tkinter} seems like the natural choice.
-When I discovered PyGame~\autocite{pygame} \Dash realizing that what I needed was
-  a bare-bones graphics library for the graph-drawing portion \Dash
-  it was a frustrating install to say the least on my late 2009 MacBook.
-When I finally upgraded to the current model MacBook Pro,
-  the install process went smoothly and quickly.
+I had created a \emph{very} robust system that worked without a graphical interface.
+It was (and still is) my assumption that a good system relies on an even better engine,
+  and the command-line interface was that engine.
+Unfortunately, it turned out that this system was not very conducive
+  to interfacing with a real-time window system.
+A few minor redesigns needed to be made to glue the two together,
+  and the interaction is still largely imperfect
+  (as the task list in~\autoref{sec:further-work} is painfully indicative of).
+
+The more fundamental problem was the very choice of language.
+For a command-line interface, Python was an excellent choice.
+It was expressive and concise, file operations were simple and
+  plain-text serialization was well-supported with PyYAML~\autocite{pyyaml}.
+Being comfortable on the command-line and a big fan of plain-text data,
+  this stage of development was \Dash for lack of a more perfect word \Dash wonderful.
+
+Graphical interfaces in Python, however, are \emph{not} so wonderful.
+
+If I had considered the goals of the project more seriously
+  (and perhaps recognized that I \Dash with my own preferred uses \Dash was not the primary user),
+  I would have begun the implementation in~C\#
+  (given the wonderful interface design tools available with Visual~Studio).
+This would have absolutely \emph{thrashed} portability,
+  but would have made the tool far more stable in its prescribed use case.
+There are several tools that would require re-implementation
+  (such as the graph drawing capabilities I had written
+  for PyGame~\autocite{pygame}; see~\autoref{task:gui-visualizer}),
+  but more research and simple resolve would have solved this issue
+  far quicker and more effective than what has come to pass.
 
 \subsection{The Grand Distraction}
 Everyone loves well-documented software.
 My experience with Graph\# \Dash and the eventual migration to a more convenient platform \Dash
   encouraged me to take on the largest project of my academic career in
-  the most foreign \Dash but \emph{useful} \Dash actual software devlopment paradigm
+  the most foreign \Dash but \emph{useful} \Dash actual software development paradigm
   that I had encountered to date.
 Writing the document as a literate program~\autocite{knuth:lit-prog}
   forced me to write good documentation for the project,
-  but perhaps this level of documentation was not the best use of my time.
+  but perhaps this level of documentation was not the best use of my time
+  in the beginning stages of the project.
 The first commit activity in the source code dates to 10:30pm Christmas~Eve,
   more than halfway through the year-long project.
-While I don't regret the decision to switch to Python \Dash
-  and I will not say I regret the use of literate programming in this project \Dash
+While I will never regret the use of literate programming in this project \Dash
+  it is this use that largely taught me what the project \emph{was} \Dash
   I should have focused far more on the actual project
   rather than the format in which it would be written.
 
-etc\dots
+Additionally, the desire to produce write a \enquote*{perfect} project \Dash
+  following all Python conventions \Dash
+  took a large portion of time.
+Working in a literate document certainly did not require this.
+If I so chose, it would have been inconsequential to tangle to
+  one file and one file only.
+The desire to make the tool easily navigable outside of this format \Dash
+  while a fine desire for a second iteration of this prototype \Dash
+  was a significant time-sink.
+
+It so happened that \Dash in the production-frenzy of the final weeks of term \Dash
+  I began to work solely from what began as a \enquote*{test} file.
+This was not a literate environment.
+While it allowed me to work far quicker in some cases
+  \Dash there was no intermediate tangling step \Dash
+  it was a \emph{nightmare} to keep everything organized.
+A better approach would have been to work initially from these \enquote*{test} files \Dash
+  no literate programming or even significant documentation \Dash
+  and then transfer and \enquote*{untangle} them into the literate document,
+  writing the essay-documentation for the current component while it was still familiar to me.
+Without a literate backbone to encourage it, the project's source lacks the high degree of
+  documentation and structure that I pride myself in producing for my other projects.
+Before the project enters my portfolio of work that I am \emph{proud} of,
+  this is first and foremost on the list.\footnote{%
+    As a sidenote, another hindrance \Dash completely unnecessarily \Dash
+    was the lack of GitHub highlighting for the literate document.
+    This has thankfully been resolved as \href{https://github.com/github/markup/issues/253}{\texttt{github/markup\#253}}.}
 
 %It is painfully \Dash sometimes annoyingly \Dash obvious to those who know me that \LaTeX\ is a true passion of mine.
 
