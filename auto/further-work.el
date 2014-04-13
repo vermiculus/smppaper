@@ -3,8 +3,13 @@
     (LaTeX-add-labels
      "sec:further-work"
      "sec:tasks:bugs"
+     "task:alg-aggr"
+     "task:update-name"
      "task:test"
+     "task:definition-newline"
      "task:valid-pred"
+     "task:reliable-hl"
+     "task:dates"
      "task:testing-interface"
      "task:interface"
      "task:gui-syntax-highlighting"

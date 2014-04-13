@@ -4,9 +4,33 @@
 There are many things that, due to the sheer time constraints of the project,
   have been left undone.
 Some are tasks that I consider to be bugs or areas of severe lacking,
+  but some are critical bugs of the interface that should be taken into account
+  when using it.
 
-\subsection{Remaining Tasks}
+\subsection{Remaining Tasks and Bugs}
 \label{sec:tasks:bugs}
+
+\subsubsection{Critical Bugs}
+
+\begin{task}
+  \label{task:alg-aggr}
+  The \menu{Algorithms} tab should be completely re-written.
+  Due to time constraints, very poor decisions (with respect to best practice)
+    were made in the interest of a working product.
+  Crashes are common if and when the user deviates from the script prepared in~\autoref{sec:interface-ssa}.
+
+  Creation of predicates and moves via \menu{Predicates} and \menu{Moves} works fine,
+    with the exception of the bug discussed in~\autoref{task:definition-newline}.
+\end{task}
+
+\begin{task}
+  \label{task:update-name}
+  When typing in a new name for any entity (algorithm, rule, predicate, or move),
+    consistent crashes occur when multiple characters are selected and replaced together.
+  The cause of this bug is unknown.
+\end{task}
+
+\subsubsection{Non-Critical Bugs}
 
 \begin{task}
   \label{task:test}
@@ -17,6 +41,19 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
   Several tests have already been written for the generator itself \Dash
     it would be best to follow the example set forth there as tests hope to be
     efficient with the larger data structures the they would create.
+  This task should be completed with~\autoref{task:interface}.
+\end{task}
+
+\begin{task}
+  \label{task:definition-newline}
+  In the interface, when switching the active predicate for editing
+    (from $P_1$ to $P_2$, say),
+    the last line of the definition of $P_1$ will be lost.
+  This may be solved by changing how the definition
+    is saved in the core objects from
+    a list of lines to a single string.
+  This will make the interface with the
+    "Text" widget from Tkinter much smoother.
 \end{task}
 
 \begin{task}
@@ -24,6 +61,24 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
   Prohibit the permanent modification of graph entities when applying a predicate.
   This can be effected as part of~\autoref{task:gui-definition-wrapping}.
 \end{task}
+
+\begin{task}
+  \label{task:reliable-hl}
+  On the \menu{Predicates} and \menu{Moves} tabs,
+    rudimentary syntax highlighting has been implemented,
+    but does not refresh itself when the text is edited.
+  This should be made more reliable.
+  See~\autoref{task:gui-syntax-highlighting}.
+\end{task}
+
+\begin{task}
+  \label{task:dates}
+  Dates have a very strict format: \texttt{YYYY-MM-DD}.  A date-time
+  parsing library should be leveraged to consistently parse
+  information provided in a variety of formats.
+\end{task}
+
+\subsubsection{Essential Extensions and Re-Designs}
 
 \begin{task}
   \label{task:testing-interface}
@@ -39,22 +94,24 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
   There are likely many issues that have not yet been discovered,
     and there are certainly best-practices in human--computer interaction
     that are not being followed.
+  This task should be completed with~\autoref{task:test}.
 \end{task}
 
 \begin{task}
   \label{task:gui-syntax-highlighting}
   The predicate\slash move definition area in the graphical interface
-    should have some amount of syntax highlighting.
+    should have reliable syntax highlighting.
   Code may be borrowed from the IDLE tool for Python,
     which aside from syntax highlighting, also supports interactive documentation.
   Such interactive documentation may potentially take the place of the template comments.
+  See~\autoref{task:reliable-hl}.
 \end{task}
 
 \begin{task}
   \label{task:gui-definition-wrapping}
-  The predicate\slash move definition area in the graphical interface
-    wraps lines in a context where line-wrapping is not desirable.
-  This might be solved in either (or both) of two ways:
+  Within the \menu{Predicates} and \menu{Moves} tabs,
+    the definition area needs some rethinking.
+  I imagine two ways it can be made more usable:
   \begin{itemize*}
   \item providing a second, resizable dialog that consists solely of the definition area, or
   \item providing horizontal (and vertical) scroll bars to navigate the definition.
@@ -78,8 +135,13 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
 \begin{task}
   \label{task:temp-files}
   Under the current interface, frequent saves must be made in order to
-  maintain state from tab to tab.  This can by mitigated with the
-  automated use of temporary files.
+  maintain state.  This can by mitigated with the automated use of
+  temporary files.  These saves are effected by switching the entity
+  in question; \ie to save a predicate, switch to a new predicate.
+  This will write the old one to memory.  (Alternatively, this can be
+  solved by writing to logic as a callback hooked onto an "Entry"'s
+  edit event \Dash in reality, this would be a trace on the string
+  variable.)
 \end{task}
 
 
@@ -88,12 +150,15 @@ Some are tasks that I consider to be bugs or areas of severe lacking,
 
 \begin{task}
   \label{tast:autodate}
-  In a bundle description document (\autoref{sec:bundle-descr-docum})
-    and the graphical interface (~\autoref{sec:interface-ssa}),
+  In the bundle description document (\autoref{sec:bundle-descr-docum})
+    and the graphical interface (\autoref{sec:interface-ssa}),
     a date is a timestamp of the last edit.
   This can be automated, but is not currently.
   It requires tracking changes made to the bundle during the current session,
     but shouldn't be too difficult.
+
+  Currently, all dates are required to be in \texttt{YYYY-MM-DD} format,
+    otherwise the parser crashes.  (See~\autoref{task:dates}
 \end{task}
 
 \begin{task}

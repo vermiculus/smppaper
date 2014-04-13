@@ -25,15 +25,15 @@ v['marked'] = True
 \begin{lstlisting}[float=p,caption={\directory{moves/unmark.py}},label={lst:ex:unmark}]
 v['marked'] = False
 \end{lstlisting}
-\begin{lstlisting}[float=p,caption={\directory{predicates/marked-and-neighbor-marked.py}},label={lst:ex:should-unmark}]
-marked = v['marked']
-neighbor_marked = any(map(lambda n: n['marked'], N))
-return marked and neighbor_marked
-\end{lstlisting}
 \begin{lstlisting}[float=p,caption={\directory{predicates/unmarked-and-neighbors-unmarked.py}},label={lst:ex:should-mark}]
 marked = v['marked']
-neighbor_marked = any(map(lambda n: n['marked'], N))
+neighbor_marked = any(map(lambda u: u['marked'], N))
 return not (marked or neighbor_marked)
+\end{lstlisting}
+\begin{lstlisting}[float=p,caption={\directory{predicates/marked-and-neighbor-marked.py}},label={lst:ex:should-unmark}]
+marked = v['marked']
+neighbor_marked = any(map(lambda u: u['marked'], N))
+return marked and neighbor_marked
 \end{lstlisting}
 \begin{lstlisting}[float=p, language=yaml, basicstyle=\ttfamily\footnotesize, caption={\directory{bundle.yaml}}, label={lst:interop:yaml-alg}]
 --- !Move

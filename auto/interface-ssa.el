@@ -2,9 +2,10 @@
  (lambda ()
     (LaTeX-add-labels
      "sec:interface-ssa"
-     "fig:iface:pred-screen"
-     "fig:iface:create-pred"
-     "fig:iface:alg-asm"
+     "fig:ex:predicates"
+     "fig:ex:algorithm"
      "sec:iface:saving"
-     "fig:iface:fmgr")))
+     "fig:iface:fmgr")
+    (TeX-add-symbols
+     '("bash" 1))))
 
