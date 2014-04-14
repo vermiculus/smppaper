@@ -59,13 +59,14 @@ return True
 The contents of this file will be evaluated as
   a function of three arguments:
 \begin{description}
-\item[\texttt{self}] The current bundle.
+\item[\texttt{self}] The current entitiy.
   It is not recommended that this variable is used,
     but it exists and is a reserved word.
   Do not alter this variable unless you are confident in your actions.
 \item[\texttt{v}] The current node ("v" for \enquote*{vertex}).
   Its data may be accessed dictionary-style as in~\autoref{lst:logic:pred-def}.
-\item[\texttt{N}] The neighborhood of "v" as a Python~3 "set".
+\item[\texttt{N}] The neighborhood of "v" as a Python~3 "set".\footnote{%
+    In reality, this type is the return of the \texttt{values()} method of a Python dictionary.}
   Each member may be viewed as the above.
 \end{description} % description of arguments self, v, and N
 \begin{warning}
@@ -90,6 +91,7 @@ The contents of this file will be evaluated as
     using four spaces.
   The use of tabs (or inconsistent use of spaces)
     will cause the parser to crash at~\autoref{lst:decorate:overview}.
+  When using the interface, the tab key will insert these four spaces.
 \end{warning} % whitespace sensitive language
 
 \begin{lstlisting}[float, caption={Predicates and moves are defined by named files in the bundle.  See also~\autoref{task:smarter-def}.}, label={lst:decorate:overview}]
@@ -119,8 +121,7 @@ def load_definition(self, path, obj):
 \label{sec:logic-repr:self-stab-algor}
 
 According to~\autoref{eq:define-ssalg},
-  a self-stabilizing algorithm is defined as a collection
-  \Dash actually a \emph{mapping} \Dash 
+  a self-stabilizing algorithm is defined as a mapping
   of these predicates to a set of their potential moves.
 These must be provided as the constructor argument "ruleset",
   as in \autoref{lst:algorithm-init}.
@@ -148,7 +149,7 @@ In addition to basic constraints on overall structure,
   every single basic component in the structure
   (each predicate and each move)
   must be directly callable with two arguments (a vertex and its neighborhood).
-If both of these constraints are met, this data structure can logically be used as the algorithm's definition.
+If both of these constraints are met, this data structure can logically be used as part of the algorithm's definition.
 
 \subsection{Central Daemon}
 \label{sec:logic-repr:daemon}
@@ -177,7 +178,7 @@ def run(self, graph, count=1):
 \end{lstlisting}
 
 The daemon begins by finding assembling a list of privileged nodes.
-To do this, it \emph{must} go through each node and check it for privilege.
+To do this, it \emph{must} go through each node and check it for the presence of privilege.
 \begin{warning}
   I consider this the greatest single bottleneck in the entire project.
   It is feasible that this can be altered into a distributed\slash threaded algorithm,

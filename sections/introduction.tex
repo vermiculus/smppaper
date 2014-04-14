@@ -41,7 +41,7 @@ This canonical definition is inherently limited, however;
   since \citeauthor{goddard:ssa--k-distance} allowed \emph{any} distance-$k$ algorithm
   to be simulated in the original definition within a reasonable complexity increase.
 
-Since then, many such algorithms have been put forward, unsurprisingly.
+Since then, many self-stabilizing algorithms have been put forward, unsurprisingly.
 Talks such as~\autocite{dolev:talk} present both
   the many applications of self-stabilization algorithms and
   the research done on the algorithms in general.
@@ -51,7 +51,7 @@ Given their innately parallel nature,
 
 \subsection{Related Work}
 \label{sec:introduction:related-work}
-In the same vein, complex algorithms in this family
+In the same vein, complex algorithms of this style
   \Dash those that quickly become too complex for a human to keep track of \Dash
   can be difficult to test without spending significant time
   actually \emph{implementing} the algorithm from scratch in a programming language.
@@ -63,7 +63,7 @@ One that seems to stand out from the rest is Python's NetworkX~\autocite{hagberg
   an extensive graph representation and manipulation library.
 While these libraries assist in modeling the raw graph,
   they provide little to no assistance in creating, testing, or maintaining the algorithm itself.
-They are simply not designed for such a relatively specific task.
+These utilities are simply not designed for such a relatively specific task.
 
 This is not to say that there aren't many excellent frameworks in which
   to \emph{deploy} self-stabilizing algorithms.
@@ -72,7 +72,7 @@ For example, "hpc/libcircle"~\autocite{gh:libcircle} is
 Using a blazingly fast algorithm described by~\autocite{lafon:balanceMQ},
   it is able to \enquote{quickly traverse and perform operations on a file tree
     which contains several hundred-million file nodes}.
-This is a good tool to use, but is unfriendly as far as self-stabilization research is concerned.
+This is a good tool for its purpose, but is unfriendly as far as self-stabilization research is concerned.
 The tool is written in and requires the use of C
   \Dash an \emph{excellent} choice of language in industries where speed is of the essence \Dash
   but it would seem unwise to create the algorithm itself
@@ -109,7 +109,7 @@ While the tools above utilize self-stabilizing algorithms for specific applicati
 "ssa-tool" represents self-stabilizing algorithms and their components
   as closely as possible to the available mathematical definitions.
 In this way, it aims to be a useful resource to quickly support published works
-  and to provide the means to test algorithms \emph{before} publication,
+  and to provide the means to test algorithms \emph{before} preparing publication,
   even to the point of creative construction.
 
 \vspace*{-1.5ex}                  % TAG::MANUAL
@@ -126,9 +126,9 @@ This adherence to a lower level of operations and
   avoidance of higher-level functionality is deliberate;
   it is my experience that a sound engine, however bare it may be,
   is \emph{essential} to build a functional, more user-friendly interface.
-By keeping the core system simple enough
-  for a human to intuitively understand
-  and using industry-standard technologies,
+By using industry-standard technologies and
+  keeping the core system simple enough
+  for a human to intuitively understand,
   it stands to reason that more feature-rich graphical interfaces
   may be laid atop this system
   by those more adept in developing them.
@@ -137,7 +137,7 @@ It also reduces the chance and general opportunity for bugs to arise,
 
 
 \paragraph{Potential}
-While the allotted term-time for development is drawing to a close,
+While the allotted term-time for development has drawn to a close,
   feature-freeze has set in.
 Considering the above philosophy, this is likely for the better.
 However, there are many features that "ssa-tool" provides the backbone for:

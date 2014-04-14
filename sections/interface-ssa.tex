@@ -54,15 +54,15 @@ The definition must be in Python~3 syntax~\autocite{python3:ref}.
   Due to the imperfect implementation of the interface,
     the last line of the definition string is \emph{always} lost.
   Unless you terminate the definition with a newline character,
-    the last line you give will be lost.
+    the last line you give \emph{will be lost}.
   For example, if the definition is only one line (say "return n['marked']"),
-    this entire definition will be lost.
-  This is a bug noted as part of~\autoref{task:definition-newline}.
+    this entire definition \emph{will be lost}.
+  See~\autoref{task:definition-newline}.
 \end{warning}
 
 \begin{warning}
   When you have finished editing the definition for a predicate or move,
-    the file is immediately written to disk.
+    the file is immediately written to logical.
   This action cannot be undone and is unaffected by the \menu{File Manager > Save Bundle} operation.
   This can be mitigated by~\autoref{task:temp-files}.
 \end{warning}
@@ -101,9 +101,12 @@ Once this has been done, giving the Algorithm a name (via the \menu{Algorithms >
 
 The process is similar to add new rules to the algorithm.
 To create a new rule, simply press the \menu{Algorithms > Rules > add} button under the list of rules.
-Give it a predicate via the drop-down (which is populated by the list of predicates in their tab)
+Provide a predicate via the \menu{Algorithms > Rules > Predicate}
+  (which is color-coded by the list of predicates in the bundle)
   and transfer moves between the master list on the left (similarly populated) and the rule's list on the right
   using the angle bracket buttons (\menu{{>}} and \menu{{<}}) between them.
+The predicate text will be red if the predicate does not exist
+  and will become black when it is recognized as a predicate.
 
 \subsubsection{Special Instructions}
 
@@ -219,7 +222,7 @@ Successively loading bundles will aggregate them under a union operation
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{figs/3}
+  \includegraphics[width=\textwidth]{figs/3-2}
   \caption{The file management interface}
   \label{fig:iface:fmgr}
 \end{figure}

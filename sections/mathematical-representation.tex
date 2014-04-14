@@ -30,7 +30,7 @@ Both are functions of a single node and its neighbors.\footnote{%
   Note that this is not the same as the closed neighborhood of a node.
   Consider these as functions $\Function{n, \OpenNeighborhood{n}}{\Set ?}$.}
 \Term{Predicates} are functions to the Boolean values~\eqref{eq:define-predicate},
-  where each \Term{moves} updates the state of the system~\eqref{eq:define-move}.
+  where each \Term{move} updates the state of the system~\eqref{eq:define-move}.
 When a predicate evaluates to $\BooleanTrueValue$ for any node $n$,
   it is said that $n$'s privilege is present.
 \begin{align}
@@ -42,7 +42,7 @@ When a predicate evaluates to $\BooleanTrueValue$ for any node $n$,
 \end{align}
 
 A self-stabilizing algorithm can thus be seen as
-  a collection of these predicate--move pairs.
+  a collection of these predicate\,--\,move pairs.
 Formally, we may define such an algorithm $S$ to be a discrete function
   from predicates to a random move functions:
   \begin{equation}
@@ -53,17 +53,15 @@ Formally, we may define such an algorithm $S$ to be a discrete function
 \todo[ask]{Is there a better way of describing random choice?
   Any conventions that are set, notationally speaking?}
 It was defined in this way to clarify the logical representation of the algorithm;
-  see Section~\ref{sec:logic-repr:self-stab-algor}.
+  see~\autoref{sec:logic-repr:self-stab-algor}.
 To distinguish from other uses of \Term{algorithm},
   this particular data structure will be called the \Term{rule set}.
 
 Two properties of the algorithm must be shown
   for a self-stabilizing algorithm to be proven correct:~\autocite{arora:closure-and-convergence}
 \begin{description}
-\item[convergence] The algorithm must complete using a finite number of moves.
-\item[closure] If the algorithm completes, the system is in a correct state.
-  \done[closure and convergence are \emph{it}]
-  \todo[ask]{Determine the qualities of the algorithm that must be shown.}
+\item[convergence] The algorithm must complete using a finite number of moves.\hfill ($S$ \emph{converges}.)
+\item[closure] If the algorithm completes, the system is in a correct state.\hfill ($S$ is \emph{closed}.)
 \end{description}
 
 A self-stabilizing algorithm converges if and only if $\Exists{N \in \Naturals}{\ForAll{n > N, p \in P^n, v \in V}{p(v) = 0}}.$
@@ -94,7 +92,7 @@ A self-stabilizing algorithm satisfies closure if and only
 A popular problem in graph theory is \Algorithm{IndSet} \Dash
   the maximal independent set \Dash
   and it has a particularly simple self-stabilizing algorithm (see~\autoref{alg:ind-set}).
-For clarity, the maximal independent set is defined as the set with the greatest cardinality
+For clarity, we define the maximal independent set as the set with the greatest cardinality
   within the power~set of the vertex~subsets $H \subseteq G$ such that
   no two nodes in $H$ are adjacent in $G$.
 
@@ -142,16 +140,15 @@ Since no other predicates apply, we say that \Term{no privileges are present}
   and the graph is considered \Term{stable}.
 
 The fact that we have reached an iteration where no privileges are present
-  gives evidence that \Algorithm{IndSet} \Term{converges}.
+  gives evidence that \Algorithm{IndSet} converges.
 Since no other node can be marked and no two marked nodes are adjacent to each other,
   this is indeed a maximal independent set.
 Since the algorithm did what it said it was going to do,
-  there is evidence that \Algorithm{IndSet} as \Term{closure}.
+  there is evidence that \Algorithm{IndSet} is closed.
 
 Obviously these properties would require \emph{formal} proof,
-  but many examples of an algorithm succeeding would make it
-  more \enquote*{worthwhile} to invest the time in its pursuit.
-\todo[r/w]{Need a different word for worthwhile}
+  but many examples of an algorithm succeeding could convince a researcher
+  to invest the time in its pursuit.
 \begin{figure}[p]
   \centering
   \begin{tikzpicture}
