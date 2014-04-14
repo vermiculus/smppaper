@@ -213,11 +213,11 @@ Obviously these properties would require \emph{formal} proof,
 \paragraph{Different Models}
 The paradigm given above is known as the central-daemon model~\autocite{dew:sem}.
 At least one other model exists where each node acts
-  of its own accord distinct from any central daemon.
-\todo[cite]{Find a resource that talks about non-daemonized algorithm executions in-depth}
+  of its own accord distinct from any central daemon~\autocite{ssa:dist}.
 To simplify initial development, the daemon model was implemented
   as opposed to any truly distributed model (see~\autoref{sec:logic-repr:daemon}).
-An extension may later be added, perhaps using the Python~variant Stackless~\autocite{stackless},
+An extension may later be added \Dash
+  perhaps using the Python~variant Stackless~\autocite{stackless} \Dash
   that implements an alternative run-mode that uses distributed techniques.
 
 %%% Local Variables: 
