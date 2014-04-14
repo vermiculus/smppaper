@@ -4,7 +4,7 @@
      "menukeys"
      "hyperref"
      "todo"
-     "marginpar"
+     "hide"
      "biblatex"
      "backend=biber"
      "enumitem"
