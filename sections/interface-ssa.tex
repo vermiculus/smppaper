@@ -34,9 +34,9 @@ To create them, navigate to the \menu{Predicates} or \menu{Moves} tabs
   and click the "add" button beneath the list on the far left
   (\autoref{fig:ex:predicates}).
 This will add an empty item \Dash in this case, a predicate \Dash to the list.
-Editing its \menu{Predicate > Name} field will update its name in the list accordingly.
-Fill in the \menu{Predicate > Author}, \menu{Predicate > Date},
-  and \menu{Predicate > \TeX} fields as appropriate.
+Editing its \menu{Predicates > Name} field will update its name in the list accordingly.
+Fill in the \menu{Predicates > Author}, \menu{Predicates > Date},
+  and \menu{Predicates > \TeX} fields as appropriate.
 
 \begin{warning}
   When giving any entity a name, be sure to edit it character-by-character starting from the end,
@@ -48,7 +48,7 @@ Fill in the \menu{Predicate > Author}, \menu{Predicate > Date},
 
 When you are ready to provide a definition,
   simply enter it in the large text area beneath the
-  \menu{Predicate > File} and \menu{Predicate > Description} fields.
+  \menu{Predicates > File} and \menu{Predicates > Description} fields.
 The definition must be in Python~3 syntax~\autocite{python3:ref}.
 \begin{warning}
   Due to the imperfect implementation of the interface,
@@ -93,14 +93,14 @@ See~\autoref{task:texport}.
 \subsection{Algorithms}
 
 Algorithm assembly is fully supported using the graphical interface.
-To create an algorithm, simply click the \menu{Algorithm > add} button
+To create an algorithm, simply click the \menu{Algorithms > add} button
   underneath the list of algorithms to the right.
 (This list will be empty in a new bundle.)
-Once this has been done, giving the Algorithm a name (via the \menu{Algorithm > Name} field)
+Once this has been done, giving the Algorithm a name (via the \menu{Algorithms > Name} field)
   will update its text in the listing accordingly.
 
 The process is similar to add new rules to the algorithm.
-To create a new rule, simply press the \menu{Algorithm > Rules > add} button under the list of rules.
+To create a new rule, simply press the \menu{Algorithms > Rules > add} button under the list of rules.
 Give it a predicate via the drop-down (which is populated by the list of predicates in their tab)
   and transfer moves between the master list on the left (similarly populated) and the rule's list on the right
   using the angle bracket buttons (\menu{{>}} and \menu{{<}}) between them.
@@ -126,12 +126,12 @@ This script creates the algorithm \Algorithm{IndSet} as part of a new bundle.
     See~\autoref{task:update-name}.
   \item Pressing backspace \keys{\backspace} to delete the existing text,
     rename the predicate to \enquote{node should mark}.
-  \item Give the entity additional metadata through the
-    \menu{Predicates > Author},
-    \menu{Predicates > Date},
-    \menu{Predicates > \TeX},
-    \menu{Predicates > Description}, and
-    \menu{Predicates > File Name} fields.
+  \item Give the entity additional metadata to the predicate through the
+    \menu{Author},
+    \menu{Date},
+    \menu{\TeX},
+    \menu{Description}, and
+    \menu{File Name} fields.
   \item Provide the definition provided in~\autoref{lst:ex:should-mark},
     taking care to add the terminal newline (see~\autoref{task:definition-newline}).
   \end{enumerate}
@@ -155,7 +155,7 @@ This script creates the algorithm \Algorithm{IndSet} as part of a new bundle.
 \item Edit \menu{Algorithms > Name} using the same procedure as before.
   Call the algorithm \enquote{Independent Set}.
 \item Repeat this process for \menu{Algorithms > Author} and \menu{Algorithms > Date},
-  being careful to give \menu{Algorithms > Date} in the correct format~(see~\autoref{task:dates}).
+  being careful to give \menu{Date} in the correct format~(see~\autoref{task:dates}).
 \end{enumerate}
 \item Add a rule to mark a node.
   \begin{enumerate}
