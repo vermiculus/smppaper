@@ -4,8 +4,7 @@
      "sec:interface-ssa"
      "fig:ex:predicates"
      "fig:ex:algorithm"
-     "sec:iface:saving"
-     "fig:iface:fmgr")
+     "sec:iface:saving")
     (TeX-add-symbols
      '("bash" 1))))
 
