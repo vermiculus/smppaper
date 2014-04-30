@@ -28,5 +28,9 @@
      "pyyaml"
      "ssa:dist"
      "gh:libcircle"
-     "gh:balancemq")))
+     "gh:balancemq"
+     "lamport"
+     "ex:mobile1"
+     "ex:mobile2"
+     "ex:mobile3")))
 

@@ -1,0 +1,293 @@
+% arara: xelatex
+% arara: biber
+% arara: xelatex
+% arara: xelatex
+% arara: xelatex
+
+\documentclass[
+% handout,
+]{beamer}
+
+\usepackage[backend=biber, doi=false]{biblatex}
+\addbibresource{refs.bib}
+
+
+\usepackage{xparse}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{smcm-math}
+\usepackage{smcm-cosc-graphs}
+\usepackage{csquotes}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily
+}
+\usepackage{fontspec}
+\setmonofont{Courier}
+\lstdefinelanguage{ssa}{
+  mathescape=true,
+  frame=none,
+  morekeywords={local, if, then},
+  backgroundcolor=\color{white},
+  showstringspaces=false,
+  showspaces=false,
+  showtabs=false,
+}
+\def\algorithmautorefname{Algorithm}
+
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+
+\tikzset{
+  marked/.style={
+    color=white,
+    fill=black,
+  }
+}
+
+
+\NewDocumentCommand \BooleanTrueValue { } {
+  \text{True}
+}
+
+\NewDocumentCommand \BooleanFalseValue { } {
+  \text{False}
+}
+
+\NewDocumentCommand \SetBoolean { } {
+  \Set{\BooleanTrueValue, \BooleanFalseValue}
+}
+
+
+\usetheme{Goettingen}
+%\usecolortheme{spruce}
+
+\title{Self-Stabilizing Algorithms}
+\author[%
+Allred \and
+Bromer \and
+Gladu]
+{Sean Allred \and
+  Shay Bromer \and
+  Steven Gladu}
+\date{April 29, 2014}
+\institute[SMCM]{St. Mary's College}
+
+\begin{document}
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+  \frametitle{Introduction}
+  \begin{block}{General}
+    \begin{itemize}[<+->]
+    \item an entire family of distributed algorithms
+    \item most effectively applied to connected, \emph{sparse} networks
+    \item self-stabilizing\slash fault-tolerant
+    \end{itemize}
+  \end{block}
+  \begin{block}{Qualities}
+    \begin{itemize}[<+->]
+    \item each node is semi-autonomous
+    \item very parallelizable
+    \item execution is sometimes controlled by a central daemon
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{History}
+\begin{frame}
+  \frametitle{History}
+  \begin{description}[<+->]
+  \item[\citeyear{dew:sem}] Put forward by \citeauthor{dew:sem} in
+    \citetitle{dew:sem} \autocite{dew:sem}
+  \item[\citeyear{lamport}] \citeauthor{lamport} draws attention to the above,
+    calling~it \enquote{Dijkstra's most brilliant work}~\autocite{lamport}
+  \end{description}
+\end{frame}
+
+\section{Definition}
+\begin{frame}
+  \frametitle{Definition}
+  \begin{quote}
+    A distributed algorithm is self-stabilizing if and only if,
+    starting from an arbitrary state, the algorithm will coerce the
+    system into a legitimate state after a \alert<4->{finite} number of
+    moves.
+  \end{quote}
+
+  \vfill
+
+  \begin{description}
+  \item[convergence]<2-> the algorithm will eventually stop
+  \item[closure]<3-> the algorithm stops if and only if \\
+    the system is in a legitimate state
+  \end{description}
+\end{frame}
+\begin{frame}
+  \frametitle{Definition}
+  \begin{block}{Functions of a Node and its Neighbors}
+    \begin{description}
+    \item[predicate]<2-> $\Function[f]{v, N(\!v)}{\SetBoolean}$
+    \item[move]<3-> new state for $v$
+    \end{description}
+  \end{block}
+  \begin{block}{Collections of Rules}
+    \begin{description}
+    \item[algorithm]<4-> $\Set{\QuickSequence{R}}$
+    \item[rule]<5-> $\Function[R_i]{P}{
+        \operatorname{rand}\Set{\QuickSequence{M}}}$
+    \end{description}
+  \end{block}
+\end{frame}
+
+\section{Running}
+\begin{frame}
+  \frametitle{Running an Algorithm}
+  \begin{enumerate}[<+->]
+  \item System received in arbitrary state \label{step:receive}
+  \item Central daemon chooses \enquote*{privileged} node $p$
+  \item $p$ makes its move
+  \item Process repeats; continuing to step~\autoref{step:receive}
+  \end{enumerate}
+\end{frame}
+
+\section{Examples}
+\begin{frame}
+  \frametitle{Examples}
+  \begin{description}[<+->]
+  \item[Maximal Independent] A largest set of nodes $V$ that are mutually independent
+  \item[Token Passing] Ensure there is only one token in a ring
+    (example from \citeauthor{dew:sem}'s \citeyear{dew:sem} paper)
+  \end{description}
+\end{frame}
+\subsection{Independent Set}
+\begin{frame}[fragile]
+  \frametitle{Independent Set}
+  \newcommand\fOf[1]{f\,(#1\,)}
+  \begin{lstlisting}[language=ssa]
+local $f$
+
+ENTER
+  if $\fOf{i} = 0 \land \ForAll{j \in \OpenNeighborhood{i}}{\fOf{j} = 0}$
+  then:
+    $\fOf{i} = 1$
+
+LEAVE
+  if $\fOf{i} = 1 \land \Exists{j \in \OpenNeighborhood{i}}{\fOf{j} = 1}$
+  then:
+    $\fOf{i} = 0$
+  \end{lstlisting}
+\end{frame}
+\begin{frame}
+  \frametitle{Independent Set \qquad $t=0$}
+  \centering
+    \begin{tikzpicture}
+      \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
+      \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
+      \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
+      \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
+      \node[graph vertex,       ] (5) at (5 , 8) {$v_5$};
+
+      \graph {
+        (1) -- (3) -- (4) -- (2) --[bend left] (5),
+        (1) -- (2),
+        (1) -- (4),
+        (3) --[bend right] (5)
+      };
+  \end{tikzpicture}
+\end{frame}
+\begin{frame}
+  \frametitle{Independent Set \qquad $t=1$}
+  \centering
+  \begin{tikzpicture}
+      \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
+      \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
+      \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
+      \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
+      \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
+
+      \graph {
+        (1) -- (3) -- (4) -- (2) --[bend left] (5),
+        (1) -- (2),
+        (1) -- (4),
+        (3) --[bend right] (5)
+      };
+  \end{tikzpicture}
+\end{frame}
+\begin{frame}
+  \frametitle{Independent Set \qquad $t=2$}
+  \centering
+  \begin{tikzpicture}
+      \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
+      \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
+      \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
+      \node[graph vertex,       ] (4) at (3 , 6) {$v_4$};
+      \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
+
+      \graph {
+        (1) -- (3) -- (4) -- (2) --[bend left] (5),
+        (1) -- (2),
+        (1) -- (4),
+        (3) --[bend right] (5)
+      };
+  \end{tikzpicture}
+\end{frame}
+\subsection{Token Passing}
+\begin{frame}[fragile]
+\frametitle{Token Passing}
+\begin{lstlisting}[language=ssa]
+local $x$
+
+$\Function[t]{\emptyset}{\exists i \in P : \forall j \neq i, x\,(j\,) = 0}$
+
+SAURON
+  if $\lnot t \land x\,(0) = x\,(n\,)$
+  then:
+    $x\,(0) = x\,(0) + 1 \pmod{k}$
+
+ONERING
+  if $\lnot t \land x\,(i\,) \neq x\,(i-1)$
+  then:
+    $x\,(i\,) = x\,(i-1)$
+\end{lstlisting}
+\end{frame}
+\section{Time Complexity}
+\begin{frame}
+  \frametitle{Time Complexity}
+  Complexity can be measured in \enquote*{rounds} or \enquote*{cycles}
+
+  \vfil
+
+  \begin{description}
+  \item[round]<2-> one move is executed for one node
+  \item[cycle]<3-> all privileged nodes have moved (simultaneously)
+  \end{description}
+\end{frame}
+\section{Industry Use}
+\begin{frame}
+  \frametitle{Industry Use}
+  \begin{description}[<+->]
+  \item[BalanceMQ] \autocite{gh:balancemq}
+    \enquote{continuous workload balancer} \\
+    (uses algorithm from \citeauthor{lafon:balanceMQ}~\autocite{lafon:balanceMQ})
+  \item[libcircle] \autocite{gh:libcircle}
+    \enquote{an API for distributing [\dots] parallel workloads}
+  \item[Mobile Networks] \autocite{ex:mobile3,ex:mobile2,ex:mobile1}
+  \end{description}
+\end{frame}
+\begin{frame}
+  \frametitle{References}
+  \renewcommand*\bibfont{\tiny}
+  \printbibliography
+\end{frame}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% TeX-engine: xetex
+%%% End:

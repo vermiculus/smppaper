@@ -5,6 +5,6 @@
     (TeX-add-symbols
      "taskautorefname")
     (TeX-run-style-hooks
-     "packages"
+     "xparse"
      "")))
 
