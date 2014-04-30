@@ -91,21 +91,21 @@
         \end{minipage}
         \hfill
         \begin{minipage}[b]{9in}
-          \newcommand\fOf[1]{f\,(#1\,)}
+          \newcommand\fOf[1]{f\,(\mkern -1mu #1)}
           \centerline{\IndSet}
           \vspace{2ex}
 \begin{lstlisting}[language=ssa,frame=lines]
 local $f$
 
 privilege ENTER
-  if $\fOf{i} = 0 \land \ForAll{j \in \OpenNeighborhood{i}}{\fOf{j} = 0}$
+  if $\fOf{v} = 0 \land \ForAll{n \in \OpenNeighborhood{\mkern -1mu v \mkern .75mu}}{\fOf{n} = 0}$
   then:
-    $\fOf{i} = 1$
+    $\fOf{v} = 1$
 
 privilege LEAVE
-  if $\fOf{i} = 1 \land \Exists{j \in \OpenNeighborhood{i}}{\fOf{j} = 1}$
+  if $\fOf{v} = 1 \land \Exists{\,n \in \OpenNeighborhood{\mkern -1mu v \mkern .75mu}}{\fOf{n} = 1}$
   then:
-    $\fOf{i} = 0$
+    $\fOf{v} = 0$
 \end{lstlisting}
           \vspace{1in}
           The algorithm for maximal independent set consists of two possible privileges:
@@ -118,9 +118,12 @@ privilege LEAVE
           If either statement is true for any node $v_i$,
             that privilege is `present' on $v_i$
             and $v_i$ could move.
-          A privileged node is arbitrarily chosen to make its move,
-            after which all privileges are re-evaluated.
-          \vspace*{.75in}
+          Under a central daemon,
+            a privileged node is arbitrarily chosen to make its move,
+          When this move completes,
+            all privileges are re-evaluated
+            and the process repeats.
+          \vspace*{.5in}
         \end{minipage}
       \end{block}
 
@@ -135,7 +138,7 @@ privilege LEAVE
         To effect this, we consider a sparse, connected graph of state machines where
           the algorithm is defined either in a central daemon or within each state machine:
         \begin{description}[algorithmMMMM]
-        \item[predicate] $\Function[f]{v, N(\!v)}{\SetBoolean}$
+        \item[predicate] $\Function[f]{v, N(\mkern -1mu v\mkern .75mu)}{\SetBoolean}$
         \item[move] new state for $v$
         \item[rule] $\Function[R]{P}{M}$
         \item[algorithm] $\Set{\QuickSequence{R}}$
@@ -255,7 +258,7 @@ rules:
           ~
         \end{minipage}
 
-        with all necessary files, such as \directory{ind-set.ssax/predicates/enter.py}
+        with all necessary files, such as \directory{ind-set.ssax/predicates/enter.py}, included:
         \vspace{.3in}
 \begin{lstlisting}[language=Python,stringstyle=\color{green!50!black},keywordstyle=\color{blue}]
   marked = v['marked']
