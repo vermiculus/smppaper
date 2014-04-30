@@ -1,0 +1,96 @@
+\usepackage[size=custom,width=86.36,height=111.75]{beamerposter}
+\usetheme{Rochester}
+\beamertemplategridbackground[.1in]
+\usepackage{tikz}
+%\usebackgroundtemplate{\tikz\node[opacity=0.2]{\includegraphics[width=.7\paperwidth]{seal}};}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor*{frametitle}{bg=}
+\setbeamerfont{block title}{size=\LARGE}
+%\setbeamerfont{block body}{size=\large}
+\usepackage{changepage}
+\addtobeamertemplate{block begin}
+  {}
+  {%\vspace{1ex plus 0.5ex minus 0.5ex} % Pads top of block
+     % separates paragraphs in a block
+   \setlength\parskip{24pt plus 1pt minus 1pt}%
+   \begin{adjustwidth}{1em}{1em}
+}
+\addtobeamertemplate{block end}
+  {\end{adjustwidth}%
+   \vspace{2ex plus 0.5ex minus 0.5ex}}% Pads bottom of block
+  {\vspace{5ex plus 1ex minus 1ex}} % Seperates blocks from each other
+
+\usepackage{xspace}
+\newcommand\st{\textsc{ssa-tool}\xspace}
+\newcommand\IndSet{\textsc{IndSet}\xspace}
+\newcommand\BlockSep{\vspace{1in}}
+
+\renewcommand*\maketitle{%
+  \begin{minipage}{\textwidth}
+    \vspace{-1.25in}
+    \hspace{.4in}
+    \includegraphics[height=4in]{seal}
+    \hspace{1in}
+    \begin{minipage}[b]{.4\linewidth}
+      \fontsize{60}{90}\selectfont 
+      A Utility for the \\
+      Creation and Evaluation \\
+      of Self-Stabilizing Algorithms
+      \vspace*{.25in}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{.35\linewidth}
+      \fontsize{40}{90}\selectfont
+      \flushright
+      Sean Allred\\
+      St. Mary's College of Maryland\\
+      Department of Mathematics and Computer Science%
+      \vspace*{.3in}
+    \end{minipage}
+    \hspace*{.5in}
+  \end{minipage}
+  \begin{textblock*}{8in}(25in,43in)
+    \flushright
+    May 6th, 2014
+    \hfill
+    Mentor: Dr. Alan Jamieson
+  \end{textblock*}
+}
+
+\usepackage{listings}
+
+\lstset{basicstyle=\ttfamily}
+\lstdefinelanguage{ssa}{
+  mathescape=true,
+  morekeywords={local, privilege, if, then},
+  showstringspaces=false,
+  showspaces=false,
+  showtabs=false,
+}
+
+\usetikzlibrary{graphs}
+\tikzset{
+  marked/.style={
+    fill=blue!15
+  }
+}
+\usepackage{smcm-cosc-graphs}
+\usepackage{smcm-math}
+\usepackage{xparse}
+\NewDocumentCommand \BooleanTrueValue { } {
+  \text{True}
+}
+
+\NewDocumentCommand \BooleanFalseValue { } {
+  \text{False}
+}
+
+\NewDocumentCommand \SetBoolean { } {
+  \Set{\BooleanTrueValue, \BooleanFalseValue}
+}
+
+% Local Variables:
+% TeX-master: "poster.tex"
+% TeX-engine: xetex
+% TeX-PDF-mode: t
+% End:
