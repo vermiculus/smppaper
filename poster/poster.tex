@@ -12,6 +12,7 @@
 \usepackage{fontspec}
 \setmonofont{Courier}
 \setlength\labelsep{1ex}
+\usepackage{dirtree}
 
 \usepackage[absolute,overlay]{textpos}
 
@@ -177,6 +178,7 @@ privilege LEAVE
           \draw[projection] (p4) -- (m3);
         \end{tikzpicture}
         \end{center}
+        \vspace{-.03in}
       \end{block}
       \begin{block}{Further Work}
         \begin{multicols}{2}
@@ -205,39 +207,62 @@ privilege LEAVE
         \end{itemize}
         Under this structure, \IndSet would look similar to the following
           (with much more metadata):
-          \vspace{.13in}
+
+        \vspace{-.14in}
+
+        \begin{minipage}{\linewidth}
+          \hfill
+          \begin{minipage}{5in}
 \begin{lstlisting}[language=yaml,basicstyle=\ttfamily\YAMLkeystyle]
 --- !Move
-name: mark node
+name: mark
 filename: mark.py
 --- !Move
-name: unmark node
+name: unmark
 filename: unmark.py
 --- !Predicate
-name: marked and neighbor marked
-filename: marked-and-neighbor-marked.py
+name: enter
+filename: enter.py
 --- !Predicate
-name: unmarked and neighbors unmarked
-filename: unmarked-and-neighbors-unmarked.py
+name: leave
+filename: leave.py
 --- !Algorithm
 name: Independent Set
 rules:
   - !Rule
-    predicate: marked and neighbor marked
-    moves: [ unmark node ]
+    predicate: enter
+    moves: [ mark ]
   - !Rule
-    predicate: unmarked and neighbors unmarked
-    moves: [ mark node ]
+    predicate: leave
+    moves: [ unmark ]
 \end{lstlisting}
-          with all necessary files, such as \directory{predicates/unmarked-and-neighbors-unmarked.py}
-\vspace{.3in}
+          \end{minipage}
+          \hfill
+          \begin{minipage}{4in}
+            \dirtree{%
+              .1 ind-set.ssax/.
+              .2 bundle.yaml.
+              .2 predicates/.
+              .3 enter.py.
+              .3 leave.py.
+              .2 moves/.
+              .3 mark.py.
+              .3 unmark.py.
+            }
+          \end{minipage}
+          \hfill
+          ~
+        \end{minipage}
+
+        with all necessary files, such as \directory{predicates/enter.py}
+        \vspace{.3in}
 \begin{lstlisting}[language=Python,stringstyle=\color{green!50!black},keywordstyle=\color{blue}]
   marked = v['marked']
   neighbor_marked = any(map(lambda n: n['marked'], N))
   return not (marked or neighbor_marked)
 \end{lstlisting}
       \end{block}
-
+      
       \begin{block}{Interface and Architecture}
         \vspace*{-.1ex}
 
@@ -304,7 +329,7 @@ rules:
           decreases the memory overhead of the state
           of the algorithm itself.
 
-        \vspace{.15in}
+        \vspace{.16in}
 
         The algorithm can be run a set number of times or continuously
         until stabilization (or process termination).  As the
