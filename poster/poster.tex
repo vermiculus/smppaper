@@ -239,9 +239,15 @@ rules:
       \end{block}
 
       \begin{block}{Interface and Architecture}
-        \includegraphics[width=.49\linewidth]{../figs/4}
+        \vspace*{-.1ex}
+
+        \setlength\fboxsep{0pt}
+        \setlength\fboxrule{.1ex}
+        \fcolorbox{black!50}{black!50}{\includegraphics[width=.49\linewidth]{../figs/4}}
         \hfill
-        \includegraphics[width=.49\linewidth]{../figs/2}
+        \fcolorbox{black!50}{black!50}{\includegraphics[width=.49\linewidth]{../figs/2}}
+
+        \vspace*{-.1ex}
 
         Written and tested completely in Python~3 and Tkinter,
           \st not only provides an engine to load and
