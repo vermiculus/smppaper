@@ -184,12 +184,12 @@ privilege LEAVE
       \begin{block}{Further Work}
         \begin{multicols}{2}
           \begin{itemize}
-          \item integrated graph creation
+          \item integrated graph manipulation
           \item integrated test visualization
-          \item integration of test cases into `bundle' format
+          \item integrated test cases
           \item alternative run modes
           \item parallelization of execution
-          \item API implemented as successive shell calls
+          \item API for passive integration
           \end{itemize}
         \end{multicols}%
         \vspace*{-.04in}%
@@ -204,7 +204,7 @@ privilege LEAVE
           relationships between those entities
         \item Basic components (predicates\slash moves) are maintained
           without repetition in a predetermined, configurable
-          directory structure
+          directory structure within \directory{{$\langle$\itshape bundle$\rangle$}.ssax}
         \end{itemize}
         Under this structure, \IndSet would look similar to the following
           (with much more metadata):
@@ -255,7 +255,7 @@ rules:
           ~
         \end{minipage}
 
-        with all necessary files, such as \directory{predicates/enter.py}
+        with all necessary files, such as \directory{ind-set.ssax/predicates/enter.py}
         \vspace{.3in}
 \begin{lstlisting}[language=Python,stringstyle=\color{green!50!black},keywordstyle=\color{blue}]
   marked = v['marked']
@@ -323,7 +323,7 @@ rules:
           \end{center}
         Care was taken to adhere to the mathematical definitions
           as strictly as possible.
-        An important exception is depicted above;
+        An important exception is depicted above:
           instead of implementing the design that
           is obvious from the mathematical definition,
           the equivalent design using \emph{dictionaries}
