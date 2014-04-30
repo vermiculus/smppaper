@@ -11,7 +11,8 @@
 \usetikzlibrary{fit,shapes,arrows,arrows.meta}
 \usepackage{fontspec}
 \setmonofont{Courier}
-\setlength\labelsep{1ex}
+\setlength\labelsep{1.5ex}
+\setlength\fboxsep{1ex}
 \usepackage{dirtree}
 
 \usepackage[absolute,overlay]{textpos}
@@ -41,7 +42,7 @@
       \begin{block}{Example \Dash Maximal Independent Set}
         \begin{minipage}[b]{4in}
           \begin{enumerate}
-          \item[1]
+          \item[{\setlength\fboxrule{0pt}\fbox1}]
           \begin{tikzpicture}[baseline=4.5in,scale=1.5]
             \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
             \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
@@ -56,7 +57,7 @@
               (3) --[bend right] (5)
             };
         \end{tikzpicture}
-          \item[2]
+          \item[{\setlength\fboxrule{0pt}\fbox2}]
           \begin{tikzpicture}[baseline=4.5in,scale=1.5]
             \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
             \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
@@ -71,7 +72,7 @@
               (3) --[bend right] (5)
             };
         \end{tikzpicture}
-          \item[3]
+          \item[\fbox3]
           \begin{tikzpicture}[baseline=4.5in,scale=1.5]
             \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
             \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
@@ -109,9 +110,9 @@ privilege LEAVE
           \vspace{1in}
           The algorithm for maximal independent set consists of two possible privileges:
           \bigskip
-          \begin{description}[ENTERMMM]
-          \item[ENTER] Not marked and \emph{no} neighbor marked
-          \item[LEAVE] Marked and \emph{any} neighbor marked
+          \begin{description}[\texttt{ENTERMMM}]
+          \item[\texttt{ENTER}] Not marked and \emph{no} neighbor marked
+          \item[\texttt{LEAVE}] Marked and \emph{any} neighbor marked
           \end{description}
           \bigskip
           If either statement is true for any node $v_i$,
