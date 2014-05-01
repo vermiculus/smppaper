@@ -17,6 +17,34 @@
 
 \usepackage[absolute,overlay]{textpos}
 
+\usepackage{tikz}
+\usetikzlibrary{fadings}
+
+\newlength\mylongedgegradlen
+\newlength\myshortedgegradlen
+\newlength\mylongedgemargin
+\newlength\myshortedgemargin
+\setlength\mylongedgegradlen  { 2 in}
+\setlength\myshortedgegradlen { 2 in}
+\setlength\mylongedgemargin   {30 mm}
+\setlength\myshortedgemargin  {30 mm}
+
+\usetikzlibrary{calc}
+
+\usebackgroundtemplate{%
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate (top     left) at ($ (current page.north west) + ( 15mm, -5mm)$);
+\coordinate (top    right) at ($ (current page.north east) + (-15mm, -5mm)$);
+\coordinate (bottom  left) at ($ (current page.south west) + ( 15mm,  5mm)$);
+\coordinate (bottom right) at ($ (current page.south east) + (-15mm,  5mm)$);
+\draw[step=.04in,gray!25,very thin] (bottom left) grid (top right);
+\fill [white,path fading=south] ($ (top     left) + (-1in, 0in) $) rectangle ($ (top right) + (1in, -1in) $);
+\fill [white,path fading=west]  ($ (top    right) + (0in, 1in) $) rectangle ($ (bottom right) + (-1in, -1in) $);
+\fill [white,path fading=north] ($ (bottom right) + (1in, 0in) $)  rectangle ($ (bottom left) + (-1in, 1in) $);
+\fill [white,path fading=east]  ($ (bottom  left) + (0in, -1in)$) rectangle ($ (top left) + (1in, 1in)$);
+\end{tikzpicture}
+}
+
 \begin{document}
 \begin{frame}[fragile,t]
   \maketitle
@@ -30,7 +58,7 @@
             when applied repeatedly to a system,
             will coerce the system into a ‘correct state’.
         Given their parallel nature,
-            algorithms of this class are more difficult
+            algorithms of this class are sometimes more difficult
             to create and prove correct than
             more traditional, procedural algorithms.
         To aid in further research,
@@ -42,56 +70,58 @@
       \begin{block}{Example \Dash Maximal Independent Set}
         \begin{minipage}[b]{4in}
           \begin{enumerate}
-          \item[{\setlength\fboxrule{0pt}\fbox1}]
-          \begin{tikzpicture}[baseline=4.5in,scale=1.5]
-            \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
-            \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
-            \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
-            \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
-            \node[graph vertex,       ] (5) at (5 , 8) {$v_5$};
-      
-            \graph {
-              (1) -- (3) -- (4) -- (2) --[bend left] (5),
-              (1) -- (2),
-              (1) -- (4),
-              (3) --[bend right] (5)
-            };
-        \end{tikzpicture}
-          \item[{\setlength\fboxrule{0pt}\fbox2}]
-          \begin{tikzpicture}[baseline=4.5in,scale=1.5]
-            \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
-            \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
-            \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
-            \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
-            \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
-      
-            \graph {
-              (1) -- (3) -- (4) -- (2) --[bend left] (5),
-              (1) -- (2),
-              (1) -- (4),
-              (3) --[bend right] (5)
-            };
-        \end{tikzpicture}
-          \item[\fbox3]
-          \begin{tikzpicture}[baseline=4.5in,scale=1.5]
-            \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
-            \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
-            \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
-            \node[graph vertex,       ] (4) at (3 , 6) {$v_4$};
-            \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
-      
-            \graph {
-              (1) -- (3) -- (4) -- (2) --[bend left] (5),
-              (1) -- (2),
-              (1) -- (4),
-              (3) --[bend right] (5)
-            };
-        \end{tikzpicture}
+            \large
+          \item[1]
+            \begin{tikzpicture}[baseline=1in,scale=1.5]
+              \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
+              \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
+              \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
+              \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
+              \node[graph vertex,       ] (5) at (5 , 8) {$v_5$};
+              
+              \graph {
+                (1) -- (3) -- (4) -- (2) --[bend left] (5),
+                (1) -- (2),
+                (1) -- (4),
+                (3) --[bend right] (5)
+              };
+            \end{tikzpicture}
+          \item[2]
+            \begin{tikzpicture}[baseline=1in,scale=1.5]
+              \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
+              \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
+              \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
+              \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
+              \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
+              
+              \graph {
+                (1) -- (3) -- (4) -- (2) --[bend left] (5),
+                (1) -- (2),
+                (1) -- (4),
+                (3) --[bend right] (5)
+              };
+            \end{tikzpicture}
+          \item[3]
+            \begin{tikzpicture}[baseline=1in,scale=1.5]
+              \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
+              \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
+              \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
+              \node[graph vertex,       ] (4) at (3 , 6) {$v_4$};
+              \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
+              
+              \graph {
+                (1) -- (3) -- (4) -- (2) --[bend left] (5),
+                (1) -- (2),
+                (1) -- (4),
+                (3) --[bend right] (5)
+              };
+            \end{tikzpicture}
           \end{enumerate}
         \end{minipage}
         \hfill
         \begin{minipage}[b]{9in}
           \newcommand\fOf[1]{f\,(\mkern -1mu #1)}
+          \vfill
           \centerline{\IndSet}
           \vspace{2ex}
 \begin{lstlisting}[language=ssa,frame=lines]
@@ -107,10 +137,10 @@ privilege LEAVE
   then:
     $\fOf{v} = 0$
 \end{lstlisting}
-          \vspace{1in}
+          \vspace{.5in}
           The algorithm for maximal independent set consists of two possible privileges:
           \bigskip
-          \begin{description}[\texttt{ENTERMMM}]
+          \begin{description}[\texttt{ENTER}]
           \item[\texttt{ENTER}] Not marked and \emph{no} neighbor marked
           \item[\texttt{LEAVE}] Marked and \emph{any} neighbor marked
           \end{description}
@@ -123,19 +153,14 @@ privilege LEAVE
           When this move completes,
             all privileges are re-evaluated
             and the process repeats.
-          \vspace*{.5in}
+          \vfill
+          ~
         \end{minipage}
+        \vspace*{-2ex}
       \end{block}
 
       \begin{block}{Definition}
-        A distributed algorithm is called \textit{self-stabilizing} if
-        the algorithm coerces the graph into a correct state after a
-        \emph{finite} number of moves.  Specifically, they have two properties:
-        \begin{description}[algorithmMMMM]
-        \item[convergence] The algorithm stops after a finite number of moves.
-        \item[closure] The algorithm stops if and only if the state is legitimate.
-        \end{description}
-        To effect this, we consider a sparse, connected graph of state machines where
+        Self-stabilizing algorithms work with sparse, connected graphs of state machines where
           the algorithm is defined either in a central daemon or within each state machine:
         \begin{description}[algorithmMMMM]
         \item[predicate] $\Function[f]{v, N(\mkern -1mu v\mkern .75mu)}{\SetBoolean}$
@@ -144,7 +169,7 @@ privilege LEAVE
         \item[algorithm] $\Set{\QuickSequence{R}}$
         \end{description}
         \begin{center}
-        \begin{tikzpicture}[scale=4,
+        \begin{tikzpicture}[scale=2.075,
           >=stealth,
           bullet/.style={
             fill=black,
@@ -167,11 +192,11 @@ privilege LEAVE
           ]
           \foreach \y/\l in {1/4,2/3,3/2,4/1} {
             \node[bullet,label=left:$P_\l$] (p\l) at (0,\y) {};
-            \node[bullet,label=right:$M_\l$] (m\l) at (4,\y) {};
+            \node[bullet,label=right:$M_\l$] (m\l) at (8,\y) {};
           }
           
-          \node[draw,fit=(p1) (p2) (p3) (p4),minimum width=5in] {} ;
-          \node[draw,fit=(m1) (m2) (m3) (m4),minimum width=5in] {} ;
+          \node[draw,fit=(p1) (p2) (p3) (p4),minimum width=3in] {} ;
+          \node[draw,fit=(m1) (m2) (m3) (m4),minimum width=3in] {} ;
           
           \draw[projection] (p1) -- (m1);
           \draw[projection] (p1) -- (m4);
@@ -194,8 +219,8 @@ privilege LEAVE
           \item parallelization of execution
           \item API for passive integration
           \end{itemize}
-        \end{multicols}%
-        \vspace*{-.04in}%
+        \end{multicols}
+        \vspace{0.01in}
       \end{block}
     \end{column}
     \begin{column}{.45\textwidth}
@@ -207,17 +232,14 @@ privilege LEAVE
           relationships between those entities
         \item Basic components (predicates\slash moves) are maintained
           without repetition in a predetermined, configurable
-          directory structure within \directory{{$\langle$\itshape bundle$\rangle$}.ssax}
+          directory structure within \directory{%
+            {$\langle${\itshape bundle}$\rangle$}\kern-4pt.ssax}
         \end{itemize}
-        Under this structure, \IndSet would look similar to the following
-          (with much more metadata):
-
-        \vspace{-.14in}
 
         \begin{minipage}{\linewidth}
           \hfill
           \begin{minipage}{5in}
-\begin{lstlisting}[language=yaml,basicstyle=\ttfamily\YAMLkeystyle]
+\begin{lstlisting}[language=yaml,basicstyle=\ttfamily\YAMLkeystyle\large]
 --- !Move
 name: mark
 filename: mark.py
@@ -225,10 +247,10 @@ filename: mark.py
 name: unmark
 filename: unmark.py
 --- !Predicate
-name: enter
+name: node should mark
 filename: enter.py
 --- !Predicate
-name: leave
+name: node should unmark
 filename: leave.py
 --- !Algorithm
 name: Independent Set
@@ -242,7 +264,16 @@ rules:
 \end{lstlisting}
           \end{minipage}
           \hfill
-          \begin{minipage}{4in}
+          \begin{minipage}{5in}
+            \raggedright
+            Under this structure, \IndSet would look similar to this
+            (with much more metadata)
+
+            \vspace{2in}
+
+            \large
+            \linespread{1.1}
+
             \dirtree{%
               .1 ind-set.ssax/.
               .2 bundle.yaml.
@@ -253,6 +284,7 @@ rules:
               .3 mark.py.
               .3 unmark.py.
             }
+            
           \end{minipage}
           \hfill
           ~
@@ -260,87 +292,32 @@ rules:
 
         with all necessary files, such as \directory{ind-set.ssax/predicates/enter.py}, included:
         \vspace{.3in}
-\begin{lstlisting}[language=Python,stringstyle=\color{green!50!black},keywordstyle=\color{blue}]
+\begin{lstlisting}[language=Python,stringstyle=\color{green!50!black},keywordstyle=\color{blue},basicstyle=\ttfamily\large]
   marked = v['marked']
   neighbor_marked = any(map(lambda n: n['marked'], N))
   return not (marked or neighbor_marked)
 \end{lstlisting}
       \end{block}
       
-      \begin{block}{Interface and Architecture}
-        \vspace*{-.1ex}
+      \begin{block}{Interface}
 
         \setlength\fboxsep{0pt}
         \setlength\fboxrule{.1ex}
-        \fcolorbox{black!50}{black!50}{\includegraphics[width=.49\linewidth]{../figs/4}}
-        \hfill
+        \vspace*{-.75in}
+        \begin{center}
+          \fcolorbox{black!50}{black!50}{\includegraphics[width=\linewidth]{../figs/4}}
+        \end{center}
         \fcolorbox{black!50}{black!50}{\includegraphics[width=.49\linewidth]{../figs/2}}
+        \begin{minipage}[b]{.49\linewidth}
+          \raggedleft
 
-        \vspace*{-.1ex}
+          As the algorithm runs, a log is kept of changes to the
+          graph.  When the process completes, these changes are
+          returned as a custom-made \texttt{AnimatedGraph} object that
+          can traverse the entire history of the graph frame-by-frame.
 
-        Written and tested completely in Python~3 and Tkinter,
-          \st not only provides an engine to load and
-          run these algorithms on externally-created graphs,
-          but also provides a basic graphical interface
-          to construct `bundles' \Dash collections of algorithms
-          and the necessary components to run them.
-          \begin{center}
-        \begin{tikzpicture}[scale=4,
-          >=stealth,
-          bullet/.style={
-            fill=black,
-            circle,
-            minimum width=1.25ex,
-            inner sep=1pt
-          },
-          projection/.style={
-            -{Stealth[width=1ex,length=1.5ex]},
-            ultra thick,
-            shorten <=1ex,
-            shorten >=1ex,
-          },
-          every fit/.style={
-            ellipse,
-            line width=1mm,
-            draw,
-            inner sep=1ex
-          }
-          ]
-          \foreach \y/\l in {1/4,2/3,3/2,4/1} {
-            \node[bullet,label=left:$P_\l$] (p\l) at (0,\y) {};
-          }
-
-          \node[bullet,label=right:$\Set{M_3,M_4}$] (m4) at (4,1) {};
-          \node[bullet,label=right:$\Set{M_1}$] (m3) at (4,2) {};
-          \node[bullet,label=right:$\Set{M_2,M_3}$] (m2) at (4,3) {};
-          \node[bullet,label=right:$\Set{M_1,M_4}$] (m1) at (4,4) {};
-          
-          \node[draw,fit=(p1) (p2) (p3) (p4),minimum width=5in] {} ;
-          \node[draw,fit=(m1) (m2) (m3) (m4),minimum width=5in] {} ;
-          
-          \draw[projection] (p1) -- (m1);
-          \draw[projection] (p2) -- (m2);
-          \draw[projection] (p3) -- (m3);
-          \draw[projection] (p4) -- (m4);
-        \end{tikzpicture}
-          \end{center}
-        Care was taken to adhere to the mathematical definitions
-          as strictly as possible.
-        An important exception is depicted above:
-          instead of implementing the design that
-          is obvious from the mathematical definition,
-          the equivalent design using \emph{dictionaries}
-          decreases the memory overhead of the state
-          of the algorithm itself.
-
-        \vspace{.16in}
-
-        The algorithm can be run a set number of times or continuously
-        until stabilization (or process termination).  As the
-        algorithm runs, a log is kept of changes to the graph.  When
-        the process completes, these changes are returned as a
-        custom-made \texttt{AnimatedGraph} object that can traverse
-        the entire history of the graph frame-by-frame.
+          \vspace*{2ex}
+        \end{minipage}
       \end{block}
     \end{column}
   \end{columns}
