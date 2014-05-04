@@ -2,76 +2,55 @@
 % arara: biber
 % arara: xelatex
 % arara: xelatex
-% arara: xelatex
 
 \documentclass[
 % handout,
 ]{beamer}
 
+%\usepackage{fontspec}
+%\setsansfont{Helvetica Neue}
+
 \usepackage[backend=biber, doi=false]{biblatex}
 \addbibresource{refs.bib}
 
+\usepackage{xspace}
+\newcommand\st{SSA-Tool\xspace}
 
-\usepackage{xparse}
-\usepackage{mathtools}
-\usepackage{amsmath}
-\usepackage{smcm-math}
-\usepackage{smcm-cosc-graphs}
-\usepackage{csquotes}
-\usepackage{listings}
-\lstset{
-  basicstyle=\ttfamily
-}
-\usepackage{fontspec}
-\setmonofont{Courier}
-\lstdefinelanguage{ssa}{
-  mathescape=true,
-  frame=none,
-  morekeywords={local, if, then},
-  backgroundcolor=\color{white},
-  showstringspaces=false,
-  showspaces=false,
-  showtabs=false,
-}
-\def\algorithmautorefname{Algorithm}
-
-\usepackage{tikz}
-\usetikzlibrary{graphs}
+\usepackage{menukeys}
+\usepackage{style}
+\usepackage{smcm-cosc-listings}
 
 \tikzset{
-  marked/.style={
-    color=white,
-    fill=black,
-  }
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+  marked on/.style={alt=#1{}{marked}},
 }
 
-
-\NewDocumentCommand \BooleanTrueValue { } {
-  \text{True}
+\lstdefinestyle{pyhl}{
+  keywordstyle=\color{blue}\bfseries,
+}
+\lstdefinestyle{pystep}{
+  language=Python,
+  basicstyle=\color{black!40}\ttfamily,
+  keywordstyle=\color{blue!40}\bfseries,
+  moredelim=**[is][\only<+>{\color{black}\lstset{style=pyhl}}]{@}{@},
+  moredelim=**[is][\only<.>{\color{black}\lstset{style=pyhl}}]{@@}{@@},
 }
 
-\NewDocumentCommand \BooleanFalseValue { } {
-  \text{False}
-}
-
-\NewDocumentCommand \SetBoolean { } {
-  \Set{\BooleanTrueValue, \BooleanFalseValue}
-}
-
-
-\usetheme{Goettingen}
-%\usecolortheme{spruce}
-
-\title{Self-Stabilizing Algorithms}
-\author[%
-Allred \and
-Bromer \and
-Gladu]
-{Sean Allred \and
-  Shay Bromer \and
-  Steven Gladu}
-\date{April 29, 2014}
-\institute[SMCM]{St. Mary's College}
+\title[\textsc{\st}]{\st\\[1ex]
+  \scriptsize
+  A Utility for the \\
+  Creation and Evaluation \\
+  of Self-Stabilizing Algorithms}
+\author{Sean Allred}
+\date{May 6, 2014}
+\institute[SMCM]{%
+  St. Mary's College \\[1ex] % TODO 'of md' necessary?
+  Department of Mathematics \\
+  and Computer Science}
 
 \begin{document}
 \begin{frame}
@@ -88,7 +67,7 @@ Gladu]
     \item self-stabilizing\slash fault-tolerant
     \end{itemize}
   \end{block}
-  \begin{block}{Qualities}
+  \begin{block}<4->{Qualities}
     \begin{itemize}[<+->]
     \item each node is semi-autonomous
     \item very parallelizable
@@ -97,99 +76,80 @@ Gladu]
   \end{block}
 \end{frame}
 
-\section{History}
+\subsection{History}
 \begin{frame}
   \frametitle{History}
   \begin{description}[<+->]
   \item[\citeyear{dew:sem}] Put forward by \citeauthor{dew:sem} in
-    \citetitle{dew:sem} \autocite{dew:sem}
+    \citetitle{dew:sem}
   \item[\citeyear{lamport}] \citeauthor{lamport} draws attention to the above,
-    calling~it \enquote{Dijkstra's most brilliant work}~\autocite{lamport}
+    calling~it \enquote{Dijkstra's most brilliant work}
   \end{description}
 \end{frame}
 
-\section{Definition}
-\begin{frame}
-  \frametitle{Definition}
-  \begin{quote}
-    A distributed algorithm is self-stabilizing if and only if,
-    starting from an arbitrary state, the algorithm will coerce the
-    system into a legitimate state after a \alert<4->{finite} number of
-    moves.
-  \end{quote}
-
-  \vfill
-
-  \begin{description}
-  \item[convergence]<2-> the algorithm will eventually stop
-  \item[closure]<3-> the algorithm stops if and only if \\
-    the system is in a legitimate state
-  \end{description}
-\end{frame}
+\subsection{Definition}
 \begin{frame}
   \frametitle{Definition}
   \begin{block}{Functions of a Node and its Neighbors}
     \begin{description}
-    \item[predicate]<2-> $\Function[f]{v, N(\!v)}{\SetBoolean}$
-    \item[move]<3-> new state for $v$
+    \item[predicate]<2- | alert@3> $\Function[f]{v, N(\!v)}{\SetBoolean}$
+    \item[move]<2-> new state for $v$
     \end{description}
   \end{block}
   \begin{block}{Collections of Rules}
     \begin{description}
+    \item[rule]<4-> $\Function[R]{P}{M}$
     \item[algorithm]<4-> $\Set{\QuickSequence{R}}$
-    \item[rule]<5-> $\Function[R_i]{P}{
-        \operatorname{rand}\Set{\QuickSequence{M}}}$
     \end{description}
   \end{block}
 \end{frame}
 
-\section{Running}
+\subsection{Running}
 \begin{frame}
   \frametitle{Running an Algorithm}
   \begin{enumerate}[<+->]
-  \item System received in arbitrary state \label{step:receive}
+  \item System received in an arbitrary state \label{step:receive}
   \item Central daemon chooses \enquote*{privileged} node $p$
   \item $p$ makes its move
   \item Process repeats; continuing to step~\autoref{step:receive}
   \end{enumerate}
 \end{frame}
 
-\section{Examples}
-\begin{frame}
-  \frametitle{Examples}
-  \begin{description}[<+->]
-  \item[Maximal Independent] A largest set of nodes $V$ that are mutually independent
-  \item[Token Passing] Ensure there is only one token in a ring
-    (example from \citeauthor{dew:sem}'s \citeyear{dew:sem} paper)
-  \end{description}
-\end{frame}
-\subsection{Independent Set}
+\subsection{Example}
 \begin{frame}[fragile]
-  \frametitle{Independent Set}
-  \newcommand\fOf[1]{f\,(#1\,)}
-  \begin{lstlisting}[language=ssa]
-local $f$
-
-ENTER
-  if $\fOf{i} = 0 \land \ForAll{j \in \OpenNeighborhood{i}}{\fOf{j} = 0}$
-  then:
-    $\fOf{i} = 1$
-
-LEAVE
-  if $\fOf{i} = 1 \land \Exists{j \in \OpenNeighborhood{i}}{\fOf{j} = 1}$
-  then:
-    $\fOf{i} = 0$
-  \end{lstlisting}
+  \frametitle{Example \Dash Maximal Independent Set}
+  \begin{description}[<+->]
+  \item[independent set] a set of vertices in a graph such that no two
+    vertices in the set are adjacent
+  \item[maximal independent set] an independent set that is not the
+    subset of any other independent set
+  \end{description}    
 \end{frame}
+% definitions
+\begin{frame}[fragile]
+  \frametitle{Example \Dash Maximal Independent Set}
+\begin{lstlisting}[language=ssa]
+local $\operatorname{marked}$
+
+privilege ENTER
+  if unmarked and neighbors unmarked
+  then mark
+
+privilege LEAVE
+  if marked and neighbor marked
+  then unmark
+\end{lstlisting}
+\end{frame}
+% both privileges
 \begin{frame}
-  \frametitle{Independent Set \qquad $t=0$}
+  \frametitle{Example \Dash Maximal Independent Set}
   \centering
     \begin{tikzpicture}
       \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
       \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
       \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
-      \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
-      \node[graph vertex,       ] (5) at (5 , 8) {$v_5$};
+      \node[graph vertex, alt=<1-2>{marked}{}] (4) at (3 , 6) {$v_4$};
+      \node[graph vertex, alt=<2-3>{marked}{}] (5) at (5 , 8) {$v_5$};
 
       \graph {
         (1) -- (3) -- (4) -- (2) --[bend left] (5),
@@ -199,89 +159,195 @@ LEAVE
       };
   \end{tikzpicture}
 \end{frame}
+
+\section{Logic}
 \begin{frame}
-  \frametitle{Independent Set \qquad $t=1$}
-  \centering
-  \begin{tikzpicture}
-      \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
-      \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
-      \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
-      \node[graph vertex, marked] (4) at (3 , 6) {$v_4$};
-      \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
-
-      \graph {
-        (1) -- (3) -- (4) -- (2) --[bend left] (5),
-        (1) -- (2),
-        (1) -- (4),
-        (3) --[bend right] (5)
-      };
-  \end{tikzpicture}
+  \frametitle{Logical Representation}
+  \begin{block}<1->{Mathematics is\dots}
+    \begin{itemize}
+    \item<1-> difficult to parse
+    \item<2-> potentially ambiguous
+      % properties and functions have no implicit difference
+    \item<3-> very dense when written formally
+    \end{itemize}
+  \end{block}
+  \begin{block}<5->{A New System?}
+    To overcome these obstacles, it is clear that \\ a new system is required.
+  \end{block}
 \end{frame}
+
+\subsection{Overview}
 \begin{frame}
-  \frametitle{Independent Set \qquad $t=2$}
-  \centering
-  \begin{tikzpicture}
-      \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
-      \node[graph vertex,       ] (2) at (0 , 6) {$v_2$};
-      \node[graph vertex,       ] (3) at (3 , 3) {$v_3$};
-      \node[graph vertex,       ] (4) at (3 , 6) {$v_4$};
-      \node[graph vertex, marked] (5) at (5 , 8) {$v_5$};
-
-      \graph {
-        (1) -- (3) -- (4) -- (2) --[bend left] (5),
-        (1) -- (2),
-        (1) -- (4),
-        (3) --[bend right] (5)
-      };
-  \end{tikzpicture}
+  \frametitle{Logical Representation}
+  \begin{block}{Requirements}
+    \begin{itemize}[<+->]
+    \item accessible
+    \item extensible
+    \item sensible
+    \end{itemize}
+  \end{block}
+  \begin{block}<+->{Implementation}
+    \begin{description}[<+->]
+    \item[predicates]<.-> Python snippets
+    \item[moves] Python snippets
+    \item[algorithms] \alert<+->{YAML} relationship serialization
+    \end{description}
+  \end{block}
 \end{frame}
-\subsection{Token Passing}
+
+\subsection{Implementation}
+\begin{frame}
+  \frametitle{Logical Representation}
+  \begin{block}{Why YAML?}
+    \begin{itemize}[<+->]
+    \item plain-text
+    \item quickly growing standard
+    \item manual editing is feasible
+    \item many parsers available
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Example}
 \begin{frame}[fragile]
-\frametitle{Token Passing}
-\begin{lstlisting}[language=ssa]
-local $x$
-
-$\Function[t]{\emptyset}{\exists i \in P : \forall j \neq i, x\,(j\,) = 0}$
-
-SAURON
-  if $\lnot t \land x\,(0) = x\,(n\,)$
-  then:
-    $x\,(0) = x\,(0) + 1 \pmod{k}$
-
-ONERING
-  if $\lnot t \land x\,(i\,) \neq x\,(i-1)$
-  then:
-    $x\,(i\,) = x\,(i-1)$
+  \frametitle{Example \Dash Maximal Independent Set}
+\begin{lstlisting}[style=myyaml]
+--- !Predicate
+name: node should mark
+filename: enter.py
+--- !Predicate
+name: node should unmark
+filename: leave.py
 \end{lstlisting}
 \end{frame}
-\section{Time Complexity}
-\begin{frame}
-  \frametitle{Time Complexity}
-  Complexity can be measured in \enquote*{rounds} or \enquote*{cycles}
+\begin{frame}[fragile]
+  \frametitle{Example \Dash Maximal Independent Set}
+  \directory{ind-set.ssax/predicates/enter.py}
+  \vspace{1ex}
+\begin{lstlisting}[style=mypy]
+  marked = v['marked']
+  neighbor_marked = \
+    any(map(lambda n: n['marked'], N))
+  return not (marked or neighbor_marked)
+\end{lstlisting}
 
-  \vfil
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Example \Dash Maximal Independent Set}
+\begin{lstlisting}[style=myyaml]
+--- !Move
+name: mark
+filename: mark.py
+--- !Move
+name: unmark
+filename: unmark.py
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Example \Dash Maximal Independent Set}
+  \directory{ind-set.ssax/moves/mark.py}
+  \vspace{1ex}
+\begin{lstlisting}[style=mypy]
+  v['marked'] = True
+\end{lstlisting}
+\end{frame}
 
-  \begin{description}
-  \item[round]<2-> one move is executed for one node
-  \item[cycle]<3-> all privileged nodes have moved (simultaneously)
-  \end{description}
+\begin{frame}[fragile]
+  \frametitle{Example \Dash Maximal Independent Set}
+\begin{lstlisting}[style=myyaml]
+--- !Algorithm
+name: Independent Set
+rules:
+  - !Rule
+    predicate: enter
+    moves: [ mark ]
+  - !Rule
+    predicate: leave
+    moves: [ unmark ]
+\end{lstlisting}
 \end{frame}
-\section{Industry Use}
+
+\subsection{Execution}
 \begin{frame}
-  \frametitle{Industry Use}
-  \begin{description}[<+->]
-  \item[BalanceMQ] \autocite{gh:balancemq}
-    \enquote{continuous workload balancer} \\
-    (uses algorithm from \citeauthor{lafon:balanceMQ}~\autocite{lafon:balanceMQ})
-  \item[libcircle] \autocite{gh:libcircle}
-    \enquote{an API for distributing [\dots] parallel workloads}
-  \item[Mobile Networks] \autocite{ex:mobile3,ex:mobile2,ex:mobile1}
-  \end{description}
+  \frametitle{Execution}
+  \begin{enumerate}[<+->]
+  \item find privileged nodes
+  \item select random rule
+  \item select random move
+  \item execute move
+  \item calculate delta
+  \item add delta to \texttt{AnimatedGraph}
+  \end{enumerate}
 \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Execution \Dash Finding Privileged Nodes}
+\begin{lstlisting}[style=pystep]
+p_nodes = dict()
+@for node in graph:@
+  @for rule in self.rules:@
+    @if rule.applies_to(v, N(v)):@
+      @p_nodes[node] += rule@
+@if not p_nodes:@
+    @@break@@
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Execution \Dash Applying Rules}
+\begin{lstlisting}[style=pystep]
+@node = rand(p_nodes)@
+@@rule = rand(p_nodes[node])@@
+@log  = rule.apply_to(graph, node)@
+@history.append(log)@
+\end{lstlisting}
+\end{frame}
+
+\section{Interface}
 \begin{frame}
-  \frametitle{References}
-  \renewcommand*\bibfont{\tiny}
-  \printbibliography
+  \frametitle{Graphical Interface}
+  \begin{block}{Why is it Necessary?}
+    \begin{itemize}[<+->]
+    \item Not all mathematicians are computer scientists
+    \item Not all computer scientists are programmers
+    \end{itemize}
+  \end{block}
+  \begin{block}<+->{Requirements}
+    \begin{itemize}[<+->]
+    \item<.-> Portable and cross-platform
+    \item Supportive of the core features of \st
+    \item Minimizes interfacing with underlying structure
+    \item Representative of mathematical definitions
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Bundles}
+\begin{frame}
+  \frametitle{Graphical Interface}
+  \centering
+  \includegraphics[width=\textwidth]{../figs/3-2}
+\end{frame}
+
+\subsection{Algorithms}
+\begin{frame}
+  \frametitle{Graphical Interface}
+  \centering
+  \includegraphics[width=\textwidth]{../figs/4}
+\end{frame}
+
+\subsection{Predicates\slash Moves}
+\begin{frame}
+  \frametitle{Graphical Interface}
+  \centering
+  \includegraphics[width=\textwidth]{../figs/2}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Further Reading}
+  \begin{thebibliography}{}
+  \bibitem{}
+    \fullcite{dew:sem}
+  \end{thebibliography}
 \end{frame}
 \end{document}
 

@@ -1,0 +1,69 @@
+\usepackage{xparse}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{smcm-math}
+\usepackage{smcm-cosc-graphs}
+\usepackage{csquotes}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily
+}
+\usepackage{fontspec}
+\setmonofont{Courier}
+\lstdefinelanguage{ssa}{
+  mathescape=true,
+  morekeywords={local, if, then, privilege},
+  showstringspaces=false,
+  showspaces=false,
+  showtabs=false,
+  keywordstyle=\ttfamily\bfseries,
+  columns=fullflexible,
+  basicstyle=\color{black},
+}
+
+\lstdefinestyle{myyaml}{
+  language=yaml,
+  basicstyle=\ttfamily\YAMLkeystyle\large,
+}
+
+\lstdefinestyle{mypy}{
+  language=Python,
+  stringstyle=\color{green!50!black},
+  keywordstyle=\color{blue}\bfseries,
+  basicstyle=\color{black}\ttfamily,
+  commentstyle=\color{green},
+}
+
+\def\algorithmautorefname{Algorithm}
+
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+
+\tikzset{
+  marked/.style={
+    color=white,
+    fill=black,
+  }
+}
+
+
+\NewDocumentCommand \BooleanTrueValue { } {
+  \text{True}
+}
+
+\NewDocumentCommand \BooleanFalseValue { } {
+  \text{False}
+}
+
+\NewDocumentCommand \SetBoolean { } {
+  \Set{\BooleanTrueValue, \BooleanFalseValue}
+}
+
+
+\usetheme{Goettingen}
+%\usecolortheme{spruce}
+
+% Local Variables:
+% TeX-master: "slides"
+% TeX-engine: xetex
+% End:
