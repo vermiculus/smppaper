@@ -31,20 +31,6 @@
 
 \usetikzlibrary{calc}
 
-\usebackgroundtemplate{%
-\begin{tikzpicture}[remember picture,overlay]
-\coordinate (top     left) at ($ (current page.north west) + ( 15mm, -5mm)$);
-\coordinate (top    right) at ($ (current page.north east) + (-15mm, -5mm)$);
-\coordinate (bottom  left) at ($ (current page.south west) + ( 15mm,  5mm)$);
-\coordinate (bottom right) at ($ (current page.south east) + (-15mm,  5mm)$);
-\draw[step=.04in,gray!25,very thin] (bottom left) grid (top right);
-\fill [white,path fading=south] ($ (top     left) + (-1in, 0in) $) rectangle ($ (top right) + (1in, -1in) $);
-\fill [white,path fading=west]  ($ (top    right) + (0in, 1in) $) rectangle ($ (bottom right) + (-1in, -1in) $);
-\fill [white,path fading=north] ($ (bottom right) + (1in, 0in) $)  rectangle ($ (bottom left) + (-1in, 1in) $);
-\fill [white,path fading=east]  ($ (bottom  left) + (0in, -1in)$) rectangle ($ (top left) + (1in, 1in)$);
-\end{tikzpicture}
-}
-
 \begin{document}
 \begin{frame}[fragile,t]
   \maketitle
@@ -297,6 +283,7 @@ rules:
   neighbor_marked = any(map(lambda n: n['marked'], N))
   return not (marked or neighbor_marked)
 \end{lstlisting}
+\vspace*{-1ex}
       \end{block}
       
       \begin{block}{Interface}
@@ -317,7 +304,8 @@ rules:
           can traverse the entire history of the graph frame-by-frame.
 
           \vspace*{2ex}
-        \end{minipage}
+        \end{minipage}%
+        \vspace*{-1ex}
       \end{block}
     \end{column}
   \end{columns}
