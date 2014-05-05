@@ -3,10 +3,7 @@
 % arara: xelatex
 % arara: xelatex
 
-\documentclass[
-% handout,
-]{beamer}
-
+\documentclass{beamer}
 \usepackage{style}
 
 \TOCtrue
@@ -26,6 +23,7 @@
 \maketitle
 
 \section{Introduction}
+\ifTOC\frame{\tableofcontents[currentsection]}\fi
 \begin{frame}
   \frametitle{Introduction}
   \begin{block}{General}
@@ -93,7 +91,6 @@
     subset of any other independent set
   \end{description}    
 \end{frame}
-% definitions
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
 \begin{lstlisting}[language=ssa]
@@ -108,9 +105,9 @@ privilege LEAVE
   then unmark
 \end{lstlisting}
 \end{frame}
-% both privileges
 \begin{frame}
-  \frametitle{Example \Dash Maximal Independent Set \qquad $t=\arabic{slideinframe}$}
+  \frametitle{Example \Dash Maximal Independent Set
+    \qquad $t=\arabic{slideinframe}$}
   \centering
     \begin{tikzpicture}
       \node[graph vertex, marked] (1) at (0 , 3) {$v_1$};
@@ -129,6 +126,7 @@ privilege LEAVE
 \end{frame}
 
 \section{Logic}
+\ifTOC\frame{\tableofcontents[currentsection]}\fi
 \begin{frame}
   \frametitle{Logical Representation}
   \begin{block}<1->{Mathematics is\dots}
@@ -198,7 +196,6 @@ filename: leave.py
     any(map(lambda n: n['marked'], N))
   return not (marked or neighbor_marked)
 \end{lstlisting}
-
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
@@ -219,7 +216,6 @@ filename: unmark.py
   v['marked'] = True
 \end{lstlisting}
 \end{frame}
-
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
 \begin{lstlisting}[style=myyaml]
@@ -247,7 +243,6 @@ rules:
   \item add delta to \texttt{AnimatedGraph}
   \end{enumerate}
 \end{frame}
-
 \begin{frame}[fragile]
   \frametitle{Execution \Dash Finding Privileged Nodes}
 \begin{lstlisting}[style=pystep]
@@ -271,6 +266,7 @@ p_nodes = dict()
 \end{frame}
 
 \section{Interface}
+\ifTOC\frame{\tableofcontents[currentsection]}\fi
 \begin{frame}
   \frametitle{Graphical Interface}
   \begin{block}{Why is it Necessary?}
@@ -296,23 +292,15 @@ p_nodes = dict()
   \includegraphics[width=\textwidth]{../figs/3-2}
 \end{frame}
 
-\tikzset{
-  hlbox/.style={
-    red, ultra thick, rounded corners
-  }
-}
 \subsection{Algorithms}
 \begin{frame}
   \frametitle{Graphical Interface}
   \centering
   \begin{tikzpicture}
     \node[anchor=south west, inner sep=0, opacity=1] (image) at (0, 0)
-      {\includegraphics[width=\textwidth]{../figs/4}};
+      {\includegraphics[width=\ifTikZDraft.8\fi\textwidth]{../figs/4}};
 
       \begin{scope}[x={(image.south east)}, y={(image.north west)}]
-        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-        %\foreach \x in {0,1,...,10} { \node [anchor=north] at (\x/10,0) {\small \x}; }
-        %\foreach \y in {0,1,...,10} { \node [anchor=east] at (0,\y/10) {\small \y}; }
 
         \coordinate  (1) at (0.035, 0.880);
         \coordinate  (2) at (0.325, 0.060);
@@ -337,9 +325,15 @@ p_nodes = dict()
         \coordinate (18) at (0.935, 0.090);
         \coordinate (19) at (0.315, 0.090);
 
-        \foreach \coord in {1,...,19} {
-        % \draw[red,fill=red] (\coord) circle (1pt) node[right,black] {\tiny\tt\bf\coord};
+        \ifTikZDraft
+        \draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        \foreach \x in {1,...,10} { \node [anchor=north] at (\x/10,0) {\small \x}; }
+        \foreach \y in {1,...,10} { \node [anchor=east] at (0,\y/10) {\small \y}; }
+        \node [anchor=north east] at (0, 0) {\small 0};
+
+        \foreach \coord in {1,...,19,
         }
+        \fi
 
         \draw[hlbox, visible on=<2>] (1) rectangle (2);
         \draw[hlbox, visible on=<3>] (3) -- (4) -- (5) -- (6) -- (7) -- (8) -- cycle;
@@ -356,12 +350,9 @@ p_nodes = dict()
   \centering
 \begin{tikzpicture}
     \node[anchor=south west, inner sep=0, opacity=1] (image) at (0, 0)
-      {\includegraphics[width=\textwidth]{../figs/2}};
+      {\includegraphics[width=\ifTikZDraft.8\fi\textwidth]{../figs/2}};
 
       \begin{scope}[x={(image.south east)}, y={(image.north west)}]
-        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-        %\foreach \x in {0,1,...,10} { \node [anchor=north] at (\x/10,0) {\small \x}; }
-        %\foreach \y in {0,1,...,10} { \node [anchor=east] at (0,\y/10) {\small \y}; }
 
         \coordinate (1) at (0.035, 0.880);
         \coordinate (2) at (0.325, 0.060);
@@ -371,9 +362,15 @@ p_nodes = dict()
         \coordinate (5) at (0.335, 0.690);
         \coordinate (6) at (0.964, 0.075);
 
-        \foreach \coord in {5,...,6} {
-          %\draw[red,fill=red] (\coord) circle (1pt) node[right,black] {\tiny\tt\bf\coord};
+        \ifTikZDraft
+        \draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        \foreach \x in {1,...,10} { \node [anchor=north] at (\x/10,0) {\small \x}; }
+        \foreach \y in {1,...,10} { \node [anchor=east] at (0,\y/10) {\small \y}; }
+        \node [anchor=north east] at (0, 0) {\small 0};
+        \foreach \coord in {1,...,6,
+          text,
         }
+        \fi
 
         \draw[hlbox, visible on=<2>] (1) rectangle (2);
         \draw[hlbox, visible on=<3>] (3) rectangle (4);
@@ -382,14 +379,13 @@ p_nodes = dict()
   \end{tikzpicture}
 \end{frame}
 
-\section{Conclusion}
-
+\section{Further Work}
+\ifTOC\frame{\tableofcontents[currentsection]}\fi
 \begin{frame}
   \begin{beamercolorbox}{frametitle}
     \centering \Huge Questions?
   \end{beamercolorbox}
 \end{frame}
-
 \begin{frame}
   \frametitle{Further Reading}
   \begin{thebibliography}{}
