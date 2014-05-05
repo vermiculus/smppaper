@@ -301,19 +301,32 @@ p_nodes = dict()
       {\includegraphics[width=\ifTikZDraft.8\fi\textwidth]{../figs/4}};
 
       \begin{scope}[x={(image.south east)}, y={(image.north west)}]
+        \coordinate (text)     at (.180, .350);
+        \coordinate (text low) at (.180, .250);
+        \coordinate (algorithm list) at (.180, .800);
+        \coordinate (algorithm name) at (.315, .835);
+        \coordinate (algorithm auth) at (.610, .835);
+        \coordinate (algorithm date) at (.610, .775);
+        \coordinate (rule list) at (.315, .700);
+        \coordinate (rule name) at (.600, .690);
+        \coordinate (rule date) at (.600, .630);
+        \coordinate (rule auth) at (.600, .570);
+        \coordinate (rule pred) at (.600, .510);
+        \coordinate (move dact) at (.450, .250);
+        \coordinate (move actv) at (.790, .250);
 
         \coordinate  (1) at (0.035, 0.880);
         \coordinate  (2) at (0.325, 0.060);
 
-        \coordinate  (3) at (0.325, 0.870);
+        \coordinate  (3) at (0.320, 0.870);
         \coordinate  (4) at (0.900, 0.870);
         \coordinate  (5) at (0.900, 0.740);
         \coordinate  (6) at (0.605, 0.740);
         \coordinate  (7) at (0.605, 0.800);
-        \coordinate  (8) at (0.325, 0.800);
+        \coordinate  (8) at (0.320, 0.800);
 
-        \coordinate  (9) at (0.315, 0.775);
-        \coordinate (10) at (0.425, 0.775);
+        \coordinate  (9) at (0.315, 0.785);
+        \coordinate (10) at (0.425, 0.785);
         \coordinate (11) at (0.475, 0.740);
         \coordinate (12) at (0.895, 0.740);
         \coordinate (13) at (0.895, 0.475);
@@ -332,16 +345,62 @@ p_nodes = dict()
         \node [anchor=north east] at (0, 0) {\small 0};
 
         \foreach \coord in {1,...,19,
+          text,
+          algorithm name, algorithm list, algorithm auth, algorithm date,
+          rule list, rule name, rule date, rule auth, rule pred,
+          move actv, move dact} {
+          \draw[red,fill=red] (\coord) circle (1pt) node[right,black] {\tiny\tt\bf\coord};
         }
         \fi
 
-        \draw[hlbox, visible on=<2>] (1) rectangle (2);
-        \draw[hlbox, visible on=<3>] (3) -- (4) -- (5) -- (6) -- (7) -- (8) -- cycle;
-        \draw[hlbox, visible on=<4>] (9) -- (10) -- (11) -- (12) -- (13) -- (14) -- (15) -- (16) -- cycle;
-        \draw[hlbox, visible on=<5>] (9) -- (10) -- (11) -- (17) -- (18) -- (19) -- cycle;
+
+
+        \draw[hl b, visible on=<2-3>] (1) rectangle (2);
+        \node[anchor=north, visible on=<3>] at (text) {List};
+        \draw[hl l, visible on=<3>] (text) edge[hl a, in=270] (algorithm list);
+
+
+        \draw[hl b, visible on=<4-7>] (3) -- (4) -- (5) -- (6) -- (7) -- (8) -- cycle;
+
+        \node[anchor=north, visible on=<5>] at (text) {Name};
+        \draw[hl l, visible on=<5>] (text) edge[hl a] (algorithm name);
+
+        \node[anchor=north, visible on=<6>] at (text) {Author};
+        \draw[hl l, visible on=<6>] (text) edge[hl a] (algorithm auth);
+
+        \node[anchor=north, visible on=<7>] at (text) {Date};
+        \draw[hl l, visible on=<7>] (text) edge[hl a] (algorithm date);
+
+
+
+        \draw[hl b, visible on=<8-13>] (9) -- (10) -- (11) -- (12) -- (13) -- (14) -- (15) -- (16) -- cycle;
+
+        \node[anchor=north, visible on=<9>] at (text) {List};
+        \draw[hl l, visible on=<9>] (text) edge[hl a] (rule list);
+        
+        \node[anchor=north, visible on=<10>] at (text) {Name};
+        \draw[hl l, visible on=<10>] (text) edge[hl a] (rule name);
+        
+        \node[anchor=north, visible on=<11>] at (text) {Date};
+        \draw[hl l, visible on=<11>] (text) edge[hl a] (rule date);
+        
+        \node[anchor=north, visible on=<12>] at (text) {Author};
+        \draw[hl l, visible on=<12>] (text) edge[hl a] (rule auth);
+        
+        \node[anchor=north, visible on=<13>] at (text) {Predicate};
+        \draw[hl l, visible on=<13>] (text) edge[hl a] (rule pred);
+        
+
+
+        \draw[hl b, visible on=<14-16>] (9) -- (10) -- (11) -- (17) -- (18) -- (19) -- cycle;
+
+        \node[anchor=north, visible on=<15>] at (text) {Inactive Moves};
+        \draw[hl l, visible on=<15>] (text low) edge[hl a, out=0, in=270] (move dact);
+        
+        \node[anchor=north, visible on=<16>] at (text) {Active Moves};
+        \draw[hl l, visible on=<16>] (text low) edge[hl a, out=0, in=270] (move actv);
       \end{scope}
   \end{tikzpicture}
-
 \end{frame}
 
 \subsection{Predicates\slash Moves}
@@ -353,6 +412,16 @@ p_nodes = dict()
       {\includegraphics[width=\ifTikZDraft.8\fi\textwidth]{../figs/2}};
 
       \begin{scope}[x={(image.south east)}, y={(image.north west)}]
+        \coordinate (text) at (.180, .350);
+        \coordinate (text low) at (.180, .250);
+        \coordinate (list) at (.180, .750);
+        \coordinate (name) at (.340, .835);
+        \coordinate (date) at (.340, .775);
+        \coordinate (desc) at (.340, .715);
+        \coordinate (auth) at (.640, .835);
+        \coordinate (texd) at (.640, .775);
+        \coordinate (file) at (.640, .715);
+        \coordinate (impl) at (.640, .390);
 
         \coordinate (1) at (0.035, 0.880);
         \coordinate (2) at (0.325, 0.060);
@@ -369,12 +438,32 @@ p_nodes = dict()
         \node [anchor=north east] at (0, 0) {\small 0};
         \foreach \coord in {1,...,6,
           text,
+          list,name,texd,auth,desc,date,file,impl} {
+          \draw[red,fill=red] (\coord) circle (1pt) node[right,black] {\tiny\tt\bf\coord};
         }
         \fi
 
-        \draw[hlbox, visible on=<2>] (1) rectangle (2);
-        \draw[hlbox, visible on=<3>] (3) rectangle (4);
-        \draw[hlbox, visible on=<4>] (5) rectangle (6);
+        \draw[hl b, visible on=<2-3>] (1) rectangle (2);
+        \node[anchor=north, visible on=<3>] at (text) {List};
+        \draw[hl l, visible on=<3>] (text) edge[hl a, in=270] (list);
+
+        \draw[hl b, visible on=<4-10>] (3) rectangle (4);
+        \node[anchor=north, visible on=<5>] at (text) {Name};
+        \draw[hl l, visible on=<5>] (text) edge[hl a] (name);
+        \node[anchor=north, visible on=<6>] at (text) {Date};
+        \draw[hl l, visible on=<6>] (text) edge[hl a] (date);
+        \node[anchor=north, visible on=<7>] at (text) {Description};
+        \draw[hl l, visible on=<7>] (text) edge[hl a] (desc);
+        \node[anchor=north, visible on=<8>] at (text) {Author};
+        \draw[hl l, visible on=<8>] (text) edge[hl a] (auth);
+        \node[anchor=north, visible on=<9>] at (text) {\TeX};
+        \draw[hl l, visible on=<9>] (text) edge[hl a] (texd);
+        \node[anchor=north, visible on=<10>] at (text) {File};
+        \draw[hl l, visible on=<10>] (text) edge[hl a] (file);
+
+        \draw[hl b, visible on=<11-12>] (5) rectangle (6);
+        \node[anchor=north, visible on=<12>] at (text) {Python};
+        \draw[hl l, visible on=<12>] (text low) edge[hl a, out=0, in=270] (impl);
       \end{scope}
   \end{tikzpicture}
 \end{frame}
