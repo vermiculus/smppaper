@@ -7,38 +7,10 @@
 % handout,
 ]{beamer}
 
-%\usepackage{fontspec}
-%\setsansfont{Helvetica Neue}
-
-\usepackage[backend=biber, doi=false]{biblatex}
-\addbibresource{refs.bib}
-
-\usepackage{xspace}
-\newcommand\st{SSA-Tool\xspace}
-
-\usepackage{menukeys}
 \usepackage{style}
-\usepackage{smcm-cosc-listings}
 
-\tikzset{
-  invisible/.style={opacity=0},
-  visible on/.style={alt={#1{}{invisible}}},
-  alt/.code args={<#1>#2#3}{%
-    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
-  },
-  marked on/.style={alt=#1{}{marked}},
-}
-
-\lstdefinestyle{pyhl}{
-  keywordstyle=\color{blue}\bfseries,
-}
-\lstdefinestyle{pystep}{
-  language=Python,
-  basicstyle=\color{black!40}\ttfamily,
-  keywordstyle=\color{blue!40}\bfseries,
-  moredelim=**[is][\only<+>{\color{black}\lstset{style=pyhl}}]{@}{@},
-  moredelim=**[is][\only<.>{\color{black}\lstset{style=pyhl}}]{@@}{@@},
-}
+\TOCtrue
+\TikZDraftfalse
 
 \title{\st}
 \subtitle{A Utility for the Creation and Evaluation of Self-Stabilizing Algorithms}

@@ -1,3 +1,7 @@
+
+\usepackage[backend=biber, doi=false]{biblatex}
+\addbibresource{refs.bib}
+
 \usepackage{xparse}
 \usepackage{mathtools}
 \usepackage{amsmath}
@@ -62,6 +66,50 @@
 \def\c@slideinframe{\beamer@slideinframe}
 
 \usetheme{Goettingen}
+
+\usepackage{xspace}
+\newcommand\st{SSA-Tool\xspace}
+
+\usepackage{menukeys}
+\usepackage{smcm-cosc-listings}
+
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+  marked on/.style={alt=#1{}{marked}},
+  hl l/.style={
+    ultra thick, rounded corners
+  },
+  hl b/.style={
+    red, hl l
+  },
+  hl a/.style={
+    ->,
+    line cap=round,
+    in=180,
+    out=90,
+  },
+}
+
+\lstdefinestyle{pyhl}{
+  keywordstyle=\color{blue}\bfseries,
+}
+\lstdefinestyle{pystep}{
+  language=Python,
+  basicstyle=\color{black!40}\ttfamily,
+  keywordstyle=\color{blue!40}\bfseries,
+  moredelim=**[is][\only<+>{\color{black}\lstset{style=pyhl}}]{@}{@},
+  moredelim=**[is][\only<.>{\color{black}\lstset{style=pyhl}}]{@@}{@@},
+}
+
+
+\newif\ifTOC
+\newif\ifTikZDraft
+
+
 %\usecolortheme{spruce}
 
 % Local Variables:
