@@ -247,10 +247,10 @@ rules:
   \frametitle{Execution \Dash Finding Privileged Nodes}
 \begin{lstlisting}[style=pystep]
 p_nodes = dict()
-@for node in graph:@
+@for v in G:@
   @for rule in self.rules:@
     @if rule.applies_to(v, N(v)):@
-      @p_nodes[node] += rule@
+      @p_nodes[v] += rule@
 @if not p_nodes:@
     @@break@@
 \end{lstlisting}
