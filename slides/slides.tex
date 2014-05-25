@@ -1,17 +1,26 @@
-% arara: xelatex
-% arara: biber
+%#!/usr/bin/env open slides.pdf
+% !arara: xelatex
+% !arara: biber
 % arara: xelatex
 % arara: xelatex
 
+% pdfpc --duration=25 --last-minutes=20 slides.pdf
 \documentclass{beamer}
 \usepackage{style}
+
+\mode<handout>{
+  %\usepackage{pgfpages}
+  %\pgfpagesuselayout{16 on 1}[letterpaper, landscape, border shrink=5mm]
+  %\setbeamercolor{background canvas}{bg=black!5}
+}
 
 \TOCtrue
 \TikZDraftfalse
 
+\usepackage{relsize}
 \title{\st}
 \subtitle{A Utility for the Creation and Evaluation of Self-Stabilizing Algorithms}
-\author{Sean Allred}
+\author[{Sean Allred\\[1ex]\smaller[2]A.\,Jamieson, Ph.\,D.\\[-.8ex]\smaller Advisor}]{Sean Allred\\[1ex]\smaller Advisor: Dr\@. Alan Jamieson}
 \date{May 6, 2014}
 \institute[SMCM]{%
   St. Mary's College \\[1ex] % TODO 'of md' necessary?
@@ -93,7 +102,9 @@
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
-\begin{lstlisting}[language=ssa]
+\qquad
+\begin{minipage}{.8\textwidth}
+\begin{lstlisting}[language=ssa,numbers=none]
 local $\operatorname{marked}$
 
 privilege ENTER
@@ -104,6 +115,7 @@ privilege LEAVE
   if marked and neighbor marked
   then unmark
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 \begin{frame}
   \frametitle{Example \Dash Maximal Independent Set
@@ -137,7 +149,7 @@ privilege LEAVE
     \item<3-> very dense when written formally
     \end{itemize}
   \end{block}
-  \begin{block}<5->{A New System?}
+  \begin{block}<4->{A New System?}
     To overcome these obstacles, it is clear that \\ a new system is required.
   \end{block}
 \end{frame}
@@ -156,7 +168,7 @@ privilege LEAVE
     \begin{description}[<+->]
     \item[predicates]<.-> Python snippets
     \item[moves] Python snippets
-    \item[algorithms] \alert<+->{YAML} relationship serialization
+    \item[algorithms] YAML relationship serialization
     \end{description}
   \end{block}
 \end{frame}
@@ -177,28 +189,33 @@ privilege LEAVE
 \subsection{Example}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=myyaml]
 --- !Predicate
-name: node should mark
+name: enter
 filename: enter.py
 --- !Predicate
-name: node should unmark
+name: leave
 filename: leave.py
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
   \directory{ind-set.ssax/predicates/enter.py}
   \vspace{1ex}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=mypy]
-  marked = v['marked']
-  neighbor_marked = \
-    any(map(lambda n: n['marked'], N))
-  return not (marked or neighbor_marked)
+marked = v['marked']
+neighbor_marked = \
+  any(map(lambda n: n['marked'], N))
+return not (marked or neighbor_marked)
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=myyaml]
 --- !Move
 name: mark
@@ -207,17 +224,21 @@ filename: mark.py
 name: unmark
 filename: unmark.py
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
   \directory{ind-set.ssax/moves/mark.py}
   \vspace{1ex}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=mypy]
-  v['marked'] = True
+v['marked'] = True
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Example \Dash Maximal Independent Set}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=myyaml]
 --- !Algorithm
 name: Independent Set
@@ -229,6 +250,7 @@ rules:
     predicate: leave
     moves: [ unmark ]
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 
 \subsection{Execution}
@@ -245,6 +267,7 @@ rules:
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Execution \Dash Finding Privileged Nodes}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=pystep]
 p_nodes = dict()
 @for v in G:@
@@ -254,15 +277,18 @@ p_nodes = dict()
 @if not p_nodes:@
     @@break@@
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Execution \Dash Applying Rules}
+\qquad\begin{minipage}{.8\textwidth}
 \begin{lstlisting}[style=pystep]
 @node = rand(p_nodes)@
 @@rule = rand(p_nodes[node])@@
 @log  = rule.apply_to(graph, node)@
 @history.append(log)@
 \end{lstlisting}
+\end{minipage}
 \end{frame}
 
 \section{Interface}
@@ -271,8 +297,9 @@ p_nodes = dict()
   \frametitle{Graphical Interface}
   \begin{block}{Why is it Necessary?}
     \begin{itemize}[<+->]
-    \item Not all mathematicians are computer scientists
     \item Not all computer scientists are programmers
+    \item Not all mathematicians have worked with code
+    \item Need a common interface to \emph{start} from
     \end{itemize}
   \end{block}
   \begin{block}<+->{Requirements}
@@ -483,6 +510,13 @@ p_nodes = dict()
   \bibitem{}
     \fullcite{goddard:ssa--k-distance}
   \end{thebibliography}
+\end{frame}
+\begin{frame}
+  \begin{beamercolorbox}{frametitle}
+    \centering
+    \Huge
+    Thank You!
+  \end{beamercolorbox}
 \end{frame}
 \end{document}
 
